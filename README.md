@@ -21,4 +21,4 @@ Group 3 - BPA-DE2:
 
 # References and tools
 1. https://randomnerdtutorials.com/esp32-neo-6m-gps-module-arduino/
-2. ...
+2. https://wokwi.com/projects/394218963208433665
