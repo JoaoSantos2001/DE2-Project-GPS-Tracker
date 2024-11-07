@@ -20,5 +20,5 @@ Group 3 - BPA-DE2:
 (Describe how to use the application. Add photos or videos of your application.)
 
 # References and tools
-1. Put here the references and online tools you used.
+1. https://randomnerdtutorials.com/esp32-neo-6m-gps-module-arduino/
 2. ...
