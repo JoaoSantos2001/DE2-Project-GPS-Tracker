@@ -8,7 +8,6 @@ Group 3 - BPA-DE2:
 - Henrique Silva --> Responsible for 
 - Guilherme Brito --> Responsible for 
 - João Santos -->  Responsible for 
-- Afonso Meneses --> Responsible for 
 
 # Hardware description
 (Describe your implementation and include block or circuit diagram(s).)
