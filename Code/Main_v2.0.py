@@ -17,8 +17,8 @@ Date Created: 14-11-2024
 Last Modified: 21-11-2024
 
 Parameters:
-  - I2C Pins: SCL=GP22, SDA=GP21
-  - UART Pins: TX=GP17, RX=GP16
+  - I2C Pins: SCL = GP22, SDA = GP21
+  - UART Pins: TX = GP17, RX = GP16
   - OLED Contrast: 80%
   - GPS Baud Rate: 9600
   - Display Refresh Interval: 1 second
@@ -33,6 +33,10 @@ Dependencies:
   - machine (for I2C and UART)
   - sh1106 (OLED display driver)
   - libGPS (Adaptation of the MicropyGPS for GPS parsing)
+
+Notes:
+  - This code is optimize for ESP32
+  - See documentation for connections between the three 
 
 ===============================================================================
 """
