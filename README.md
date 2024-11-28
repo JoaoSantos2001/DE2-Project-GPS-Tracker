@@ -33,7 +33,7 @@ Modules Used in the Project:
 # Instructions and photos
 1. Connect the jumper in order to connect all 3 devices (ESP32, GPS Module and OLED Display) as shown in the figure below.
 
------------------------------------------FOTO DIAGRAMA------------------------------------------------
+https://github.com/JoaoSantos2001/DE2-Project-GPS-Tracker/blob/main/Images/Circuit_Diagram.jpg?raw=true
 
 -Obtaining something like this:
 
