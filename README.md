@@ -12,8 +12,7 @@ Group 3 - BPA-DE2:
 # Hardware description
 (Describe your implementation and include block or circuit diagram(s).)
 
-[<a href="logo github"><img src="https://github.com/JoaoSantos2001/DE2-Project-GPS-Tracker/Images/ESP32-NEO-GPS-Circuit_fritzing.png" align="middle" width="100" height="50"></a>](https://github.com/JoaoSantos2001/DE2-Project-GPS-Tracker/blob/main/Images/ESP32-NEO-GPS-Circuit_fritzing.png?raw=true)
-
+![ESP32-NEO-GPS-Circuit_fritzing](https://github.com/user-attachments/assets/7546ce28-0553-4b24-b391-57d4fe78cc1e)
 
 # Software description
 (Put flowchats of your algorithm(s) and direct links to source files. Present the modules you used in the project.)
