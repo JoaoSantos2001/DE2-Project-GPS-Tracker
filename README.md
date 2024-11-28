@@ -56,6 +56,8 @@ The photo below shows the output on the OLED display and on the command line (Th
 -----------------FOTO do DISPLAY ON-------------------
 
 
+https://github.com/JoaoSantos2001/DE2-Project-GPS-Tracker/blob/main/Images/Thonny_Output.jpg?raw=true
+
 ----------------FOTO OUPUT THONNY----------------------
 
 -Working Project:
