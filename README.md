@@ -39,11 +39,11 @@ Modules Used in the Project:
 
 ![Circuit_Display_OFF](https://github.com/user-attachments/assets/bbf682d3-a843-4b10-9210-2700e9cbede7)
 
-2. After all the connections made, connect the usb to your computer and your ESP32 and upload *sh1106* and *libGPS* modules to the ESP32 memory.
+2. After all the connections made, connect the usb to your computer and your ESP32 and upload **sh1106** and **libGPS** modules to the ESP32 memory.
     -sh1106 Responsible for OLED Display functions
     -libGPS Responsible for collect data from GPS's
 
-3. Once the modules are uploaded with the application *Thonny* or one look a like that can work with the ESP32 open the main code *Main_v2.0.py* and run it.
+3. Once the modules are uploaded with the application **Thonny** or one look a like that can work with the ESP32 open the main code **Main_v2.0.py** and run it.
 
 NOTES:
 
@@ -76,16 +76,16 @@ We can notice a difference in the outputs on the Dislpay and on Thonny, this was
 
 # Output analysis
 
--_Date_ -> in format DD/MM/YYYY, this parameter can be change on *Main_v2.0.py* in line xx.
--_Time_ -> in format HH:MM:SS, this parameter can be change on *Main_v2.0.py* in line xx.
--_Lat_ (Latitude) -> Latitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
--_Long_ (Longitude) -> Longitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
--_Altitude_ -> Altitude relative to sea level in meters.
--_Speed_ -> Speed in Km/h, this parametercan be change to mph on *Main_v2.0.py* in line xx.
--_N__Satellites_ (Number of Satellites) -> Number of Satellites available from witch is possible to collect data.
--_Position__Dilution__of__Precision_ -> A measure of overall GPS accuracy based on satellite geometry; lower values mean better accuracy.
--_Horizontal__Dilution__of__Precision_ -> Accuracy of GPS position on the horizontal plane (latitude and longitude).
--_Vertical__Dilution__of__Precision_ -> Accuracy of GPS position in the vertical dimension (altitude).
+-**Date** -> in format DD/MM/YYYY, this parameter can be change on *Main_v2.0.py* in line xx.
+-**Time** -> in format HH:MM:SS, this parameter can be change on *Main_v2.0.py* in line xx.
+-**Lat** (Latitude) -> Latitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
+-**Long** (Longitude) -> Longitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
+-**Altitude** -> Altitude relative to sea level in meters.
+-**Speed** -> Speed in Km/h, this parametercan be change to mph on *Main_v2.0.py* in line xx.
+-**N Satellites** (Number of Satellites) -> Number of Satellites available from witch is possible to collect data.
+-**Position Dilution of Precision** -> A measure of overall GPS accuracy based on satellite geometry; lower values mean better accuracy.
+-**Horizontal Dilution of Precision** -> Accuracy of GPS position on the horizontal plane (latitude and longitude).
+-**Vertical Dilution of Precision** -> Accuracy of GPS position in the vertical dimension (altitude).
 
 NOTES:
 
