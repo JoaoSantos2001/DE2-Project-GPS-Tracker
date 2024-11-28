@@ -1,0 +1,185 @@
+.TH "Main_v2" 3 "Version 2.0" "DE2-Project-GPS-Tracker" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Main_v2
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBinitialize_display\fP ()"
+.br
+.ti -1c
+.RI "\fBupdate_display\fP (oled, gps_data)"
+.br
+.ti -1c
+.RI "\fBparse_gps_data\fP (my_gps)"
+.br
+.ti -1c
+.RI "\fBmain\fP ()"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBI2C_SCL_PIN\fP = 22"
+.br
+.ti -1c
+.RI "int \fBI2C_SDA_PIN\fP = 21"
+.br
+.ti -1c
+.RI "int \fBI2C_FREQ\fP = 100_000"
+.br
+.ti -1c
+.RI "int \fBUART_TX_PIN\fP = 17"
+.br
+.ti -1c
+.RI "int \fBUART_RX_PIN\fP = 16"
+.br
+.ti -1c
+.RI "int \fBUART_BAUDRATE\fP = 9600"
+.br
+.ti -1c
+.RI "int \fBOLED_CONTRAST\fP = 80"
+.br
+.ti -1c
+.RI "int \fBDISPLAY_REFRESH_INTERVAL\fP = 1"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+.nf
+===============================================================================
+Project Name: GPS Data Display on OLED
+File Name: Main_v2\&.0\&.py
+Description: This script reads GPS data from a UART-connected GPS module, parses 
+             the data using MicropyGPS, and displays it on an SH1106 OLED screen\&. 
+             The displayed information includes time, date, latitude, longitude, 
+             altitude, number of satellites, and horizontal dilution of precision (HDOP)\&.
+
+Authors: 
+  - Guilherme Brito
+  - Henrique Silva
+  - João Santos
+
+Version: 2\&.0
+Date Created: 14-11-2024
+Last Modified: 21-11-2024
+
+Parameters:
+  - I2C Pins: SCL = GP22, SDA = GP21
+  - UART Pins: TX = GP17, RX = GP16
+  - OLED Contrast: 80%
+  - GPS Baud Rate: 9600
+  - Display Refresh Interval: 1 second
+
+Usage:
+  - Ensure the SH1106 OLED display and GPS module are connected as per the pin 
+    configuration\&.
+  - Upload the script to a microcontroller and monitor the OLED for GPS data\&.
+  - Exit the program with Ctrl+C\&.
+
+Dependencies:
+  - machine (for I2C and UART)
+  - sh1106 (OLED display driver)
+  - libGPS (Adaptation of the MicropyGPS for GPS parsing)
+
+Notes:
+  - This code is optimize for ESP32
+  - See documentation for connections between the three 
+
+===============================================================================
+
+.fi
+.PP
+ 
+.SH "Function Documentation"
+.PP 
+.SS "initialize_display ()"
+
+.PP
+.nf
+Set up the I2C bus and OLED display\&.
+
+.fi
+.PP
+ 
+.PP
+Definition at line \fB64\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "main ()"
+
+.PP
+.nf
+The main program loop\&. Initializes the OLED display and GPS module, then continuously
+updates the display with parsed GPS data\&.
+
+.fi
+.PP
+ 
+.PP
+Definition at line \fB131\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "parse_gps_data ( my_gps)"
+
+.PP
+.nf
+Extracts GPS data from the MicropyGPS object and formats it\&.
+
+.fi
+.PP
+ 
+.PP
+Definition at line \fB115\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "update_display ( oled,  gps_data)"
+
+.PP
+.nf
+Refreshes the OLED display with new GPS data\&.
+
+.fi
+.PP
+ 
+.PP
+Definition at line \fB84\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "int DISPLAY_REFRESH_INTERVAL = 1"
+
+.PP
+Definition at line \fB58\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "int I2C_FREQ = 100_000"
+
+.PP
+Definition at line \fB53\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "int I2C_SCL_PIN = 22"
+
+.PP
+Definition at line \fB51\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "int I2C_SDA_PIN = 21"
+
+.PP
+Definition at line \fB52\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "int OLED_CONTRAST = 80"
+
+.PP
+Definition at line \fB57\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "int UART_BAUDRATE = 9600"
+
+.PP
+Definition at line \fB56\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "int UART_RX_PIN = 16"
+
+.PP
+Definition at line \fB55\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SS "int UART_TX_PIN = 17"
+
+.PP
+Definition at line \fB54\fP of file \fBMain_v2\&.0\&.py\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DE2-Project-GPS-Tracker from the source code\&.

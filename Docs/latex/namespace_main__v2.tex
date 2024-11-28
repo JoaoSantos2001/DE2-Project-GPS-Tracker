@@ -1,0 +1,211 @@
+\doxysection{Main\+\_\+v2 Namespace Reference}
+\label{namespace_main__v2}\index{Main\_v2@{Main\_v2}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ initialize\+\_\+display} ()
+\item 
+\textbf{ update\+\_\+display} (oled, gps\+\_\+data)
+\item 
+\textbf{ parse\+\_\+gps\+\_\+data} (my\+\_\+gps)
+\item 
+\textbf{ main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ I2\+C\+\_\+\+SCL\+\_\+\+PIN} = 22
+\item 
+int \textbf{ I2\+C\+\_\+\+SDA\+\_\+\+PIN} = 21
+\item 
+int \textbf{ I2\+C\+\_\+\+FREQ} = 100\+\_\+000
+\item 
+int \textbf{ UART\+\_\+\+TX\+\_\+\+PIN} = 17
+\item 
+int \textbf{ UART\+\_\+\+RX\+\_\+\+PIN} = 16
+\item 
+int \textbf{ UART\+\_\+\+BAUDRATE} = 9600
+\item 
+int \textbf{ OLED\+\_\+\+CONTRAST} = 80
+\item 
+int \textbf{ DISPLAY\+\_\+\+REFRESH\+\_\+\+INTERVAL} = 1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}===============================================================================
+Project Name: GPS Data Display on OLED
+File Name: Main_v2.0.py
+Description: This script reads GPS data from a UART-connected GPS module, parses 
+             the data using MicropyGPS, and displays it on an SH1106 OLED screen. 
+             The displayed information includes time, date, latitude, longitude, 
+             altitude, number of satellites, and horizontal dilution of precision (HDOP).
+
+Authors: 
+  - Guilherme Brito
+  - Henrique Silva
+  - João Santos
+
+Version: 2.0
+Date Created: 14-11-2024
+Last Modified: 21-11-2024
+
+Parameters:
+  - I2C Pins: SCL = GP22, SDA = GP21
+  - UART Pins: TX = GP17, RX = GP16
+  - OLED Contrast: 80%
+  - GPS Baud Rate: 9600
+  - Display Refresh Interval: 1 second
+
+Usage:
+  - Ensure the SH1106 OLED display and GPS module are connected as per the pin 
+    configuration.
+  - Upload the script to a microcontroller and monitor the OLED for GPS data.
+  - Exit the program with Ctrl+C.
+
+Dependencies:
+  - machine (for I2C and UART)
+  - sh1106 (OLED display driver)
+  - libGPS (Adaptation of the MicropyGPS for GPS parsing)
+
+Notes:
+  - This code is optimize for ESP32
+  - See documentation for connections between the three 
+
+===============================================================================
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\index{Main\_v2@{Main\_v2}!initialize\_display@{initialize\_display}}
+\index{initialize\_display@{initialize\_display}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{initialize\_display()}
+{\footnotesize\ttfamily \label{namespace_main__v2_a22448d3b46062bde102492476662abf3} 
+initialize\+\_\+display (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Set up the I2C bus and OLED display.
+\end{DoxyVerb}
+ 
+
+Definition at line \textbf{ 64} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!main@{main}}
+\index{main@{main}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{main()}
+{\footnotesize\ttfamily \label{namespace_main__v2_a51af30a60f9f02777c6396b8247e356f} 
+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The main program loop. Initializes the OLED display and GPS module, then continuously
+updates the display with parsed GPS data.
+\end{DoxyVerb}
+ 
+
+Definition at line \textbf{ 131} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!parse\_gps\_data@{parse\_gps\_data}}
+\index{parse\_gps\_data@{parse\_gps\_data}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{parse\_gps\_data()}
+{\footnotesize\ttfamily \label{namespace_main__v2_aa929e95cf4a290c0a365ad26efd18b47} 
+parse\+\_\+gps\+\_\+data (\begin{DoxyParamCaption}\item[{}]{my\+\_\+gps}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Extracts GPS data from the MicropyGPS object and formats it.
+\end{DoxyVerb}
+ 
+
+Definition at line \textbf{ 115} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!update\_display@{update\_display}}
+\index{update\_display@{update\_display}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{update\_display()}
+{\footnotesize\ttfamily \label{namespace_main__v2_a181abfd8ec76b25bf56a43a65a028d3e} 
+update\+\_\+display (\begin{DoxyParamCaption}\item[{}]{oled}{, }\item[{}]{gps\+\_\+data}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Refreshes the OLED display with new GPS data.
+\end{DoxyVerb}
+ 
+
+Definition at line \textbf{ 84} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+
+
+\doxysubsection{Variable Documentation}
+\index{Main\_v2@{Main\_v2}!DISPLAY\_REFRESH\_INTERVAL@{DISPLAY\_REFRESH\_INTERVAL}}
+\index{DISPLAY\_REFRESH\_INTERVAL@{DISPLAY\_REFRESH\_INTERVAL}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{DISPLAY\_REFRESH\_INTERVAL}
+{\footnotesize\ttfamily \label{namespace_main__v2_aacf3b2bcbd1c93f5ce44c4312da5cf4c} 
+int DISPLAY\+\_\+\+REFRESH\+\_\+\+INTERVAL = 1}
+
+
+
+Definition at line \textbf{ 58} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!I2C\_FREQ@{I2C\_FREQ}}
+\index{I2C\_FREQ@{I2C\_FREQ}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{I2C\_FREQ}
+{\footnotesize\ttfamily \label{namespace_main__v2_a4197313a2186137cbedbc96724d07ad3} 
+int I2\+C\+\_\+\+FREQ = 100\+\_\+000}
+
+
+
+Definition at line \textbf{ 53} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!I2C\_SCL\_PIN@{I2C\_SCL\_PIN}}
+\index{I2C\_SCL\_PIN@{I2C\_SCL\_PIN}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{I2C\_SCL\_PIN}
+{\footnotesize\ttfamily \label{namespace_main__v2_a945ae7064f2234da6ec26180918fad6f} 
+int I2\+C\+\_\+\+SCL\+\_\+\+PIN = 22}
+
+
+
+Definition at line \textbf{ 51} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!I2C\_SDA\_PIN@{I2C\_SDA\_PIN}}
+\index{I2C\_SDA\_PIN@{I2C\_SDA\_PIN}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{I2C\_SDA\_PIN}
+{\footnotesize\ttfamily \label{namespace_main__v2_ae760e59ed4070dd296b571feba94fb11} 
+int I2\+C\+\_\+\+SDA\+\_\+\+PIN = 21}
+
+
+
+Definition at line \textbf{ 52} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!OLED\_CONTRAST@{OLED\_CONTRAST}}
+\index{OLED\_CONTRAST@{OLED\_CONTRAST}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{OLED\_CONTRAST}
+{\footnotesize\ttfamily \label{namespace_main__v2_adb50883aa3b73af6bb17d0bd740b3d34} 
+int OLED\+\_\+\+CONTRAST = 80}
+
+
+
+Definition at line \textbf{ 57} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!UART\_BAUDRATE@{UART\_BAUDRATE}}
+\index{UART\_BAUDRATE@{UART\_BAUDRATE}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{UART\_BAUDRATE}
+{\footnotesize\ttfamily \label{namespace_main__v2_a44073d2bd698f971818ddcd41e4fdaf0} 
+int UART\+\_\+\+BAUDRATE = 9600}
+
+
+
+Definition at line \textbf{ 56} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!UART\_RX\_PIN@{UART\_RX\_PIN}}
+\index{UART\_RX\_PIN@{UART\_RX\_PIN}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{UART\_RX\_PIN}
+{\footnotesize\ttfamily \label{namespace_main__v2_a269d8c8bb34be974ec143d5d02726f78} 
+int UART\+\_\+\+RX\+\_\+\+PIN = 16}
+
+
+
+Definition at line \textbf{ 55} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
+\index{Main\_v2@{Main\_v2}!UART\_TX\_PIN@{UART\_TX\_PIN}}
+\index{UART\_TX\_PIN@{UART\_TX\_PIN}!Main\_v2@{Main\_v2}}
+\doxysubsubsection{UART\_TX\_PIN}
+{\footnotesize\ttfamily \label{namespace_main__v2_a2904b10604c28fb0c0d7a0841626288f} 
+int UART\+\_\+\+TX\+\_\+\+PIN = 17}
+
+
+
+Definition at line \textbf{ 54} of file \textbf{ Main\+\_\+v2.\+0.\+py}.
+
