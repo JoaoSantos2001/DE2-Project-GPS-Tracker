@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['uart_5fbaudrate_0',['UART_BAUDRATE',['../namespace_main__v2.html#a44073d2bd698f971818ddcd41e4fdaf0',1,'Main_v2']]],
-  ['uart_5frx_5fpin_1',['UART_RX_PIN',['../namespace_main__v2.html#a269d8c8bb34be974ec143d5d02726f78',1,'Main_v2']]],
-  ['uart_5ftx_5fpin_2',['UART_TX_PIN',['../namespace_main__v2.html#a2904b10604c28fb0c0d7a0841626288f',1,'Main_v2']]]
+  ['date_0',['date',['../classlib_g_p_s_1_1_micropy_g_p_s.html#aaf11762bb71f2a83643d81406a40703d',1,'libGPS.MicropyGPS.date'],['../classlib_g_p_s_1_1_micropy_g_p_s.html#aa20ec81a011e738509e906524b713fc3',1,'libGPS.MicropyGPS.date']]],
+  ['display_5frefresh_5finterval_1',['DISPLAY_REFRESH_INTERVAL',['../namespace_main__v2.html#aacf3b2bcbd1c93f5ce44c4312da5cf4c',1,'Main_v2']]]
 ];

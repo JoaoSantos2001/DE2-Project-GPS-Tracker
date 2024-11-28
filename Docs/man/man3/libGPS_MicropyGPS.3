@@ -1,0 +1,708 @@
+.TH "MicropyGPS" 3 "Version 3.0" "DE2-Project-GPS-Tracker" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MicropyGPS
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits object\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fB__init__\fP (self, \fBlocal_offset\fP=0, location_formatting='dd')"
+.br
+.ti -1c
+.RI "\fBlatitude\fP (self)"
+.br
+.RI "Coordinates Translation Functions\&. "
+.ti -1c
+.RI "\fBlongitude\fP (self)"
+.br
+.ti -1c
+.RI "\fBstart_logging\fP (self, target_file, mode='append')"
+.br
+.RI "Logging Related Functions\&. "
+.ti -1c
+.RI "\fBstop_logging\fP (self)"
+.br
+.ti -1c
+.RI "\fBwrite_log\fP (self, log_string)"
+.br
+.ti -1c
+.RI "\fBgprmc\fP (self)"
+.br
+.RI "Sentence Parsers\&. "
+.ti -1c
+.RI "\fBgpgll\fP (self)"
+.br
+.ti -1c
+.RI "\fBgpvtg\fP (self)"
+.br
+.ti -1c
+.RI "\fBgpgga\fP (self)"
+.br
+.ti -1c
+.RI "\fBgpgsa\fP (self)"
+.br
+.ti -1c
+.RI "\fBgpgsv\fP (self)"
+.br
+.ti -1c
+.RI "\fBnew_sentence\fP (self)"
+.br
+.RI "Data Stream Handler Functions\&. "
+.ti -1c
+.RI "\fBupdate\fP (self, new_char)"
+.br
+.ti -1c
+.RI "\fBnew_fix_time\fP (self)"
+.br
+.ti -1c
+.RI "\fBsatellite_data_updated\fP (self)"
+.br
+.RI "User Helper Functions working with the GPS object data easier\&. "
+.ti -1c
+.RI "\fBunset_satellite_data_updated\fP (self)"
+.br
+.ti -1c
+.RI "\fBsatellites_visible\fP (self)"
+.br
+.ti -1c
+.RI "\fBtime_since_fix\fP (self)"
+.br
+.ti -1c
+.RI "\fBcompass_direction\fP (self)"
+.br
+.ti -1c
+.RI "\fBlatitude_string\fP (self)"
+.br
+.ti -1c
+.RI "\fBlongitude_string\fP (self)"
+.br
+.ti -1c
+.RI "\fBspeed_string\fP (self, unit='kph')"
+.br
+.ti -1c
+.RI "\fBdate_string\fP (self, formatting='s_dmy', century='20')"
+.br
+.in -1c
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "bool \fBsentence_active\fP = False"
+.br
+.ti -1c
+.RI "int \fBactive_segment\fP = 0"
+.br
+.ti -1c
+.RI "bool \fBprocess_crc\fP = False"
+.br
+.ti -1c
+.RI "list \fBgps_segments\fP = []"
+.br
+.ti -1c
+.RI "int \fBcrc_xor\fP = 0"
+.br
+.ti -1c
+.RI "int \fBchar_count\fP = 0"
+.br
+.ti -1c
+.RI "int \fBfix_time\fP = 0"
+.br
+.ti -1c
+.RI "int \fBcrc_fails\fP = 0"
+.br
+.ti -1c
+.RI "int \fBclean_sentences\fP = 0"
+.br
+.ti -1c
+.RI "int \fBparsed_sentences\fP = 0"
+.br
+.ti -1c
+.RI "\fBlog_handle\fP = None"
+.br
+.ti -1c
+.RI "bool \fBlog_en\fP = False"
+.br
+.ti -1c
+.RI "list \fBtimestamp\fP = [0,0,0\&.0]"
+.br
+.ti -1c
+.RI "list \fBdate\fP = [0, 0, 0]"
+.br
+.ti -1c
+.RI "\fBlocal_offset\fP = local_offset"
+.br
+.ti -1c
+.RI "str \fBcoord_format\fP = location_formatting"
+.br
+.ti -1c
+.RI "list \fBspeed\fP = [0\&.0, 0\&.0, 0\&.0]"
+.br
+.ti -1c
+.RI "float \fBcourse\fP = 0\&.0"
+.br
+.ti -1c
+.RI "float \fBaltitude\fP = 0\&.0"
+.br
+.ti -1c
+.RI "float \fBgeoid_height\fP = 0\&.0"
+.br
+.ti -1c
+.RI "int \fBsatellites_in_view\fP = 0"
+.br
+.ti -1c
+.RI "int \fBsatellites_in_use\fP = 0"
+.br
+.ti -1c
+.RI "list \fBsatellites_used\fP = []"
+.br
+.ti -1c
+.RI "int \fBlast_sv_sentence\fP = 0"
+.br
+.ti -1c
+.RI "int \fBtotal_sv_sentences\fP = 0"
+.br
+.ti -1c
+.RI "\fBsatellite_data\fP = dict()"
+.br
+.ti -1c
+.RI "float \fBhdop\fP = 0\&.0"
+.br
+.ti -1c
+.RI "float \fBpdop\fP = 0\&.0"
+.br
+.ti -1c
+.RI "float \fBvdop\fP = 0\&.0"
+.br
+.ti -1c
+.RI "bool \fBvalid\fP = False"
+.br
+.ti -1c
+.RI "int \fBfix_stat\fP = 0"
+.br
+.ti -1c
+.RI "int \fBfix_type\fP = 1"
+.br
+.ti -1c
+.RI "tuple \fBdate\fP = 'A':"
+.br
+.ti -1c
+.RI "str \fBlog_en\fP = '$':"
+.br
+.ti -1c
+.RI "str \fBsentence_active\fP = '*':"
+.br
+.ti -1c
+.RI "int \fBprocess_crc\fP = 2:"
+.br
+.ti -1c
+.RI "bool \fBcrc_xor\fP = True"
+.br
+.ti -1c
+.RI "int \fBsupported_sentences\fP = 1"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBSENTENCE_LIMIT\fP = 90"
+.br
+.ti -1c
+.RI "dict \fBsupported_sentences\fP"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "list \fB_latitude\fP = [0, 0\&.0, 'N']"
+.br
+.ti -1c
+.RI "list \fB_longitude\fP = [0, 0\&.0, 'W']"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+.nf
+GPS NMEA Sentence Parser\&. Creates object that stores all relevant GPS data and statistics\&.
+Parses sentences one character at a time using update()\&. 
+.fi
+.PP
+ 
+.PP
+Definition at line \fB13\fP of file \fBlibGPS\&.py\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "__init__ ( self,  local_offset = \fR0\fP,  location_formatting = \fR'dd'\fP)"
+
+.PP
+.nf
+Setup GPS Object Status Flags, Internal Data Registers, etc
+    local_offset (int): Timzone Difference to UTC
+    location_formatting (str): Style For Presenting Longitude/Latitude:
+                               Decimal Degree Minute (ddm) - 40° 26\&.767′ N
+                               Degrees Minutes Seconds (dms) - 40° 26′ 46″ N
+                               Decimal Degrees (dd) - 40\&.446° N
+
+.fi
+.PP
+ 
+.PP
+Definition at line \fB29\fP of file \fBlibGPS\&.py\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "compass_direction ( self)"
+
+.PP
+.nf
+Determine a cardinal or inter-cardinal direction based on current course\&.:return: string
+.fi
+.PP
+ 
+.PP
+Definition at line \fB644\fP of file \fBlibGPS\&.py\fP\&.
+.SS "date_string ( self,  formatting = \fR's_dmy'\fP,  century = \fR'20'\fP)"
+
+.PP
+.nf
+Creates a readable string of the current date\&.
+Can select between long format: Januray 1st, 2014
+or two short formats:
+11/01/2014 (MM/DD/YYYY)
+01/11/2014 (DD/MM/YYYY)
+:param formatting: string 's_mdy', 's_dmy', or 'long'
+:param century: int delineating the century the GPS data is from (19 for 19XX, 20 for 20XX)
+:return: date_string  string with long or short format date
+
+.fi
+.PP
+ 
+.PP
+Definition at line \fB697\fP of file \fBlibGPS\&.py\fP\&.
+.SS "gpgga ( self)"
+
+.PP
+.nf
+Parse Global Positioning System Fix Data (GGA) Sentence\&. Updates UTC timestamp, latitude, longitude,
+fix status, satellites in use, Horizontal Dilution of Precision (HDOP), altitude, geoid height and fix status
+.fi
+.PP
+ 
+.PP
+Definition at line \fB318\fP of file \fBlibGPS\&.py\fP\&.
+.SS "gpgll ( self)"
+
+.PP
+.nf
+Parse Geographic Latitude and Longitude (GLL)Sentence\&. Updates UTC timestamp, latitude, longitude, and fix status
+.fi
+.PP
+ 
+.PP
+Definition at line \fB247\fP of file \fBlibGPS\&.py\fP\&.
+.SS "gpgsa ( self)"
+
+.PP
+.nf
+Parse GNSS DOP and Active Satellites (GSA) sentence\&. Updates GPS fix type, list of satellites used in
+fix calculation, Position Dilution of Precision (PDOP), Horizontal Dilution of Precision (HDOP), Vertical
+Dilution of Precision (VDOP), and fix status
+.fi
+.PP
+ 
+.PP
+Definition at line \fB402\fP of file \fBlibGPS\&.py\fP\&.
+.SS "gpgsv ( self)"
+
+.PP
+.nf
+Parse Satellites in View (GSV) sentence\&. Updates number of SV Sentences,the number of the last SV sentence
+parsed, and data on each satellite present in the sentence
+.fi
+.PP
+ 
+.PP
+Definition at line \fB448\fP of file \fBlibGPS\&.py\fP\&.
+.SS "gprmc ( self)"
+
+.PP
+Sentence Parsers\&. 
+.PP
+.nf
+Parse Recommended Minimum Specific GPS/Transit data (RMC)Sentence\&.
+Updates UTC timestamp, latitude, longitude, Course, Speed, Date, and fix status
+.fi
+.PP
+ 
+.PP
+Definition at line \fB151\fP of file \fBlibGPS\&.py\fP\&.
+.SS "gpvtg ( self)"
+
+.PP
+.nf
+Parse Track Made Good and Ground Speed (VTG) Sentence\&. Updates speed and course
+.fi
+.PP
+ 
+.PP
+Definition at line \fB305\fP of file \fBlibGPS\&.py\fP\&.
+.SS "latitude ( self)"
+
+.PP
+Coordinates Translation Functions\&. 
+.PP
+.nf
+Format Latitude Data Correctly
+.fi
+.PP
+ 
+.PP
+Definition at line \fB89\fP of file \fBlibGPS\&.py\fP\&.
+.SS "latitude_string ( self)"
+
+.PP
+.nf
+Create a readable string of the current latitude data:return: string
+.fi
+.PP
+ 
+.PP
+Definition at line \fB659\fP of file \fBlibGPS\&.py\fP\&.
+.SS "longitude ( self)"
+
+.PP
+.nf
+Format Longitude Data Correctly
+.fi
+.PP
+ 
+.PP
+Definition at line \fB102\fP of file \fBlibGPS\&.py\fP\&.
+.SS "longitude_string ( self)"
+
+.PP
+.nf
+Create a readable string of the current longitude data: return: string
+.fi
+.PP
+ 
+.PP
+Definition at line \fB671\fP of file \fBlibGPS\&.py\fP\&.
+.SS "new_fix_time ( self)"
+
+.PP
+.nf
+Updates a high resolution counter with current time when fix is updated\&. Currently only triggered from
+GGA, GSA and RMC sentences
+.fi
+.PP
+ 
+.PP
+Definition at line \fB604\fP of file \fBlibGPS\&.py\fP\&.
+.SS "new_sentence ( self)"
+
+.PP
+Data Stream Handler Functions\&. 
+.PP
+.nf
+Adjust Object Flags in Preparation for a New Sentence
+.fi
+.PP
+ 
+.PP
+Definition at line \fB516\fP of file \fBlibGPS\&.py\fP\&.
+.SS "satellite_data_updated ( self)"
+
+.PP
+User Helper Functions working with the GPS object data easier\&. 
+.PP
+.nf
+Checks if the all the GSV sentences in a group have been read, making satellite data complete:return: boolean
+.fi
+.PP
+ 
+.PP
+Definition at line \fB614\fP of file \fBlibGPS\&.py\fP\&.
+.SS "satellites_visible ( self)"
+
+.PP
+.nf
+Returns a list of of the satellite PRNs currently visible to the receiver:return: list
+.fi
+.PP
+ 
+.PP
+Definition at line \fB625\fP of file \fBlibGPS\&.py\fP\&.
+.SS "speed_string ( self,  unit = \fR'kph'\fP)"
+
+.PP
+.nf
+Creates a readable string of the current speed data in one of three units
+:param unit: string of 'kph' or 'mph
+:return:
+
+.fi
+.PP
+ 
+.PP
+Definition at line \fB683\fP of file \fBlibGPS\&.py\fP\&.
+.SS "start_logging ( self,  target_file,  mode = \fR'append'\fP)"
+
+.PP
+Logging Related Functions\&. 
+.PP
+.nf
+Create GPS data log object
+.fi
+.PP
+ 
+.PP
+Definition at line \fB116\fP of file \fBlibGPS\&.py\fP\&.
+.SS "stop_logging ( self)"
+
+.PP
+.nf
+Closes the log file handler and disables further logging
+.fi
+.PP
+ 
+.PP
+Definition at line \fB130\fP of file \fBlibGPS\&.py\fP\&.
+.SS "time_since_fix ( self)"
+
+.PP
+.nf
+Returns number of millisecond since the last sentence with a valid fix was parsed\&. Returns 0 if no fix has been found
+.fi
+.PP
+ 
+.PP
+Definition at line \fB629\fP of file \fBlibGPS\&.py\fP\&.
+.SS "unset_satellite_data_updated ( self)"
+
+.PP
+.nf
+Mark GSV sentences as read indicating the data has been used and future updates are fresh
+.fi
+.PP
+ 
+.PP
+Definition at line \fB621\fP of file \fBlibGPS\&.py\fP\&.
+.SS "update ( self,  new_char)"
+
+.PP
+.nf
+Process a new input char and updates GPS object if necessary based on special characters ('$', ',', '*')
+Function builds a list of received string that are validate by CRC prior to parsing by the  appropriate
+sentence function\&. Returns sentence type on successful parse, None otherwise
+.fi
+.PP
+ 
+.PP
+Definition at line \fB525\fP of file \fBlibGPS\&.py\fP\&.
+.SS "write_log ( self,  log_string)"
+
+.PP
+.nf
+Attempts to write the last valid NMEA sentence character to the active file handler
+.fi
+.PP
+ 
+.PP
+Definition at line \fB141\fP of file \fBlibGPS\&.py\fP\&.
+.SH "Field Documentation"
+.PP 
+.SS "list _latitude = [0, 0\&.0, 'N']\fR [protected]\fP"
+
+.PP
+Definition at line \fB64\fP of file \fBlibGPS\&.py\fP\&.
+.SS "list _longitude = [0, 0\&.0, 'W']\fR [protected]\fP"
+
+.PP
+Definition at line \fB65\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int active_segment = 0"
+
+.PP
+Definition at line \fB41\fP of file \fBlibGPS\&.py\fP\&.
+.SS "float altitude = 0\&.0"
+
+.PP
+Definition at line \fB69\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int char_count = 0"
+
+.PP
+Definition at line \fB45\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int clean_sentences = 0"
+
+.PP
+Definition at line \fB50\fP of file \fBlibGPS\&.py\fP\&.
+.SS "str coord_format = location_formatting"
+
+.PP
+Definition at line \fB66\fP of file \fBlibGPS\&.py\fP\&.
+.SS "float course = 0\&.0"
+
+.PP
+Definition at line \fB68\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int crc_fails = 0"
+
+.PP
+Definition at line \fB49\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int crc_xor = 0"
+
+.PP
+Definition at line \fB44\fP of file \fBlibGPS\&.py\fP\&.
+.SS "bool crc_xor = True"
+
+.PP
+Definition at line \fB572\fP of file \fBlibGPS\&.py\fP\&.
+.SS "list date = [0, 0, 0]"
+
+.PP
+Definition at line \fB60\fP of file \fBlibGPS\&.py\fP\&.
+.SS "tuple date = 'A':"
+
+.PP
+Definition at line \fB182\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int fix_stat = 0"
+
+.PP
+Definition at line \fB83\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int fix_time = 0"
+
+.PP
+Definition at line \fB46\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int fix_type = 1"
+
+.PP
+Definition at line \fB84\fP of file \fBlibGPS\&.py\fP\&.
+.SS "float geoid_height = 0\&.0"
+
+.PP
+Definition at line \fB70\fP of file \fBlibGPS\&.py\fP\&.
+.SS "list gps_segments = []"
+
+.PP
+Definition at line \fB43\fP of file \fBlibGPS\&.py\fP\&.
+.SS "float hdop = 0\&.0"
+
+.PP
+Definition at line \fB79\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int last_sv_sentence = 0"
+
+.PP
+Definition at line \fB76\fP of file \fBlibGPS\&.py\fP\&.
+.SS "local_offset = local_offset"
+
+.PP
+Definition at line \fB61\fP of file \fBlibGPS\&.py\fP\&.
+.SS "bool log_en = False"
+
+.PP
+Definition at line \fB55\fP of file \fBlibGPS\&.py\fP\&.
+.SS "str log_en = '$':"
+
+.PP
+Definition at line \fB539\fP of file \fBlibGPS\&.py\fP\&.
+.SS "log_handle = None"
+
+.PP
+Definition at line \fB54\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int parsed_sentences = 0"
+
+.PP
+Definition at line \fB51\fP of file \fBlibGPS\&.py\fP\&.
+.SS "float pdop = 0\&.0"
+
+.PP
+Definition at line \fB80\fP of file \fBlibGPS\&.py\fP\&.
+.SS "bool process_crc = False"
+
+.PP
+Definition at line \fB42\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int process_crc = 2:"
+
+.PP
+Definition at line \fB567\fP of file \fBlibGPS\&.py\fP\&.
+.SS "satellite_data = dict()"
+
+.PP
+Definition at line \fB78\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int satellites_in_use = 0"
+
+.PP
+Definition at line \fB74\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int satellites_in_view = 0"
+
+.PP
+Definition at line \fB73\fP of file \fBlibGPS\&.py\fP\&.
+.SS "list satellites_used = []"
+
+.PP
+Definition at line \fB75\fP of file \fBlibGPS\&.py\fP\&.
+.SS "bool sentence_active = False"
+
+.PP
+Definition at line \fB40\fP of file \fBlibGPS\&.py\fP\&.
+.SS "str sentence_active = '*':"
+
+.PP
+Definition at line \fB547\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int SENTENCE_LIMIT = 90\fR [static]\fP"
+
+.PP
+Definition at line \fB18\fP of file \fBlibGPS\&.py\fP\&.
+.SS "list speed = [0\&.0, 0\&.0, 0\&.0]"
+
+.PP
+Definition at line \fB67\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int supported_sentences = 1"
+
+.PP
+Definition at line \fB588\fP of file \fBlibGPS\&.py\fP\&.
+.SS "dict supported_sentences\fR [static]\fP"
+\fBInitial value:\fP
+.nf
+=  {'GPRMC': gprmc, 'GLRMC': gprmc,
+                           'GPGGA': gpgga, 'GLGGA': gpgga,
+                           'GPVTG': gpvtg, 'GLVTG': gpvtg,
+                           'GPGSA': gpgsa, 'GLGSA': gpgsa,
+                           'GPGSV': gpgsv, 'GLGSV': gpgsv,
+                           'GPGLL': gpgll, 'GLGLL': gpgll,
+                           'GNGGA': gpgga, 'GNRMC': gprmc,
+                           'GNVTG': gpvtg, 'GNGLL': gpgll,
+                           'GNGSA': gpgsa,
+                          }
+.PP
+.fi
+
+.PP
+Definition at line \fB759\fP of file \fBlibGPS\&.py\fP\&.
+.SS "list timestamp = [0,0,0\&.0]"
+
+.PP
+Definition at line \fB59\fP of file \fBlibGPS\&.py\fP\&.
+.SS "int total_sv_sentences = 0"
+
+.PP
+Definition at line \fB77\fP of file \fBlibGPS\&.py\fP\&.
+.SS "bool valid = False"
+
+.PP
+Definition at line \fB82\fP of file \fBlibGPS\&.py\fP\&.
+.SS "float vdop = 0\&.0"
+
+.PP
+Definition at line \fB81\fP of file \fBlibGPS\&.py\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DE2-Project-GPS-Tracker from the source code\&.

@@ -1,0 +1,775 @@
+\doxysection{lib\+GPS.\+py}
+\hypertarget{lib_g_p_s_8py_source}{}\label{lib_g_p_s_8py_source}\index{Code/libGPS.py@{Code/libGPS.py}}
+\mbox{\hyperlink{lib_g_p_s_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00001}\mbox{\hyperlink{namespacelib_g_p_s}{00001}}\ \textcolor{keyword}{from}\ math\ \textcolor{keyword}{import}\ floor,\ modf}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00003}00003\ \textcolor{comment}{\#\ Import\ utime\ or\ time\ for\ fix\ time\ handling}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00004}00004\ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00005}00005\ \ \ \ \ \textcolor{comment}{\#\ Assume\ running\ on\ MicroPython}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00006}00006\ \ \ \ \ \textcolor{keyword}{import}\ utime}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00007}00007\ \textcolor{keywordflow}{except}\ ImportError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00008}00008\ \ \ \ \ \textcolor{comment}{\#\ Otherwise\ default\ to\ time\ module\ for\ non-\/embedded\ implementations}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00009}00009\ \ \ \ \ \textcolor{comment}{\#\ Should\ still\ support\ millisecond\ resolution.}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00013}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s}{00013}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s}{MicropyGPS}}(object):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00014}00014\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}GPS\ NMEA\ Sentence\ Parser.\ Creates\ object\ that\ stores\ all\ relevant\ GPS\ data\ and\ statistics.}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00015}00015\ \textcolor{stringliteral}{\ \ \ \ Parses\ sentences\ one\ character\ at\ a\ time\ using\ update().\ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00017}00017\ \ \ \ \ \textcolor{comment}{\#\ Max\ Number\ of\ Characters\ a\ valid\ sentence\ can\ be\ (based\ on\ GGA\ sentence)}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00018}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a9638090c79e4dab929bbe3d8f4440659}{00018}}\ \ \ \ \ SENTENCE\_LIMIT\ =\ 90}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00019}00019\ \ \ \ \ \_\_HEMISPHERES\ =\ (\textcolor{stringliteral}{'N'},\ \textcolor{stringliteral}{'S'},\ \textcolor{stringliteral}{'E'},\ \textcolor{stringliteral}{'W'})}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00020}00020\ \ \ \ \ \_\_NO\_FIX\ =\ 1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00021}00021\ \ \ \ \ \_\_FIX\_2D\ =\ 2}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00022}00022\ \ \ \ \ \_\_FIX\_3D\ =\ 3}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00023}00023\ \ \ \ \ \_\_DIRECTIONS\ =\ (\textcolor{stringliteral}{'N'},\ \textcolor{stringliteral}{'NNE'},\ \textcolor{stringliteral}{'NE'},\ \textcolor{stringliteral}{'ENE'},\ \textcolor{stringliteral}{'E'},\ \textcolor{stringliteral}{'ESE'},\ \textcolor{stringliteral}{'SE'},\ \textcolor{stringliteral}{'SSE'},\ \textcolor{stringliteral}{'S'},\ \textcolor{stringliteral}{'SSW'},\ \textcolor{stringliteral}{'SW'},\ \textcolor{stringliteral}{'WSW'},\ \textcolor{stringliteral}{'W'},}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'WNW'},\ \textcolor{stringliteral}{'NW'},\ \textcolor{stringliteral}{'NNW'})}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00025}00025\ \ \ \ \ \_\_MONTHS\ =\ (\textcolor{stringliteral}{'January'},\ \textcolor{stringliteral}{'February'},\ \textcolor{stringliteral}{'March'},\ \textcolor{stringliteral}{'April'},\ \textcolor{stringliteral}{'May'},}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'June'},\ \textcolor{stringliteral}{'July'},\ \textcolor{stringliteral}{'August'},\ \textcolor{stringliteral}{'September'},\ \textcolor{stringliteral}{'October'},}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'November'},\ \textcolor{stringliteral}{'December'})}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00029}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af81b918e34990398c3e96b2516073ce7}{00029}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af81b918e34990398c3e96b2516073ce7}{\_\_init\_\_}}(self,\ local\_offset=0,\ location\_formatting='dd'):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00031}00031\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ Setup\ GPS\ Object\ Status\ Flags,\ Internal\ Data\ Registers,\ etc}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00032}00032\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ local\_offset\ (int):\ Timzone\ Difference\ to\ UTC}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ location\_formatting\ (str):\ Style\ For\ Presenting\ Longitude/Latitude:}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Decimal\ Degree\ Minute\ (ddm)\ -\/\ 40°\ 26.767′\ N}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Degrees\ Minutes\ Seconds\ (dms)\ -\/\ 40°\ 26′\ 46″\ N}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Decimal\ Degrees\ (dd)\ -\/\ 40.446°\ N}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Object\ Status\ Flags}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00040}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac67b1e88dc20b96dd82279ac630c7a6b}{00040}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac67b1e88dc20b96dd82279ac630c7a6b}{sentence\_active}}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a9ce47542bbea8089838258e42beec7ad}{sentence\_active}}\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00041}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a5a20ffefcd2a69b01e45a8f58f2b1c71}{00041}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a5a20ffefcd2a69b01e45a8f58f2b1c71}{active\_segment}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00042}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3111176d4f77e737c61cef3a27514f6c}{00042}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3111176d4f77e737c61cef3a27514f6c}{process\_crc}}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_adeb1d2af7a0804dbe0a0526426d092ce}{process\_crc}}\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00043}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a7988ffb675bea750b80bc1cedec29692}{00043}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a7988ffb675bea750b80bc1cedec29692}{gps\_segments}}\ =\ []}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00044}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aa96ce42bc2001c5ea3c8b13eb79d4cbd}{00044}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aa96ce42bc2001c5ea3c8b13eb79d4cbd}{crc\_xor}}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a471a9feb9ba33ce3f66a062f2ea6d22d}{crc\_xor}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00045}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6a3a299a027ee1a130c3e063a9158dca}{00045}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6a3a299a027ee1a130c3e063a9158dca}{char\_count}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00046}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac41683d8d11728a73a2d3867b0ba3078}{00046}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac41683d8d11728a73a2d3867b0ba3078}{fix\_time}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Sentence\ Statistics}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00049}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a09d6aba6fe1946664fa9f212d6da1c2e}{00049}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a09d6aba6fe1946664fa9f212d6da1c2e}{crc\_fails}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00050}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a1580e4706542aa93e881a0c33f238686}{00050}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a1580e4706542aa93e881a0c33f238686}{clean\_sentences}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00051}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a20691265fd29a9817b7688c170697fc0}{00051}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a20691265fd29a9817b7688c170697fc0}{parsed\_sentences}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Logging\ Related}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00054}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a719fbd7a02c8a98342ff69d6460e4bdc}{00054}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a719fbd7a02c8a98342ff69d6460e4bdc}{log\_handle}}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00055}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a91496c2e485de070221e1431a4a029b1}{00055}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a91496c2e485de070221e1431a4a029b1}{log\_en}}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab06b7461ada71e1892d748d207575d71}{log\_en}}\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Data\ From\ Sentences}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Time}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00059}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab94c7ed8ad8808c20b6a0ee0d94c1619}{00059}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab94c7ed8ad8808c20b6a0ee0d94c1619}{timestamp}}\ =\ [0,0,0.0]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00060}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aaf11762bb71f2a83643d81406a40703d}{00060}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aaf11762bb71f2a83643d81406a40703d}{date}}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aa20ec81a011e738509e906524b713fc3}{date}}\ =\ [0,\ 0,\ 0]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00061}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_acb17cb6895fc1ab5884b86d8648f5b9b}{00061}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_acb17cb6895fc1ab5884b86d8648f5b9b}{local\_offset}}\ =\ local\_offset}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Position/Motion}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00064}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{00064}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}\ =\ [0,\ 0.0,\ \textcolor{stringliteral}{'N'}]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00065}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{00065}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}\ =\ [0,\ 0.0,\ \textcolor{stringliteral}{'W'}]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00066}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}{00066}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}{coord\_format}}\ =\ location\_formatting}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00067}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a88499f7882adbc30755ac919cb01742b}{00067}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a88499f7882adbc30755ac919cb01742b}{speed}}\ =\ [0.0,\ 0.0,\ 0.0]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00068}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac6894c88aabf335922736a63b2b87b97}{00068}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac6894c88aabf335922736a63b2b87b97}{course}}\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00069}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a0e13a4b4ae0cefdac2a413284239caa6}{00069}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a0e13a4b4ae0cefdac2a413284239caa6}{altitude}}\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00070}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6c299e0aef05bbf1564c327448891366}{00070}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6c299e0aef05bbf1564c327448891366}{geoid\_height}}\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ GPS\ Info}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00073}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3cbd27b617fa83311d7d2a780fc444b5}{00073}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3cbd27b617fa83311d7d2a780fc444b5}{satellites\_in\_view}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00074}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af4a74a599846bc9e91397889462e3684}{00074}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af4a74a599846bc9e91397889462e3684}{satellites\_in\_use}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00075}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac9aca491450d17c8a473e98f7daeb173}{00075}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac9aca491450d17c8a473e98f7daeb173}{satellites\_used}}\ =\ []}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00076}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a1601391d2e06bbd2a14c342f2603ce67}{00076}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a1601391d2e06bbd2a14c342f2603ce67}{last\_sv\_sentence}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00077}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aca765042847393873515a75035ed2f20}{00077}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aca765042847393873515a75035ed2f20}{total\_sv\_sentences}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00078}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2e4ed4d7a07cad66385423c8d1e82df5}{00078}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2e4ed4d7a07cad66385423c8d1e82df5}{satellite\_data}}\ =\ dict()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00079}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a8c3e6d0a80cec3520fd65b477f420415}{00079}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a8c3e6d0a80cec3520fd65b477f420415}{hdop}}\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00080}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a137e8e8974bf1d8b5b6bb9e3f6ff7cda}{00080}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a137e8e8974bf1d8b5b6bb9e3f6ff7cda}{pdop}}\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00081}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a67f8327a15f0185b24a1c8e0ec07ddae}{00081}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a67f8327a15f0185b24a1c8e0ec07ddae}{vdop}}\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00082}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a28e3c179a86f337095088b3ca02a2b2a}{00082}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a28e3c179a86f337095088b3ca02a2b2a}{valid}}\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00083}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ad91f5dfb777eacfaf4c34272959116aa}{00083}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ad91f5dfb777eacfaf4c34272959116aa}{fix\_stat}}\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00084}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a8ef4ecf8281f99982f0d1787bf22ebed}{00084}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a8ef4ecf8281f99982f0d1787bf22ebed}{fix\_type}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00086}00086\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00088}00088\ \ \ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00089}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a581cca3058cd1c4cbe807467e0b64520}{00089}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a581cca3058cd1c4cbe807467e0b64520}{latitude}}(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Format\ Latitude\ Data\ Correctly"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}{coord\_format}}\ ==\ \textcolor{stringliteral}{'dd'}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ decimal\_degrees\ =\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}[0]\ +\ (self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}[1]\ /\ 60)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [decimal\_degrees,\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}[2]]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}{coord\_format}}\ ==\ \textcolor{stringliteral}{'dms'}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ minute\_parts\ =\ modf(self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}[1])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ seconds\ =\ round(minute\_parts[0]\ *\ 60)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}[0],\ int(minute\_parts[1]),\ seconds,\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}[2]]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\_latitude}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00101}00101\ \ \ \ \ \textcolor{preprocessor}{@property}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00102}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab8e8dc382ad464363087fa3436f9c401}{00102}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab8e8dc382ad464363087fa3436f9c401}{longitude}}(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Format\ Longitude\ Data\ Correctly"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}{coord\_format}}\ ==\ \textcolor{stringliteral}{'dd'}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ decimal\_degrees\ =\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}[0]\ +\ (self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}[1]\ /\ 60)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [decimal\_degrees,\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}[2]]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{elif}\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}{coord\_format}}\ ==\ \textcolor{stringliteral}{'dms'}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ minute\_parts\ =\ modf(self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}[1])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ seconds\ =\ round(minute\_parts[0]\ *\ 60)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}[0],\ int(minute\_parts[1]),\ seconds,\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}[2]]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\_longitude}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00114}00114\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00116}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_acf82c792fd6ceca850139f51a18260ee}{00116}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_acf82c792fd6ceca850139f51a18260ee}{start\_logging}}(self,\ target\_file,\ mode="{}append"{}):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Create\ GPS\ data\ log\ object"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ Write\ Mode\ Overwrite\ or\ Append}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ mode\_code\ =\ \textcolor{stringliteral}{'w'}\ \textcolor{keywordflow}{if}\ mode\ ==\ \textcolor{stringliteral}{'new'}\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{'a'}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a719fbd7a02c8a98342ff69d6460e4bdc}{log\_handle}}\ =\ open(target\_file,\ mode\_code)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ AttributeError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Invalid\ FileName"{}})}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a91496c2e485de070221e1431a4a029b1}{log\_en}}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab06b7461ada71e1892d748d207575d71}{log\_en}}\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00130}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a41ccd35e171eb7b39517067b0d275ce9}{00130}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a41ccd35e171eb7b39517067b0d275ce9}{stop\_logging}}(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Closes\ the\ log\ file\ handler\ and\ disables\ further\ logging"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a719fbd7a02c8a98342ff69d6460e4bdc}{log\_handle}}.close()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ AttributeError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Invalid\ Handle"{}})}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a91496c2e485de070221e1431a4a029b1}{log\_en}}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab06b7461ada71e1892d748d207575d71}{log\_en}}\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00141}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2695475b53c66efe404aba777252112d}{00141}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2695475b53c66efe404aba777252112d}{write\_log}}(self,\ log\_string):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Attempts\ to\ write\ the\ last\ valid\ NMEA\ sentence\ character\ to\ the\ active\ file\ handler"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00143}00143\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ try:}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00144}00144\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ self.log\_handle.write(log\_string)}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00145}00145\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ except\ TypeError:}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00146}00146\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ return\ False}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00147}00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ return\ True}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00148}00148\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00149}00149\ \textcolor{stringliteral}{\ \ \ \ \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00150}00150\ \textcolor{stringliteral}{\ \ \ \ \#\ Sentence\ Parsers}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00151}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a054f39a378bb504161984e92c7688829}{00151}}\ \textcolor{stringliteral}{\ \ \ \ def\ gprmc(self):}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00152}00152\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}Parse\ Recommended\ Minimum\ Specific\ GPS/Transit\ data\ (RMC)Sentence.}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ Updates\ UTC\ timestamp,\ latitude,\ longitude,\ Course,\ Speed,\ Date,\ and\ fix\ status"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \#\ UTC\ Timestamp}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ utc\_string\ =\ self.gps\_segments[1]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ if\ utc\_string:\ \ \#\ Possible\ timestamp\ found}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hours\ =\ (int(utc\_string[0:2])\ +\ self.local\_offset)\ \%\ 24}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minutes\ =\ int(utc\_string[2:4])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seconds\ =\ float(utc\_string[4:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.timestamp\ =\ f"{}\{hours:02\}:\{minutes:02\}:\{seconds:05.2f\}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ else:\ \ \#\ No\ Time\ stamp\ yet}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.timestamp\ =\ [0,0,0.0]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ except\ ValueError:\ \ \#\ Bad\ Timestamp\ value\ present}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \#\ Date\ stamp}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ date\_string\ =\ self.gps\_segments[9]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Date\ string\ printer\ function\ assumes\ to\ be\ year\ >=2000,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ date\_string()\ must\ be\ supplied\ with\ the\ correct\ century\ argument\ to\ display\ correctly}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ if\ date\_string:\ \ \#\ Possible\ date\ stamp\ found}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ day\ =\ int(date\_string[0:2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ month\ =\ int(date\_string[2:4])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ year\ =\ int(date\_string[4:6])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.date\ =\ (day,\ month,\ year)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ else:\ \ \#\ No\ Date\ stamp\ yet}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00182}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aa20ec81a011e738509e906524b713fc3}{00182}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.date\ =\ (0,\ 0,\ 0)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ except\ ValueError:\ \ \#\ Bad\ Date\ stamp\ value\ present}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \#\ Check\ Receiver\ Data\ Valid\ Flag}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ if\ self.gps\_segments[2]\ ==\ 'A':\ \ \#\ Data\ from\ Receiver\ is\ Valid/Has\ Fix}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Longitude\ /\ Latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\_string\ =\ self.gps\_segments[3]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_degs\ =\ int(l\_string[0:2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_mins\ =\ float(l\_string[2:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_hemi\ =\ self.gps\_segments[4]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Longitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\_string\ =\ self.gps\_segments[5]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_degs\ =\ int(l\_string[0:3])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_mins\ =\ float(l\_string[3:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_hemi\ =\ self.gps\_segments[6]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ if\ lat\_hemi\ not\ in\ self.\_\_HEMISPHERES:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ if\ lon\_hemi\ not\ in\ self.\_\_HEMISPHERES:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Speed}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ spd\_knt\ =\ float(self.gps\_segments[7])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Course}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.gps\_segments[8]:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ course\ =\ float(self.gps\_segments[8])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ course\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Update\ Object\ Data}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_latitude\ =\ [lat\_degs,\ lat\_mins,\ lat\_hemi]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_longitude\ =\ [lon\_degs,\ lon\_mins,\ lon\_hemi]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Include\ mph\ and\ hm/h}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ self.speed\ =\ [spd\_knt,\ spd\_knt\ *\ 1.151,\ spd\_knt\ *\ 1.852]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ self.course\ =\ course}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ self.valid\ =\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Update\ Last\ Fix\ Time}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ self.new\_fix\_time()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00238}00238\ \ \ \ \ \ \ \ \ else:\ \ \#\ Clear\ Position\ Data\ if\ Sentence\ is\ 'Invalid'}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_latitude\ =\ [0,\ 0.0,\ 'N']}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_longitude\ =\ [0,\ 0.0,\ 'W']}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ self.speed\ =\ [0.0,\ 0.0,\ 0.0]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ self.course\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ self.valid\ =\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00245}00245\ \ \ \ \ \ \ \ \ return\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00247}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a218ec3c94d4eb6ae739089e445781986}{00247}}\ \ \ \ \ def\ gpgll(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00248}00248\ \ \ \ \ \ \ \ \ "{}"{}"{}Parse\ Geographic\ Latitude\ and\ Longitude\ (GLL)Sentence.\ Updates\ UTC\ timestamp,\ latitude,\ longitude,\ and\ fix\ status"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00250}00250\ \ \ \ \ \ \ \ \ \#\ UTC\ Timestamp}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00251}00251\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ utc\_string\ =\ self.gps\_segments[5]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ if\ utc\_string:\ \ \#\ Possible\ timestamp\ found}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hours\ =\ (int(utc\_string[0:2])\ +\ self.local\_offset)\ \%\ 24}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minutes\ =\ int(utc\_string[2:4])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seconds\ =\ float(utc\_string[4:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.timestamp\ =\ f"{}\{hours:02\}:\{minutes:02\}:\{seconds:05.2f\}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ else:\ \ \#\ No\ Time\ stamp\ yet}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.timestamp\ =\ [0,0,0.0]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ except\ ValueError:\ \ \#\ Bad\ Timestamp\ value\ present}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00265}00265\ \ \ \ \ \ \ \ \ \#\ Check\ Receiver\ Data\ Valid\ Flag}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ if\ self.gps\_segments[6]\ ==\ 'A':\ \ \#\ Data\ from\ Receiver\ is\ Valid/Has\ Fix}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Longitude\ /\ Latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\_string\ =\ self.gps\_segments[1]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_degs\ =\ int(l\_string[0:2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_mins\ =\ float(l\_string[2:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_hemi\ =\ self.gps\_segments[2]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Longitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\_string\ =\ self.gps\_segments[3]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_degs\ =\ int(l\_string[0:3])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_mins\ =\ float(l\_string[3:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_hemi\ =\ self.gps\_segments[4]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ if\ lat\_hemi\ not\ in\ self.\_\_HEMISPHERES:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ if\ lon\_hemi\ not\ in\ self.\_\_HEMISPHERES:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Update\ Object\ Data}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_latitude\ =\ [lat\_degs,\ lat\_mins,\ lat\_hemi]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_longitude\ =\ [lon\_degs,\ lon\_mins,\ lon\_hemi]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ self.valid\ =\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Update\ Last\ Fix\ Time}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ self.new\_fix\_time()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00298}00298\ \ \ \ \ \ \ \ \ else:\ \ \#\ Clear\ Position\ Data\ if\ Sentence\ is\ 'Invalid'}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_latitude\ =\ [0,\ 0.0,\ 'N']}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_longitude\ =\ [0,\ 0.0,\ 'W']}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ self.valid\ =\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00303}00303\ \ \ \ \ \ \ \ \ return\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00305}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a87fee4c2c73f887101ab4a9023825b66}{00305}}\ \ \ \ \ def\ gpvtg(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00306}00306\ \ \ \ \ \ \ \ \ "{}"{}"{}Parse\ Track\ Made\ Good\ and\ Ground\ Speed\ (VTG)\ Sentence.\ Updates\ speed\ and\ course"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ course\ =\ float(self.gps\_segments[1])\ if\ self.gps\_segments[1]\ else\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ spd\_knt\ =\ float(self.gps\_segments[5])\ if\ self.gps\_segments[5]\ else\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00310}00310\ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ \#\ Include\ mph\ and\ km/h}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00314}00314\ \ \ \ \ \ \ \ \ self.speed\ =\ (spd\_knt,\ spd\_knt\ *\ 1.151,\ spd\_knt\ *\ 1.852)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00315}00315\ \ \ \ \ \ \ \ \ self.course\ =\ course}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ return\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00318}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a0b5b8e163949ec117ae13aa02a9f5723}{00318}}\ \ \ \ \ def\ gpgga(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00319}00319\ \ \ \ \ \ \ \ \ "{}"{}"{}Parse\ Global\ Positioning\ System\ Fix\ Data\ (GGA)\ Sentence.\ Updates\ UTC\ timestamp,\ latitude,\ longitude,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00320}00320\ \ \ \ \ \ \ \ \ fix\ status,\ satellites\ in\ use,\ Horizontal\ Dilution\ of\ Precision\ (HDOP),\ altitude,\ geoid\ height\ and\ fix\ status"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00322}00322\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ UTC\ Timestamp}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ utc\_string\ =\ self.gps\_segments[1]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Skip\ timestamp\ if\ receiver\ doesn't\ have\ on\ yet}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ if\ utc\_string:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hours\ =\ (int(utc\_string[0:2])\ +\ self.local\_offset)\ \%\ 24}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minutes\ =\ int(utc\_string[2:4])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seconds\ =\ float(utc\_string[4:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hours\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minutes\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seconds\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Number\ of\ Satellites\ in\ Use}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ satellites\_in\_use\ =\ int(self.gps\_segments[7])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00338}00338\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Get\ Fix\ Status}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ fix\_stat\ =\ int(self.gps\_segments[6])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00342}00342\ \ \ \ \ \ \ \ \ except\ (ValueError,\ IndexError):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00344}00344\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00345}00345\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Horizontal\ Dilution\ of\ Precision}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ hdop\ =\ float(self.gps\_segments[8])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00348}00348\ \ \ \ \ \ \ \ \ except\ (ValueError,\ IndexError):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ hdop\ =\ 0.0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00351}00351\ \ \ \ \ \ \ \ \ \#\ Process\ Location\ and\ Speed\ Data\ if\ Fix\ is\ GOOD}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00352}00352\ \ \ \ \ \ \ \ \ if\ fix\_stat:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Longitude\ /\ Latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\_string\ =\ self.gps\_segments[2]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_degs\ =\ int(l\_string[0:2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_mins\ =\ float(l\_string[2:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lat\_hemi\ =\ self.gps\_segments[3]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Longitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ l\_string\ =\ self.gps\_segments[4]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_degs\ =\ int(l\_string[0:3])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_mins\ =\ float(l\_string[3:])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lon\_hemi\ =\ self.gps\_segments[5]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ if\ lat\_hemi\ not\ in\ self.\_\_HEMISPHERES:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ if\ lon\_hemi\ not\ in\ self.\_\_HEMISPHERES:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Altitude\ /\ Height\ Above\ Geoid}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ altitude\ =\ float(self.gps\_segments[9])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ geoid\_height\ =\ float(self.gps\_segments[11])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ altitude\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ geoid\_height\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Update\ Object\ Data}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_latitude\ =\ [lat\_degs,\ lat\_mins,\ lat\_hemi]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ self.\_longitude\ =\ [lon\_degs,\ lon\_mins,\ lon\_hemi]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ self.altitude\ =\ altitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ self.geoid\_height\ =\ geoid\_height}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00390}00390\ \ \ \ \ \ \ \ \ \#\ Update\ Object\ Data}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00391}00391\ \ \ \ \ \ \ \ \ self.timestamp\ =\ f"{}\{hours:02\}:\{minutes:02\}:\{seconds:05.2f\}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00392}00392\ \ \ \ \ \ \ \ \ self.satellites\_in\_use\ =\ satellites\_in\_use}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00393}00393\ \ \ \ \ \ \ \ \ self.hdop\ =\ hdop}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00394}00394\ \ \ \ \ \ \ \ \ self.fix\_stat\ =\ fix\_stat}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00395}00395\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00396}00396\ \ \ \ \ \ \ \ \ \#\ If\ Fix\ is\ GOOD,\ update\ fix\ timestamp}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00397}00397\ \ \ \ \ \ \ \ \ if\ fix\_stat:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ self.new\_fix\_time()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00400}00400\ \ \ \ \ \ \ \ \ return\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00402}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a056152a81b97d2a9c72254568b7861cf}{00402}}\ \ \ \ \ def\ gpgsa(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00403}00403\ \ \ \ \ \ \ \ \ "{}"{}"{}Parse\ GNSS\ DOP\ and\ Active\ Satellites\ (GSA)\ sentence.\ Updates\ GPS\ fix\ type,\ list\ of\ satellites\ used\ in}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00404}00404\ \ \ \ \ \ \ \ \ fix\ calculation,\ Position\ Dilution\ of\ Precision\ (PDOP),\ Horizontal\ Dilution\ of\ Precision\ (HDOP),\ Vertical}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00405}00405\ \ \ \ \ \ \ \ \ Dilution\ of\ Precision\ (VDOP),\ and\ fix\ status"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00407}00407\ \ \ \ \ \ \ \ \ \#\ Fix\ Type\ (None,2D\ or\ 3D)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00408}00408\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ fix\_type\ =\ int(self.gps\_segments[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00410}00410\ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00412}00412\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00413}00413\ \ \ \ \ \ \ \ \ \#\ Read\ All\ (up\ to\ 12)\ Available\ PRN\ Satellite\ Numbers}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00414}00414\ \ \ \ \ \ \ \ \ sats\_used\ =\ []}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00415}00415\ \ \ \ \ \ \ \ \ for\ sats\ in\ range(12):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ sat\_number\_str\ =\ self.gps\_segments[3\ +\ sats]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ if\ sat\_number\_str:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sat\_number\ =\ int(sat\_number\_str)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sats\_used.append(sat\_number)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ break}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00425}00425\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00426}00426\ \ \ \ \ \ \ \ \ \#\ PDOP,HDOP,VDOP}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00427}00427\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ pdop\ =\ float(self.gps\_segments[15])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ hdop\ =\ float(self.gps\_segments[16])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ vdop\ =\ float(self.gps\_segments[17])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00431}00431\ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00434}00434\ \ \ \ \ \ \ \ \ \#\ Update\ Object\ Data}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00435}00435\ \ \ \ \ \ \ \ \ self.fix\_type\ =\ fix\_type}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00436}00436\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00437}00437\ \ \ \ \ \ \ \ \ \#\ If\ Fix\ is\ GOOD,\ update\ fix\ timestamp}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00438}00438\ \ \ \ \ \ \ \ \ if\ fix\_type\ >\ self.\_\_NO\_FIX:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ self.new\_fix\_time()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00440}00440\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00441}00441\ \ \ \ \ \ \ \ \ self.satellites\_used\ =\ sats\_used}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00442}00442\ \ \ \ \ \ \ \ \ self.hdop\ =\ hdop}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00443}00443\ \ \ \ \ \ \ \ \ self.vdop\ =\ vdop}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00444}00444\ \ \ \ \ \ \ \ \ self.pdop\ =\ pdop}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00445}00445\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00446}00446\ \ \ \ \ \ \ \ \ return\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00448}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af940a40b2bfc67c61c1cf33b9c6d1d8f}{00448}}\ \ \ \ \ def\ gpgsv(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00449}00449\ \ \ \ \ \ \ \ \ "{}"{}"{}Parse\ Satellites\ in\ View\ (GSV)\ sentence.\ Updates\ number\ of\ SV\ Sentences,the\ number\ of\ the\ last\ SV\ sentence}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00450}00450\ \ \ \ \ \ \ \ \ parsed,\ and\ data\ on\ each\ satellite\ present\ in\ the\ sentence"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00451}00451\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \ \ num\_sv\_sentences\ =\ int(self.gps\_segments[1])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00453}00453\ \ \ \ \ \ \ \ \ \ \ \ \ current\_sv\_sentence\ =\ int(self.gps\_segments[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ sats\_in\_view\ =\ int(self.gps\_segments[3])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00455}00455\ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00457}00457\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00458}00458\ \ \ \ \ \ \ \ \ \#\ Create\ a\ blank\ dict\ to\ store\ all\ the\ satellite\ data\ from\ this\ sentence\ in:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00459}00459\ \ \ \ \ \ \ \ \ \#\ satellite\ PRN\ is\ key,\ tuple\ containing\ telemetry\ is\ value}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00460}00460\ \ \ \ \ \ \ \ \ satellite\_dict\ =\ dict()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00461}00461\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00462}00462\ \ \ \ \ \ \ \ \ \#\ Calculate\ \ Number\ of\ Satelites\ to\ pull\ data\ for\ and\ thus\ how\ many\ segment\ positions\ to\ read}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00463}00463\ \ \ \ \ \ \ \ \ if\ num\_sv\_sentences\ ==\ current\_sv\_sentence:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Last\ sentence\ may\ have\ 1-\/4\ satellites;\ 5\ -\/\ 20\ positions}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ sat\_segment\_limit\ =\ (sats\_in\_view\ -\/\ ((num\_sv\_sentences\ -\/\ 1)\ *\ 4))\ *\ 5}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00466}00466\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ sat\_segment\_limit\ =\ 20\ \ \#\ Non-\/last\ sentences\ have\ 4\ satellites\ and\ thus\ read\ up\ to\ position\ 20}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00468}00468\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00469}00469\ \ \ \ \ \ \ \ \ \#\ Try\ to\ recover\ data\ for\ up\ to\ 4\ satellites\ in\ sentence}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00470}00470\ \ \ \ \ \ \ \ \ for\ sats\ in\ range(4,\ sat\_segment\_limit,\ 4):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ If\ a\ PRN\ is\ present,\ grab\ satellite\ data}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.gps\_segments[sats]:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sat\_id\ =\ int(self.gps\_segments[sats])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ except\ (ValueError,IndexError):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ try:\ \ \#\ elevation\ can\ be\ null\ (no\ value)\ when\ not\ tracking}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00480}00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elevation\ =\ int(self.gps\_segments[sats+1])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00481}00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ except\ (ValueError,IndexError):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00482}00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elevation\ =\ None}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00483}00483\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ try:\ \ \#\ azimuth\ can\ be\ null\ (no\ value)\ when\ not\ tracking}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00485}00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ azimuth\ =\ int(self.gps\_segments[sats+2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ except\ (ValueError,IndexError):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ azimuth\ =\ None}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00488}00488\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ try:\ \ \#\ SNR\ can\ be\ null\ (no\ value)\ when\ not\ tracking}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ snr\ =\ int(self.gps\_segments[sats+3])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ except\ (ValueError,IndexError):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ snr\ =\ None}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ If\ no\ PRN\ is\ found,\ then\ the\ sentence\ has\ no\ more\ satellites\ to\ read}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ break}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Add\ Satellite\ Data\ to\ Sentence\ Dict}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00498}00498\ \ \ \ \ \ \ \ \ \ \ \ \ satellite\_dict[sat\_id]\ =\ (elevation,\ azimuth,\ snr)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00499}00499\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00500}00500\ \ \ \ \ \ \ \ \ \#\ Update\ Object\ Data}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00501}00501\ \ \ \ \ \ \ \ \ self.total\_sv\_sentences\ =\ num\_sv\_sentences}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00502}00502\ \ \ \ \ \ \ \ \ self.last\_sv\_sentence\ =\ current\_sv\_sentence}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00503}00503\ \ \ \ \ \ \ \ \ self.satellites\_in\_view\ =\ sats\_in\_view}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00505}00505\ \ \ \ \ \ \ \ \ \#\ For\ a\ new\ set\ of\ sentences,\ we\ either\ clear\ out\ the\ existing\ sat\ data\ or}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00506}00506\ \ \ \ \ \ \ \ \ \#\ update\ it\ as\ additional\ SV\ sentences\ are\ parsed}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00507}00507\ \ \ \ \ \ \ \ \ if\ current\_sv\_sentence\ ==\ 1:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ \ \ self.satellite\_data\ =\ satellite\_dict}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00509}00509\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00510}00510\ \ \ \ \ \ \ \ \ \ \ \ \ self.satellite\_data.update(satellite\_dict)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00511}00511\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00512}00512\ \ \ \ \ \ \ \ \ return\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00514}00514\ \ \ \ \ \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00515}00515\ \ \ \ \ \#\ Data\ Stream\ Handler\ Functions}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00516}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3e42c2858b7a6489713bf1735ec7ebde}{00516}}\ \ \ \ \ def\ new\_sentence(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00517}00517\ \ \ \ \ \ \ \ \ "{}"{}"{}Adjust\ Object\ Flags\ in\ Preparation\ for\ a\ New\ Sentence"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00518}00518\ \ \ \ \ \ \ \ \ self.gps\_segments\ =\ ['']}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00519}00519\ \ \ \ \ \ \ \ \ self.active\_segment\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00520}00520\ \ \ \ \ \ \ \ \ self.crc\_xor\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00521}00521\ \ \ \ \ \ \ \ \ self.sentence\_active\ =\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00522}00522\ \ \ \ \ \ \ \ \ self.process\_crc\ =\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00523}00523\ \ \ \ \ \ \ \ \ self.char\_count\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00525}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac47e91a159c3b56c64e8d04784b77bf4}{00525}}\ \ \ \ \ def\ update(self,\ new\_char):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00526}00526\ \ \ \ \ \ \ \ \ "{}"{}"{}Process\ a\ new\ input\ char\ and\ updates\ GPS\ object\ if\ necessary\ based\ on\ special\ characters\ ('\$',\ ',',\ '*')}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00527}00527\ \ \ \ \ \ \ \ \ Function\ builds\ a\ list\ of\ received\ string\ that\ are\ validate\ by\ CRC\ prior\ to\ parsing\ by\ the\ \ appropriate}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00528}00528\ \ \ \ \ \ \ \ \ sentence\ function.\ Returns\ sentence\ type\ on\ successful\ parse,\ None\ otherwise"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00530}00530\ \ \ \ \ \ \ \ \ valid\_sentence\ =\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00531}00531\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00532}00532\ \ \ \ \ \ \ \ \ \#\ Validate\ new\_char\ is\ a\ printable\ char}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00533}00533\ \ \ \ \ \ \ \ \ ascii\_char\ =\ ord(new\_char)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00535}00535\ \ \ \ \ \ \ \ \ if\ 10\ <=\ ascii\_char\ <=\ 126:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ self.char\_count\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00537}00537\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Write\ Character\ to\ log\ file\ if\ enabled}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00539}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab06b7461ada71e1892d748d207575d71}{00539}}\ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.log\_en:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.write\_log(new\_char)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00541}00541\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Check\ if\ a\ new\ string\ is\ starting\ (\$)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ if\ new\_char\ ==\ '\$':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.new\_sentence()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ None}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00547}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a9ce47542bbea8089838258e42beec7ad}{00547}}\ \ \ \ \ \ \ \ \ \ \ \ \ elif\ self.sentence\_active:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00548}00548\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Check\ if\ sentence\ is\ ending\ (*)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ new\_char\ ==\ '*':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.process\_crc\ =\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.active\_segment\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.gps\_segments.append('')}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ None}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00555}00555\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Check\ if\ a\ section\ is\ ended\ (,),\ Create\ a\ new\ substring\ to\ feed}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ characters\ to}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elif\ new\_char\ ==\ ',':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.active\_segment\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.gps\_segments.append('')}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00561}00561\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Store\ All\ Other\ printable\ character\ and\ check\ CRC\ when\ ready}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00563}00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00564}00564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.gps\_segments[self.active\_segment]\ +=\ new\_char}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00565}00565\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ When\ CRC\ input\ is\ disabled,\ sentence\ is\ nearly\ complete}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00567}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_adeb1d2af7a0804dbe0a0526426d092ce}{00567}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ not\ self.process\_crc:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00569}00569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ len(self.gps\_segments[self.active\_segment])\ ==\ 2:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ final\_crc\ =\ int(self.gps\_segments[self.active\_segment],\ 16)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00572}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a471a9feb9ba33ce3f66a062f2ea6d22d}{00572}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.crc\_xor\ ==\ final\_crc:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00573}00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valid\_sentence\ =\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00574}00574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00575}00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.crc\_fails\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00576}00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ except\ ValueError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00577}00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pass\ \ \#\ CRC\ Value\ was\ deformed\ and\ could\ not\ have\ been\ correct}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00578}00578\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00579}00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Update\ CRC}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00580}00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.process\_crc:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00581}00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.crc\_xor\ \string^=\ ascii\_char}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ If\ a\ Valid\ Sentence\ Was\ received\ and\ it's\ a\ supported\ sentence,\ then\ parse\ it!!}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ valid\_sentence:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.clean\_sentences\ +=\ 1\ \ \#\ Increment\ clean\ sentences\ received}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.sentence\_active\ =\ False\ \ \#\ Clear\ Active\ Processing\ Flag}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00587}00587\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00588}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af93cd25d729911a1d17ca13e6fd30512}{00588}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.gps\_segments[0]\ in\ self.supported\_sentences:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00589}00589\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00590}00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ parse\ the\ Sentence\ Based\ on\ the\ message\ type,\ return\ True\ if\ parse\ is\ clean}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.supported\_sentences[self.gps\_segments[0]](self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00592}00592\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00593}00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Let\ host\ know\ that\ the\ GPS\ object\ was\ updated\ by\ returning\ parsed\ sentence\ type}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.parsed\_sentences\ +=\ 1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00595}00595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ self.gps\_segments[0]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00596}00596\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00597}00597\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Check\ that\ the\ sentence\ buffer\ isn't\ filling\ up\ with\ Garage\ waiting\ for\ the\ sentence\ to\ complete}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00598}00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.char\_count\ >\ self.SENTENCE\_LIMIT:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ self.sentence\_active\ =\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00600}00600\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00601}00601\ \ \ \ \ \ \ \ \ \#\ Tell\ Host\ no\ new\ sentence\ was\ parsed}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00602}00602\ \ \ \ \ \ \ \ \ return\ None}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00604}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afc6497ba8f20163d118b9dd33a562ebc}{00604}}\ \ \ \ \ def\ new\_fix\_time(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00605}00605\ \ \ \ \ \ \ \ \ "{}"{}"{}Updates\ a\ high\ resolution\ counter\ with\ current\ time\ when\ fix\ is\ updated.\ Currently\ only\ triggered\ from}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00606}00606\ \ \ \ \ \ \ \ \ GGA,\ GSA\ and\ RMC\ sentences"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00607}00607\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ self.fix\_time\ =\ utime.ticks\_ms()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00609}00609\ \ \ \ \ \ \ \ \ except\ NameError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00610}00610\ \ \ \ \ \ \ \ \ \ \ \ \ self.fix\_time\ =\ time.time()}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00611}00611\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00612}00612\ \ \ \ \ \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00613}00613\ \ \ \ \ \#\ User\ Helper\ Functions\ working\ with\ the\ GPS\ object\ data\ easier}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00614}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a7efdb841d3d5b95f9c76312e491b21da}{00614}}\ \ \ \ \ def\ satellite\_data\_updated(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00615}00615\ \ \ \ \ \ \ \ \ "{}"{}"{}Checks\ if\ the\ all\ the\ GSV\ sentences\ in\ a\ group\ have\ been\ read,\ making\ satellite\ data\ complete:return:\ boolean"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00616}00616\ \ \ \ \ \ \ \ \ if\ self.total\_sv\_sentences\ >\ 0\ and\ self.total\_sv\_sentences\ ==\ self.last\_sv\_sentence:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00617}00617\ \ \ \ \ \ \ \ \ \ \ \ \ return\ True}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00618}00618\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00619}00619\ \ \ \ \ \ \ \ \ \ \ \ \ return\ False}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00620}00620\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00621}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ae2a745894f94d6bf00d4ea008d5e77f0}{00621}}\ \ \ \ \ def\ unset\_satellite\_data\_updated(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00622}00622\ \ \ \ \ \ \ \ \ "{}"{}"{}Mark\ GSV\ sentences\ as\ read\ indicating\ the\ data\ has\ been\ used\ and\ future\ updates\ are\ fresh"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00623}00623\ \ \ \ \ \ \ \ \ self.last\_sv\_sentence\ =\ 0}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00624}00624\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00625}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a60b9fefaad2ec8a458e3ecc7f4a536e0}{00625}}\ \ \ \ \ def\ satellites\_visible(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00626}00626\ \ \ \ \ \ \ \ \ "{}"{}"{}Returns\ a\ list\ of\ of\ the\ satellite\ PRNs\ currently\ visible\ to\ the\ receiver:return:\ list"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00627}00627\ \ \ \ \ \ \ \ \ return\ list(self.satellite\_data.keys())}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00628}00628\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00629}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a17763abdc3bcc3636f303a51ce38f673}{00629}}\ \ \ \ \ def\ time\_since\_fix(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00630}00630\ \ \ \ \ \ \ \ \ "{}"{}"{}Returns\ number\ of\ millisecond\ since\ the\ last\ sentence\ with\ a\ valid\ fix\ was\ parsed.\ Returns\ 0\ if\ no\ fix\ has\ been\ found"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00631}00631\ \ \ \ \ \ \ \ \ \#\ Test\ if\ a\ Fix\ has\ been\ found}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00632}00632\ \ \ \ \ \ \ \ \ if\ self.fix\_time\ ==\ 0:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ \ \ return\ -\/1}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00634}00634\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00635}00635\ \ \ \ \ \ \ \ \ \#\ Try\ calculating\ fix\ time\ using\ utime;\ if\ not\ running\ MicroPython}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00636}00636\ \ \ \ \ \ \ \ \ \#\ time.time()\ returns\ a\ floating\ point\ value\ in\ secs}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00637}00637\ \ \ \ \ \ \ \ \ try:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00638}00638\ \ \ \ \ \ \ \ \ \ \ \ \ current\ =\ utime.ticks\_diff(utime.ticks\_ms(),\ self.fix\_time)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00639}00639\ \ \ \ \ \ \ \ \ except\ NameError:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00640}00640\ \ \ \ \ \ \ \ \ \ \ \ \ current\ =\ (time.time()\ -\/\ self.fix\_time)\ *\ 1000\ \ \#\ ms}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00641}00641\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00642}00642\ \ \ \ \ \ \ \ \ return\ current}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00643}00643\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00644}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ae471d22a1e9bb8b38470916e1701f5ad}{00644}}\ \ \ \ \ def\ compass\_direction(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00645}00645\ \ \ \ \ \ \ \ \ "{}"{}"{}Determine\ a\ cardinal\ or\ inter-\/cardinal\ direction\ based\ on\ current\ course.:return:\ string"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00646}00646\ \ \ \ \ \ \ \ \ \#\ Calculate\ the\ offset\ for\ a\ rotated\ compass}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00647}00647\ \ \ \ \ \ \ \ \ if\ self.course\ >=\ 348.75:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00648}00648\ \ \ \ \ \ \ \ \ \ \ \ \ offset\_course\ =\ 360\ -\/\ self.course}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00649}00649\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00650}00650\ \ \ \ \ \ \ \ \ \ \ \ \ offset\_course\ =\ self.course\ +\ 11.25}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00651}00651\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00652}00652\ \ \ \ \ \ \ \ \ \#\ Each\ compass\ point\ is\ separated\ by\ 22.5\ degrees,\ divide\ to\ find\ lookup\ value}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00653}00653\ \ \ \ \ \ \ \ \ dir\_index\ =\ floor(offset\_course\ /\ 22.5)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00655}00655\ \ \ \ \ \ \ \ \ final\_dir\ =\ self.\_\_DIRECTIONS[dir\_index]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00656}00656\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00657}00657\ \ \ \ \ \ \ \ \ return\ final\_dir}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00658}00658\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00659}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2c34f8476a0d6af4b83216f104cb6fd8}{00659}}\ \ \ \ \ def\ latitude\_string(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00660}00660\ \ \ \ \ \ \ \ \ "{}"{}"{}Create\ a\ readable\ string\ of\ the\ current\ latitude\ data:return:\ string"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00661}00661\ \ \ \ \ \ \ \ \ if\ self.coord\_format\ ==\ 'dd':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00662}00662\ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_latitude\ =\ self.latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ lat\_string\ =\ str(formatted\_latitude[0])\ +\ 'g\ '\ +\ str(self.\_latitude[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00664}00664\ \ \ \ \ \ \ \ \ elif\ self.coord\_format\ ==\ 'dms':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00665}00665\ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_latitude\ =\ self.latitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ lat\_string\ =\ str(formatted\_latitude[0])\ +\ 'g\ '\ +\ str(formatted\_latitude[1])\ +\ "{}'\ "{}\ +\ str(formatted\_latitude[2])\ +\ '"{}\ '\ +\ str(formatted\_latitude[3])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00667}00667\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00668}00668\ \ \ \ \ \ \ \ \ \ \ \ \ lat\_string\ =\ str(self.\_latitude[0])\ +\ 'g\ '\ +\ str(self.\_latitude[1])\ +\ "{}'\ "{}\ +\ str(self.\_latitude[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00669}00669\ \ \ \ \ \ \ \ \ return\ lat\_string}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00670}00670\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00671}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6f8ee8a23a82b0a37442090ca2bcd5cf}{00671}}\ \ \ \ \ def\ longitude\_string(self):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00672}00672\ \ \ \ \ \ \ \ \ "{}"{}"{}Create\ a\ readable\ string\ of\ the\ current\ longitude\ data:\ return:\ string"{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00673}00673\ \ \ \ \ \ \ \ \ if\ self.coord\_format\ ==\ 'dd':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_longitude\ =\ self.longitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ lon\_string\ =\ str(formatted\_longitude[0])\ +\ 'g\ '\ +\ str(self.\_longitude[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00676}00676\ \ \ \ \ \ \ \ \ elif\ self.coord\_format\ ==\ 'dms':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ \ formatted\_longitude\ =\ self.longitude}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ lon\_string\ =\ str(formatted\_longitude[0])\ +\ 'g\ '\ +\ str(formatted\_longitude[1])\ +\ "{}'\ "{}\ +\ str(formatted\_longitude[2])\ +\ '"{}\ '\ +\ str(formatted\_longitude[3])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00679}00679\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ lon\_string\ =\ str(self.\_longitude[0])\ +\ 'g\ '\ +\ str(self.\_longitude[1])\ +\ "{}'\ "{}\ +\ str(self.\_longitude[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00681}00681\ \ \ \ \ \ \ \ \ return\ lon\_string}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00682}00682\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00683}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a5804017a7bc43f01587b9dd4ce4f7d31}{00683}}\ \ \ \ \ def\ speed\_string(self,\ unit='kph'):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00684}00684\ \ \ \ \ \ \ \ \ "{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00685}00685\ \ \ \ \ \ \ \ \ Creates\ a\ readable\ string\ of\ the\ current\ speed\ data\ in\ one\ of\ three\ units}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00686}00686\ \ \ \ \ \ \ \ \ :param\ unit:\ string\ of\ 'kph'\ or\ 'mph}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00687}00687\ \ \ \ \ \ \ \ \ :return:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00688}00688\ \ \ \ \ \ \ \ \ "{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00689}00689\ \ \ \ \ \ \ \ \ if\ unit\ ==\ 'mph':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ speed\_string\ =\ f"{}\{self.speed[1]:.2f\}\ mph"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00691}00691\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00692}00692\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00693}00693\ \ \ \ \ \ \ \ \ \ \ \ \ speed\_string\ =\ f"{}\{self.speed[2]:.2f\}\ km/h"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00694}00694\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00695}00695\ \ \ \ \ \ \ \ \ return\ speed\_string}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00696}00696\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00697}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a5f6b604f27a64f56fe5365c008fee2eb}{00697}}\ \ \ \ \ def\ date\_string(self,\ formatting='s\_dmy',\ century='20'):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00698}00698\ \ \ \ \ \ \ \ \ "{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00699}00699\ \ \ \ \ \ \ \ \ Creates\ a\ readable\ string\ of\ the\ current\ date.}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00700}00700\ \ \ \ \ \ \ \ \ Can\ select\ between\ long\ format:\ Januray\ 1st,\ 2014}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00701}00701\ \ \ \ \ \ \ \ \ or\ two\ short\ formats:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00702}00702\ \ \ \ \ \ \ \ \ 11/01/2014\ (MM/DD/YYYY)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00703}00703\ \ \ \ \ \ \ \ \ 01/11/2014\ (DD/MM/YYYY)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00704}00704\ \ \ \ \ \ \ \ \ :param\ formatting:\ string\ 's\_mdy',\ 's\_dmy',\ or\ 'long'}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00705}00705\ \ \ \ \ \ \ \ \ :param\ century:\ int\ delineating\ the\ century\ the\ GPS\ data\ is\ from\ (19\ for\ 19XX,\ 20\ for\ 20XX)}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00706}00706\ \ \ \ \ \ \ \ \ :return:\ date\_string\ \ string\ with\ long\ or\ short\ format\ date}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00707}00707\ \ \ \ \ \ \ \ \ "{}"{}"{}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00708}00708\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00709}00709\ \ \ \ \ \ \ \ \ \#\ Long\ Format\ Januray\ 1st,\ 2014}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00710}00710\ \ \ \ \ \ \ \ \ if\ formatting\ ==\ 'long':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00711}00711\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Retrieve\ Month\ string\ from\ private\ set}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00712}00712\ \ \ \ \ \ \ \ \ \ \ \ \ month\ =\ self.\_\_MONTHS[self.date[1]\ -\/\ 1]}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00713}00713\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Determine\ Date\ Suffix}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00715}00715\ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.date[0]\ in\ (1,\ 21,\ 31):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00716}00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ suffix\ =\ 'st'}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00717}00717\ \ \ \ \ \ \ \ \ \ \ \ \ elif\ self.date[0]\ in\ (2,\ 22):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00718}00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ suffix\ =\ 'nd'}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00719}00719\ \ \ \ \ \ \ \ \ \ \ \ \ elif\ self.date[0]\ ==\ (3,\ 23):}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00720}00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ suffix\ =\ 'rd'}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00721}00721\ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00722}00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ suffix\ =\ 'th'}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00723}00723\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00724}00724\ \ \ \ \ \ \ \ \ \ \ \ \ day\ =\ str(self.date[0])\ +\ suffix\ \ \#\ Create\ Day\ String}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00725}00725\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00726}00726\ \ \ \ \ \ \ \ \ \ \ \ \ year\ =\ century\ +\ str(self.date[2])\ \ \#\ Create\ Year\ String}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00727}00727\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00728}00728\ \ \ \ \ \ \ \ \ \ \ \ \ date\_string\ =\ month\ +\ '\ '\ +\ day\ +\ ',\ '\ +\ year\ \ \#\ Put\ it\ all\ together}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00729}00729\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00730}00730\ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00731}00731\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Add\ leading\ zeros\ to\ day\ string\ if\ necessary}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.date[0]\ <\ 10:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00733}00733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ day\ =\ '0'\ +\ str(self.date[0])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00734}00734\ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00735}00735\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ day\ =\ str(self.date[0])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00736}00736\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Add\ leading\ zeros\ to\ month\ string\ if\ necessary}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00738}00738\ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.date[1]\ <\ 10:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00739}00739\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ month\ =\ '0'\ +\ str(self.date[1])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00740}00740\ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00741}00741\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ month\ =\ str(self.date[1])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00742}00742\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Add\ leading\ zeros\ to\ year\ string\ if\ necessary}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00744}00744\ \ \ \ \ \ \ \ \ \ \ \ \ if\ self.date[2]\ <\ 10:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ year\ =\ '0'\ +\ str(self.date[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00746}00746\ \ \ \ \ \ \ \ \ \ \ \ \ else:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00747}00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ year\ =\ str(self.date[2])}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00748}00748\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00749}00749\ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Build\ final\ string\ based\ on\ desired\ formatting}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ if\ formatting\ ==\ 's\_dmy':}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00751}00751\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ date\_string\ =\ day\ +\ '/'\ +\ month\ +\ '/'\ +\ year}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00752}00752\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00753}00753\ \ \ \ \ \ \ \ \ \ \ \ \ else:\ \ \#\ Default\ date\ format}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00754}00754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ date\_string\ =\ month\ +\ '/'\ +\ day\ +\ '/'\ +\ year}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00755}00755\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00756}00756\ \ \ \ \ \ \ \ \ return\ date\_string}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00757}00757\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00758}00758\ \ \ \ \ \#\ All\ the\ currently\ supported\ NMEA\ sentences}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00759}\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af31db599a46d8f61981e1e8836ca6a30}{00759}}\ \ \ \ \ supported\_sentences\ =\ \{'GPRMC':\ gprmc,\ 'GLRMC':\ gprmc,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00760}00760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GPGGA':\ gpgga,\ 'GLGGA':\ gpgga,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GPVTG':\ gpvtg,\ 'GLVTG':\ gpvtg,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GPGSA':\ gpgsa,\ 'GLGSA':\ gpgsa,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00763}00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GPGSV':\ gpgsv,\ 'GLGSV':\ gpgsv,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00764}00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GPGLL':\ gpgll,\ 'GLGLL':\ gpgll,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GNGGA':\ gpgga,\ 'GNRMC':\ gprmc,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GNVTG':\ gpvtg,\ 'GNGLL':\ gpgll,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00767}00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 'GNGSA':\ gpgsa,}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00768}00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00769}00769\ }
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00770}00770\ if\ \_\_name\_\_\ ==\ "{}\_\_main\_\_"{}:}
+\DoxyCodeLine{\Hypertarget{lib_g_p_s_8py_source_l00771}00771\ \ \ \ \ pass}
+
+\end{DoxyCode}

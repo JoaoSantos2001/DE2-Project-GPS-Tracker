@@ -1,189 +1,195 @@
 \doxysection{Main\+\_\+v2.0.py}
-\label{_main__v2_80_8py_source}\index{Code/Main\_v2.0.py@{Code/Main\_v2.0.py}}
-\textbf{ Go to the documentation of this file.}
+\hypertarget{_main__v2_80_8py_source}{}\label{_main__v2_80_8py_source}\index{Code/Main\_v2.0.py@{Code/Main\_v2.0.py}}
+\mbox{\hyperlink{_main__v2_80_8py}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{00002\ \textcolor{stringliteral}{===============================================================================}}
-\DoxyCodeLine{00003\ \textcolor{stringliteral}{Project\ Name:\ GPS\ Data\ Display\ on\ OLED}}
-\DoxyCodeLine{00004\ \textcolor{stringliteral}{File\ Name:\ Main\_v2.0.py}}
-\DoxyCodeLine{00005\ \textcolor{stringliteral}{Description:\ This\ script\ reads\ GPS\ data\ from\ a\ UART-\/connected\ GPS\ module,\ parses\ }}
-\DoxyCodeLine{00006\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ the\ data\ using\ MicropyGPS,\ and\ displays\ it\ on\ an\ SH1106\ OLED\ screen.\ }}
-\DoxyCodeLine{00007\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ The\ displayed\ information\ includes\ time,\ date,\ latitude,\ longitude,\ }}
-\DoxyCodeLine{00008\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ altitude,\ number\ of\ satellites,\ and\ horizontal\ dilution\ of\ precision\ (HDOP).}}
-\DoxyCodeLine{00009\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{00010\ \textcolor{stringliteral}{Authors:\ }}
-\DoxyCodeLine{00011\ \textcolor{stringliteral}{\ \ -\/\ Guilherme\ Brito}}
-\DoxyCodeLine{00012\ \textcolor{stringliteral}{\ \ -\/\ Henrique\ Silva}}
-\DoxyCodeLine{00013\ \textcolor{stringliteral}{\ \ -\/\ João\ Santos}}
-\DoxyCodeLine{00014\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{00015\ \textcolor{stringliteral}{Version:\ 2.0}}
-\DoxyCodeLine{00016\ \textcolor{stringliteral}{Date\ Created:\ 14-\/11-\/2024}}
-\DoxyCodeLine{00017\ \textcolor{stringliteral}{Last\ Modified:\ 21-\/11-\/2024}}
-\DoxyCodeLine{00018\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{00019\ \textcolor{stringliteral}{Parameters:}}
-\DoxyCodeLine{00020\ \textcolor{stringliteral}{\ \ -\/\ I2C\ Pins:\ SCL\ =\ GP22,\ SDA\ =\ GP21}}
-\DoxyCodeLine{00021\ \textcolor{stringliteral}{\ \ -\/\ UART\ Pins:\ TX\ =\ GP17,\ RX\ =\ GP16}}
-\DoxyCodeLine{00022\ \textcolor{stringliteral}{\ \ -\/\ OLED\ Contrast:\ 80\%}}
-\DoxyCodeLine{00023\ \textcolor{stringliteral}{\ \ -\/\ GPS\ Baud\ Rate:\ 9600}}
-\DoxyCodeLine{00024\ \textcolor{stringliteral}{\ \ -\/\ Display\ Refresh\ Interval:\ 1\ second}}
-\DoxyCodeLine{00025\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{00026\ \textcolor{stringliteral}{Usage:}}
-\DoxyCodeLine{00027\ \textcolor{stringliteral}{\ \ -\/\ Ensure\ the\ SH1106\ OLED\ display\ and\ GPS\ module\ are\ connected\ as\ per\ the\ pin\ }}
-\DoxyCodeLine{00028\ \textcolor{stringliteral}{\ \ \ \ configuration.}}
-\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ -\/\ Upload\ the\ script\ to\ a\ microcontroller\ and\ monitor\ the\ OLED\ for\ GPS\ data.}}
-\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ -\/\ Exit\ the\ program\ with\ Ctrl+C.}}
-\DoxyCodeLine{00031\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{00032\ \textcolor{stringliteral}{Dependencies:}}
-\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ -\/\ machine\ (for\ I2C\ and\ UART)}}
-\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ -\/\ sh1106\ (OLED\ display\ driver)}}
-\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ -\/\ libGPS\ (Adaptation\ of\ the\ MicropyGPS\ for\ GPS\ parsing)}}
-\DoxyCodeLine{00036\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{00037\ \textcolor{stringliteral}{Notes:}}
-\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ -\/\ This\ code\ is\ optimize\ for\ ESP32}}
-\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ -\/\ See\ documentation\ for\ connections\ between\ the\ three\ }}
-\DoxyCodeLine{00040\ \textcolor{stringliteral}{}}
-\DoxyCodeLine{00041\ \textcolor{stringliteral}{===============================================================================}}
-\DoxyCodeLine{00042\ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \textcolor{keyword}{import}\ machine}
-\DoxyCodeLine{00045\ \textcolor{keyword}{from}\ machine\ \textcolor{keyword}{import}\ I2C,\ Pin}
-\DoxyCodeLine{00046\ \textcolor{keyword}{from}\ sh1106\ \textcolor{keyword}{import}\ SH1106\_I2C}
-\DoxyCodeLine{00047\ \textcolor{keyword}{from}\ time\ \textcolor{keyword}{import}\ sleep}
-\DoxyCodeLine{00048\ \textcolor{keyword}{from}\ libGPS\ \textcolor{keyword}{import}\ MicropyGPS}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \textcolor{comment}{\#\ Constants}}
-\DoxyCodeLine{00051\ I2C\_SCL\_PIN\ =\ 22\ \ \textcolor{comment}{\#\ Pin\ for\ I2C\ clock\ line}}
-\DoxyCodeLine{00052\ I2C\_SDA\_PIN\ =\ 21\ \ \textcolor{comment}{\#\ Pin\ for\ I2C\ data\ line}}
-\DoxyCodeLine{00053\ I2C\_FREQ\ =\ 100\_000\ \ \textcolor{comment}{\#\ Frequency\ for\ I2C\ communication\ in\ Hz}}
-\DoxyCodeLine{00054\ UART\_TX\_PIN\ =\ 17\ \ \textcolor{comment}{\#\ Pin\ for\ UART\ TX}}
-\DoxyCodeLine{00055\ UART\_RX\_PIN\ =\ 16\ \ \textcolor{comment}{\#\ Pin\ for\ UART\ RX}}
-\DoxyCodeLine{00056\ UART\_BAUDRATE\ =\ 9600\ \ \textcolor{comment}{\#\ Baud\ rate\ for\ UART\ communication}}
-\DoxyCodeLine{00057\ OLED\_CONTRAST\ =\ 80\ \ \textcolor{comment}{\#\ Contrast\ setting\ for\ the\ OLED\ display\ (0-\/255)}}
-\DoxyCodeLine{00058\ DISPLAY\_REFRESH\_INTERVAL\ =\ 1\ \ \textcolor{comment}{\#\ Interval\ for\ refreshing\ the\ display\ in\ seconds}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00060\ \textcolor{comment}{\#\ Function:\ initialize\_display}}
-\DoxyCodeLine{00061\ \textcolor{comment}{\#\ Description:\ Initializes\ the\ OLED\ display\ via\ I2C.}}
-\DoxyCodeLine{00062\ \textcolor{comment}{\#\ Returns:\ The\ initialized\ OLED\ object.}}
-\DoxyCodeLine{00063\ \textcolor{comment}{\#\ Raises:\ Exception\ if\ the\ I2C\ or\ OLED\ initialization\ fails.}}
-\DoxyCodeLine{00064\ \textcolor{keyword}{def\ }initialize\_display():}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{00066\ \textcolor{stringliteral}{\ \ \ \ Set\ up\ the\ I2C\ bus\ and\ OLED\ display.}}
-\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{try}:}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Initialize\ I2C\ bus}}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ i2c\ =\ I2C(0,\ scl=Pin(I2C\_SCL\_PIN),\ sda=Pin(I2C\_SDA\_PIN),\ freq=I2C\_FREQ)}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Initialize\ OLED\ display}}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ oled\ =\ SH1106\_I2C(i2c)}
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ oled.contrast(OLED\_CONTRAST)}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ oled}
-\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Error\ initializing\ OLED:\ \{e\}"{}})}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \textcolor{comment}{\#\ Function:\ update\_display}}
-\DoxyCodeLine{00080\ \textcolor{comment}{\#\ Description:\ Updates\ the\ OLED\ display\ with\ the\ given\ GPS\ data.}}
-\DoxyCodeLine{00081\ \textcolor{comment}{\#\ Parameters:}}
-\DoxyCodeLine{00082\ \textcolor{comment}{\#\ \ \ oled\ (SH1106\_I2C):\ The\ OLED\ display\ object.}}
-\DoxyCodeLine{00083\ \textcolor{comment}{\#\ \ \ gps\_data\ (dict):\ Dictionary\ containing\ GPS\ data\ (time,\ date,\ lat,\ long,\ etc.).}}
-\DoxyCodeLine{00084\ \textcolor{keyword}{def\ }update\_display(oled,\ gps\_data):}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{00086\ \textcolor{stringliteral}{\ \ \ \ Refreshes\ the\ OLED\ display\ with\ new\ GPS\ data.}}
-\DoxyCodeLine{00087\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{00088\ \ \ \ \ oled.fill(0)\ \ \textcolor{comment}{\#\ Clear\ the\ screen}}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{\#\ Display\ labels}}
-\DoxyCodeLine{00091\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Time:"{}},\ 0,\ 0)\ \textcolor{comment}{\#(text,\ x\ position,\ y\ position)}}
-\DoxyCodeLine{00092\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Date:"{}},\ 0,\ 9)}
-\DoxyCodeLine{00093\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Lat:"{}},\ 0,\ 18)}
-\DoxyCodeLine{00094\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Long:"{}},\ 0,\ 27)}
-\DoxyCodeLine{00095\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Altitude:"{}},\ 0,\ 36)}
-\DoxyCodeLine{00096\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}N\ Satellites:"{}},\ 0,\ 45)}
-\DoxyCodeLine{00097\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}HDOP:"{}},\ 0,\ 54)}
-\DoxyCodeLine{00098\ }
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{\#\ Display\ GPS\ data}}
-\DoxyCodeLine{00100\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['time']\}"{}},\ 38,\ 0)\ \ \textcolor{comment}{\#\ Truncate\ time\ to\ HH:MM:SS}}
-\DoxyCodeLine{00101\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['date']\}"{}},\ 38,\ 9)}
-\DoxyCodeLine{00102\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['latitude'][:12]\}"{}},\ 30,\ 18)}
-\DoxyCodeLine{00103\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['longitude'][:12]\}"{}},\ 38,\ 27)}
-\DoxyCodeLine{00104\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['altitude']\}"{}},\ 70,\ 36)}
-\DoxyCodeLine{00105\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['satellites']\}"{}},\ 103,\ 45)}
-\DoxyCodeLine{00106\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['hdop']\}"{}},\ 38,\ 54)}
-\DoxyCodeLine{00107\ \ \ \ \ oled.show()\ \ \textcolor{comment}{\#\ Update\ the\ OLED\ screen\ }}
-\DoxyCodeLine{00108\ }
-\DoxyCodeLine{00109\ }
-\DoxyCodeLine{00110\ \textcolor{comment}{\#\ Function:\ parse\_gps\_data}}
-\DoxyCodeLine{00111\ \textcolor{comment}{\#\ Description:\ Parses\ raw\ GPS\ data\ from\ the\ MicropyGPS\ object\ into\ a\ dictionary.}}
-\DoxyCodeLine{00112\ \textcolor{comment}{\#\ Parameters:}}
-\DoxyCodeLine{00113\ \textcolor{comment}{\#\ \ \ my\_gps\ (MicropyGPS):\ The\ MicropyGPS\ object\ handling\ GPS\ data\ parsing.}}
-\DoxyCodeLine{00114\ \textcolor{comment}{\#\ Returns:\ Dictionary\ containing\ parsed\ GPS\ data.}}
-\DoxyCodeLine{00115\ \textcolor{keyword}{def\ }parse\_gps\_data(my\_gps):}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{00117\ \textcolor{stringliteral}{\ \ \ \ Extracts\ GPS\ data\ from\ the\ MicropyGPS\ object\ and\ formats\ it.}}
-\DoxyCodeLine{00118\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'time'}:\ my\_gps.timestamp,\ \ \textcolor{comment}{\#\ Format\ time\ as\ HH:MM:SS}}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date'}:\ my\_gps.date\_string(\textcolor{stringliteral}{'s\_dmy'}),\ \ \textcolor{comment}{\#\ Date\ in\ DD/MM/YYYY\ format}}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'latitude'}:\ my\_gps.latitude\_string(),\ \ \textcolor{comment}{\#\ Latitude\ in\ degrees/minutes/seconds}}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'longitude'}:\ my\_gps.longitude\_string(),\ \ \textcolor{comment}{\#\ Longitude\ in\ degrees/minutes/seconds}}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'altitude'}:\ str(my\_gps.altitude),\ \ \textcolor{comment}{\#\ Altitude\ in\ meters}}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'satellites'}:\ str(my\_gps.satellites\_in\_use),\ \ \textcolor{comment}{\#\ Number\ of\ satellites\ in\ use}}
-\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hdop'}:\ str(my\_gps.hdop),\ \ \textcolor{comment}{\#\ Horizontal\ Dilution\ of\ Precision}}
-\DoxyCodeLine{00127\ \ \ \ \ \}}
-\DoxyCodeLine{00128\ }
-\DoxyCodeLine{00129\ \textcolor{comment}{\#\ Function:\ main}}
-\DoxyCodeLine{00130\ \textcolor{comment}{\#\ Description:\ Main\ function\ to\ initialize\ components\ and\ handle\ GPS\ data\ processing\ and\ display\ updates.}}
-\DoxyCodeLine{00131\ \textcolor{keyword}{def\ }main():}
-\DoxyCodeLine{00132\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
-\DoxyCodeLine{00133\ \textcolor{stringliteral}{\ \ \ \ The\ main\ program\ loop.\ Initializes\ the\ OLED\ display\ and\ GPS\ module,\ then\ continuously}}
-\DoxyCodeLine{00134\ \textcolor{stringliteral}{\ \ \ \ updates\ the\ display\ with\ parsed\ GPS\ data.}}
-\DoxyCodeLine{00135\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
-\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{\#\ Initialize\ the\ OLED\ display}}
-\DoxyCodeLine{00137\ \ \ \ \ oled\ =\ initialize\_display()}
-\DoxyCodeLine{00138\ }
-\DoxyCodeLine{00139\ \ \ \ \ \textcolor{comment}{\#\ Instantiate\ the\ GPS\ parser}}
-\DoxyCodeLine{00140\ \ \ \ \ my\_gps\ =\ MicropyGPS()}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \ \ \ \ \textcolor{comment}{\#\ Initialize\ UART\ for\ GPS\ communication}}
-\DoxyCodeLine{00143\ \ \ \ \ gps\_serial\ =\ machine.UART(2,\ baudrate=UART\_BAUDRATE,\ tx=UART\_TX\_PIN,\ rx=UART\_RX\_PIN)}
-\DoxyCodeLine{00144\ \ \ \ \ }
-\DoxyCodeLine{00145\ \ \ \ \ print(\textcolor{stringliteral}{"{}System\ initialized.\ Press\ Ctrl+C\ to\ exit."{}})}
-\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{try}:}
-\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
-\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ gps\_data\_available\ =\ \textcolor{keyword}{False}}
-\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Read\ GPS\ data\ from\ the\ UART\ interface}}
-\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ gps\_serial.any():}
-\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\ =\ gps\_serial.read()}
-\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ byte\ \textcolor{keywordflow}{in}\ data:}
-\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Update\ GPS\ parser\ with\ each\ byte}}
-\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ my\_gps.update(chr(byte))\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
-\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gps\_data\_available\ =\ \textcolor{keyword}{True}}
-\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ If\ new\ GPS\ data\ is\ available,\ process\ and\ display\ it}}
-\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ gps\_data\_available:}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gps\_data\ =\ parse\_gps\_data(my\_gps)}
-\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ update\_display(oled,\ gps\_data)}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Print\ GPS\ data\ line\ by\ line\ for\ readability}}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ GPS\ Data\ -\/-\/-\/"{}})}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ value\ \textcolor{keywordflow}{in}\ gps\_data.items():}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Print\ GPS\ data\ line\ by\ line\ for\ readability}}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ GPS\ Data\ -\/-\/-\/"{}})}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Time:\ \{gps\_data['time']\}"{}})}
-\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Date:\ \{gps\_data['date']\}"{}})}
-\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Latitude:\ \{gps\_data['latitude']\}"{}})}
-\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Longitude:\ \{gps\_data['longitude']\}"{}})}
-\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Altitude:\ \{gps\_data['altitude']\}\ meters"{}})}
-\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Satellites:\ \{gps\_data['satellites']\}"{}})}
-\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}HDOP:\ \{gps\_data['hdop']\}"{}})}
-\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}})}
-\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ sleep(DISPLAY\_REFRESH\_INTERVAL)\ \ \textcolor{comment}{\#\ Delay\ to\ control\ refresh\ rate}}
-\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{except}\ KeyboardInterrupt:}
-\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Program\ stopped.\ Exiting..."{}})}
-\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ oled.poweroff()\ \ \textcolor{comment}{\#\ Turn\ off\ the\ OLED\ display}}
-\DoxyCodeLine{00180\ }
-\DoxyCodeLine{00181\ \textcolor{comment}{\#\ Entry\ point\ for\ the\ script}}
-\DoxyCodeLine{00182\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
-\DoxyCodeLine{00183\ \ \ \ \ main()}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00001}\mbox{\hyperlink{namespace_main__v2}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00002}00002\ \textcolor{stringliteral}{===============================================================================}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00003}00003\ \textcolor{stringliteral}{Project\ Name:\ GPS\ Data\ Display\ on\ OLED}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00004}00004\ \textcolor{stringliteral}{File\ Name:\ Main\_v2.0.py}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00005}00005\ \textcolor{stringliteral}{Description:\ This\ script\ reads\ GPS\ data\ from\ a\ UART-\/connected\ GPS\ module,\ parses\ }}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00006}00006\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ the\ data\ using\ MicropyGPS,\ and\ displays\ it\ on\ an\ SH1106\ OLED\ screen.\ }}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00007}00007\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ The\ displayed\ information\ includes\ time,\ date,\ latitude,\ longitude,\ }}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00008}00008\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ altitude,\ number\ of\ satellites,\ and\ horizontal\ dilution\ of\ precision\ (HDOP).}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00009}00009\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00010}00010\ \textcolor{stringliteral}{Authors:\ }}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00011}00011\ \textcolor{stringliteral}{\ \ -\/\ Guilherme\ Brito}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00012}00012\ \textcolor{stringliteral}{\ \ -\/\ Henrique\ Silva}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00013}00013\ \textcolor{stringliteral}{\ \ -\/\ João\ Santos}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00014}00014\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00015}00015\ \textcolor{stringliteral}{Version:\ 2.0}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00016}00016\ \textcolor{stringliteral}{Date\ Created:\ 14-\/11-\/2024}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00017}00017\ \textcolor{stringliteral}{Last\ Modified:\ 21-\/11-\/2024}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00018}00018\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00019}00019\ \textcolor{stringliteral}{Parameters:}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ -\/\ I2C\ Pins:\ SCL\ =\ GP22,\ SDA\ =\ GP21}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00021}00021\ \textcolor{stringliteral}{\ \ -\/\ UART\ Pins:\ TX\ =\ GP17,\ RX\ =\ GP16}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ -\/\ OLED\ Contrast:\ 80\%}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ -\/\ GPS\ Baud\ Rate:\ 9600}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ -\/\ Display\ Refresh\ Interval:\ 1\ second}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00025}00025\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00026}00026\ \textcolor{stringliteral}{Usage:}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00027}00027\ \textcolor{stringliteral}{\ \ -\/\ Ensure\ the\ SH1106\ OLED\ display\ and\ GPS\ module\ are\ connected\ as\ per\ the\ pin\ }}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00028}00028\ \textcolor{stringliteral}{\ \ \ \ configuration.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00029}00029\ \textcolor{stringliteral}{\ \ -\/\ Upload\ the\ script\ to\ a\ microcontroller\ and\ monitor\ the\ OLED\ for\ GPS\ data.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00030}00030\ \textcolor{stringliteral}{\ \ -\/\ Exit\ the\ program\ with\ Ctrl+C.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00031}00031\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00032}00032\ \textcolor{stringliteral}{Dependencies:}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00033}00033\ \textcolor{stringliteral}{\ \ -\/\ machine\ (for\ I2C\ and\ UART)}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00034}00034\ \textcolor{stringliteral}{\ \ -\/\ sh1106\ (OLED\ display\ driver)}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00035}00035\ \textcolor{stringliteral}{\ \ -\/\ libGPS\ (Adaptation\ of\ the\ MicropyGPS\ for\ GPS\ parsing)}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00036}00036\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00037}00037\ \textcolor{stringliteral}{Notes:}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ -\/\ This\ code\ is\ optimize\ for\ ESP32}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00039}00039\ \textcolor{stringliteral}{\ \ -\/\ See\ documentation\ for\ connections\ between\ the\ three\ }}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00040}00040\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00041}00041\ \textcolor{stringliteral}{===============================================================================}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00042}00042\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00044}00044\ \textcolor{keyword}{import}\ machine}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00045}00045\ \textcolor{keyword}{from}\ machine\ \textcolor{keyword}{import}\ I2C,\ Pin}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00046}00046\ \textcolor{keyword}{from}\ sh1106\ \textcolor{keyword}{import}\ SH1106\_I2C}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00047}00047\ \textcolor{keyword}{from}\ time\ \textcolor{keyword}{import}\ sleep}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00048}00048\ \textcolor{keyword}{from}\ libGPS\ \textcolor{keyword}{import}\ MicropyGPS}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00050}00050\ \textcolor{comment}{\#\ Constants}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00051}\mbox{\hyperlink{namespace_main__v2_a945ae7064f2234da6ec26180918fad6f}{00051}}\ I2C\_SCL\_PIN\ =\ 22\ \ \textcolor{comment}{\#\ Pin\ for\ I2C\ clock\ line}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00052}\mbox{\hyperlink{namespace_main__v2_ae760e59ed4070dd296b571feba94fb11}{00052}}\ I2C\_SDA\_PIN\ =\ 21\ \ \textcolor{comment}{\#\ Pin\ for\ I2C\ data\ line}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00053}\mbox{\hyperlink{namespace_main__v2_a4197313a2186137cbedbc96724d07ad3}{00053}}\ I2C\_FREQ\ =\ 100\_000\ \ \textcolor{comment}{\#\ Frequency\ for\ I2C\ communication\ in\ Hz}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00054}\mbox{\hyperlink{namespace_main__v2_a2904b10604c28fb0c0d7a0841626288f}{00054}}\ UART\_TX\_PIN\ =\ 17\ \ \textcolor{comment}{\#\ Pin\ for\ UART\ TX}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00055}\mbox{\hyperlink{namespace_main__v2_a269d8c8bb34be974ec143d5d02726f78}{00055}}\ UART\_RX\_PIN\ =\ 16\ \ \textcolor{comment}{\#\ Pin\ for\ UART\ RX}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00056}\mbox{\hyperlink{namespace_main__v2_a44073d2bd698f971818ddcd41e4fdaf0}{00056}}\ UART\_BAUDRATE\ =\ 9600\ \ \textcolor{comment}{\#\ Baud\ rate\ for\ UART\ communication}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00057}\mbox{\hyperlink{namespace_main__v2_adb50883aa3b73af6bb17d0bd740b3d34}{00057}}\ OLED\_CONTRAST\ =\ 80\ \ \textcolor{comment}{\#\ Contrast\ setting\ for\ the\ OLED\ display\ (0-\/255)}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00058}\mbox{\hyperlink{namespace_main__v2_aacf3b2bcbd1c93f5ce44c4312da5cf4c}{00058}}\ DISPLAY\_REFRESH\_INTERVAL\ =\ 1\ \ \textcolor{comment}{\#\ Interval\ for\ refreshing\ the\ display\ in\ seconds}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00060}00060\ \textcolor{comment}{\#\ Function:\ initialize\_display}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00061}00061\ \textcolor{comment}{\#\ Description:\ Initializes\ the\ OLED\ display\ via\ I2C.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00062}00062\ \textcolor{comment}{\#\ Returns:\ The\ initialized\ OLED\ object.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00063}00063\ \textcolor{comment}{\#\ Raises:\ Exception\ if\ the\ I2C\ or\ OLED\ initialization\ fails.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00064}\mbox{\hyperlink{namespace_main__v2_a22448d3b46062bde102492476662abf3}{00064}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespace_main__v2_a22448d3b46062bde102492476662abf3}{initialize\_display}}():}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00065}00065\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00066}00066\ \textcolor{stringliteral}{\ \ \ \ Set\ up\ the\ I2C\ bus\ and\ OLED\ display.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00067}00067\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Initialize\ I2C\ bus}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ i2c\ =\ I2C(0,\ scl=Pin(I2C\_SCL\_PIN),\ sda=Pin(I2C\_SDA\_PIN),\ freq=I2C\_FREQ)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Initialize\ OLED\ display}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ oled\ =\ SH1106\_I2C(i2c)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ oled.contrast(OLED\_CONTRAST)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ oled}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{except}\ Exception\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Error\ initializing\ OLED:\ \{e\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00079}00079\ \textcolor{comment}{\#\ Function:\ update\_display}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00080}00080\ \textcolor{comment}{\#\ Description:\ Updates\ the\ OLED\ display\ with\ the\ given\ GPS\ data.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00081}00081\ \textcolor{comment}{\#\ Parameters:}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00082}00082\ \textcolor{comment}{\#\ \ \ oled\ (SH1106\_I2C):\ The\ OLED\ display\ object.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00083}00083\ \textcolor{comment}{\#\ \ \ gps\_data\ (dict):\ Dictionary\ containing\ GPS\ data\ (time,\ date,\ lat,\ long,\ etc.).}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00084}\mbox{\hyperlink{namespace_main__v2_a181abfd8ec76b25bf56a43a65a028d3e}{00084}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespace_main__v2_a181abfd8ec76b25bf56a43a65a028d3e}{update\_display}}(oled,\ gps\_data):}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00085}00085\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00086}00086\ \textcolor{stringliteral}{\ \ \ \ Refreshes\ the\ OLED\ display\ with\ new\ GPS\ data.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00087}00087\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00088}00088\ \ \ \ \ oled.fill(0)\ \ \textcolor{comment}{\#\ Clear\ the\ screen}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00090}00090\ \ \ \ \ \textcolor{comment}{\#\ Display\ labels}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00091}00091\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Date:"{}},\ 0,\ 0)\ \textcolor{comment}{\#(text,\ x\ position,\ y\ position)}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00092}00092\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Time:"{}},\ 0,\ 9)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00093}00093\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Lat:"{}},\ 0,\ 18)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00094}00094\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Long:"{}},\ 0,\ 27)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00095}00095\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Altitude:"{}},\ 0,\ 36)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00096}00096\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Speed:"{}},\ 0,\ 45)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00097}00097\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}N\ Satellites:"{}},\ 0,\ 54)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00099}00099\ \ \ \ \ \textcolor{comment}{\#\ Display\ GPS\ data}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00100}00100\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['date']\}"{}},\ 38,\ 0)\ \ \textcolor{comment}{\#\ Truncate\ time\ to\ HH:MM:SS}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00101}00101\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['time']\}"{}},\ 38,\ 9)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00102}00102\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['latitude'][:12]\}"{}},\ 30,\ 18)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00103}00103\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['longitude'][:12]\}"{}},\ 38,\ 27)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00104}00104\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['altitude']\}\ m"{}},\ 70,\ 36)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00105}00105\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['speed']\}"{}},\ 47,\ 45)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00106}00106\ \ \ \ \ oled.text(f\textcolor{stringliteral}{"{}\{gps\_data['satellites']\}"{}},\ 103,\ 54)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00107}00107\ \ \ \ \ oled.show()\ \ \textcolor{comment}{\#\ Update\ the\ OLED\ screen\ }}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00110}00110\ \textcolor{comment}{\#\ Function:\ parse\_gps\_data}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00111}00111\ \textcolor{comment}{\#\ Description:\ Parses\ raw\ GPS\ data\ from\ the\ MicropyGPS\ object\ into\ a\ dictionary.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00112}00112\ \textcolor{comment}{\#\ Parameters:}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00113}00113\ \textcolor{comment}{\#\ \ \ my\_gps\ (MicropyGPS):\ The\ MicropyGPS\ object\ handling\ GPS\ data\ parsing.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00114}00114\ \textcolor{comment}{\#\ Returns:\ Dictionary\ containing\ parsed\ GPS\ data.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00115}\mbox{\hyperlink{namespace_main__v2_aa929e95cf4a290c0a365ad26efd18b47}{00115}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespace_main__v2_aa929e95cf4a290c0a365ad26efd18b47}{parse\_gps\_data}}(my\_gps):}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00116}00116\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00117}00117\ \textcolor{stringliteral}{\ \ \ \ Extracts\ GPS\ data\ from\ the\ MicropyGPS\ object\ and\ formats\ it.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00118}00118\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00119}00119\ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'date'}:\ my\_gps.date\_string(\textcolor{stringliteral}{'s\_dmy'}),\ \ \textcolor{comment}{\#\ Date\ in\ DD/MM/YYYY\ format}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'time'}:\ my\_gps.timestamp,\ \ \textcolor{comment}{\#\ Format\ time\ as\ HH:MM:SS}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'latitude'}:\ my\_gps.latitude\_string(),\ \ \textcolor{comment}{\#\ Latitude\ in\ degrees/minutes/seconds}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'longitude'}:\ my\_gps.longitude\_string(),\ \ \textcolor{comment}{\#\ Longitude\ in\ degrees/minutes/seconds}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'altitude'}:\ str(my\_gps.altitude),\ \ \textcolor{comment}{\#\ Altitude\ in\ meters}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'speed'}:\ my\_gps.speed\_string(),\ \ \textcolor{comment}{\#\ Longitude\ in\ degrees/minutes/seconds}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'satellites'}:\ str(my\_gps.satellites\_in\_use),\ \ \textcolor{comment}{\#\ Number\ of\ satellites\ in\ use}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'pdop'}:\ str(my\_gps.pdop),\ \ \textcolor{comment}{\#\ Horizontal\ Dilution\ of\ Precision}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'hdop'}:\ str(my\_gps.hdop),\ \ \textcolor{comment}{\#\ Horizontal\ Dilution\ of\ Precision}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'vdop'}:\ str(my\_gps.vdop),\ \ \textcolor{comment}{\#\ Horizontal\ Dilution\ of\ Precision}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00130}00130\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00132}00132\ \textcolor{comment}{\#\ Function:\ main}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00133}00133\ \textcolor{comment}{\#\ Description:\ Main\ function\ to\ initialize\ components\ and\ handle\ GPS\ data\ processing\ and\ display\ updates.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00134}\mbox{\hyperlink{namespace_main__v2_a51af30a60f9f02777c6396b8247e356f}{00134}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespace_main__v2_a51af30a60f9f02777c6396b8247e356f}{main}}():}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00135}00135\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00136}00136\ \textcolor{stringliteral}{\ \ \ \ The\ main\ program\ loop.\ Initializes\ the\ OLED\ display\ and\ GPS\ module,\ then\ continuously}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00137}00137\ \textcolor{stringliteral}{\ \ \ \ updates\ the\ display\ with\ parsed\ GPS\ data.}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00138}00138\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00139}00139\ \ \ \ \ \textcolor{comment}{\#\ Initialize\ the\ OLED\ display}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00140}00140\ \ \ \ \ oled\ =\ \mbox{\hyperlink{namespace_main__v2_a22448d3b46062bde102492476662abf3}{initialize\_display}}()}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00142}00142\ \ \ \ \ \textcolor{comment}{\#\ Instantiate\ the\ GPS\ parser}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00143}00143\ \ \ \ \ my\_gps\ =\ \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s}{MicropyGPS}}()}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00145}00145\ \ \ \ \ \textcolor{comment}{\#\ Initialize\ UART\ for\ GPS\ communication}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00146}00146\ \ \ \ \ gps\_serial\ =\ machine.UART(2,\ baudrate=UART\_BAUDRATE,\ tx=UART\_TX\_PIN,\ rx=UART\_RX\_PIN)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00147}00147\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00148}00148\ \ \ \ \ print(\textcolor{stringliteral}{"{}System\ initialized.\ Press\ Ctrl+C\ to\ exit."{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ \textcolor{keyword}{True}:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ gps\_data\_available\ =\ \textcolor{keyword}{False}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Read\ GPS\ data\ from\ the\ UART\ interface}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ gps\_serial.any():}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\ =\ gps\_serial.read()}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ byte\ \textcolor{keywordflow}{in}\ data:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Update\ GPS\ parser\ with\ each\ byte}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ my\_gps.update(chr(byte))\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gps\_data\_available\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ If\ new\ GPS\ data\ is\ available,\ process\ and\ display\ it}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ gps\_data\_available:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gps\_data\ =\ \mbox{\hyperlink{namespace_main__v2_aa929e95cf4a290c0a365ad26efd18b47}{parse\_gps\_data}}(my\_gps)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_main__v2_a181abfd8ec76b25bf56a43a65a028d3e}{update\_display}}(oled,\ gps\_data)}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Print\ GPS\ data\ line\ by\ line\ for\ readability}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ GPS\ Data\ -\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ key,\ value\ \textcolor{keywordflow}{in}\ gps\_data.items():}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Print\ GPS\ data\ line\ by\ line\ for\ readability}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ GPS\ Data\ -\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Date:\ \{gps\_data['date']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Time:\ \{gps\_data['time']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Latitude:\ \{gps\_data['latitude']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Longitude:\ \{gps\_data['longitude']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Altitude:\ \{gps\_data['altitude']\}\ meters"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Speed:\ \{gps\_data['speed']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Satellites:\ \{gps\_data['satellites']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Position\ Dilution\ of\ Precision:\ \{gps\_data['pdop']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Horizontal\ Dilution\ of\ Precision:\ \{gps\_data['hdop']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(f\textcolor{stringliteral}{"{}Vertical\ Dilution\ of\ Precision:\ \{gps\_data['vdop']\}"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ sleep(DISPLAY\_REFRESH\_INTERVAL)\ \ \textcolor{comment}{\#\ Delay\ to\ control\ refresh\ rate}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00183}00183\ \ \ \ \ \textcolor{keywordflow}{except}\ KeyboardInterrupt:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00184}00184\ \ \ \ \ \ \ \ \ print(\textcolor{stringliteral}{"{}Program\ stopped.\ Exiting..."{}})}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00185}00185\ \ \ \ \ \ \ \ \ oled.poweroff()\ \ \textcolor{comment}{\#\ Turn\ off\ the\ OLED\ display}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00187}00187\ \textcolor{comment}{\#\ Entry\ point\ for\ the\ script}}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00188}00188\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{_main__v2_80_8py_source_l00189}00189\ \ \ \ \ \mbox{\hyperlink{namespace_main__v2_a51af30a60f9f02777c6396b8247e356f}{main}}()}
 
 \end{DoxyCode}

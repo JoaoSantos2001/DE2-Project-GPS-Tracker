@@ -1,0 +1,918 @@
+\doxysection{Micropy\+GPS Class Reference}
+\hypertarget{classlib_g_p_s_1_1_micropy_g_p_s}{}\label{classlib_g_p_s_1_1_micropy_g_p_s}\index{MicropyGPS@{MicropyGPS}}
+Inheritance diagram for Micropy\+GPS\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classlib_g_p_s_1_1_micropy_g_p_s}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af81b918e34990398c3e96b2516073ce7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_acb17cb6895fc1ab5884b86d8648f5b9b}{local\+\_\+offset}}=0, location\+\_\+formatting=\textquotesingle{}dd\textquotesingle{})
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a581cca3058cd1c4cbe807467e0b64520}{latitude}} (self)
+\begin{DoxyCompactList}\small\item\em Coordinates Translation Functions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab8e8dc382ad464363087fa3436f9c401}{longitude}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_acf82c792fd6ceca850139f51a18260ee}{start\+\_\+logging}} (self, target\+\_\+file, mode="{}append"{})
+\begin{DoxyCompactList}\small\item\em Logging Related Functions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a41ccd35e171eb7b39517067b0d275ce9}{stop\+\_\+logging}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2695475b53c66efe404aba777252112d}{write\+\_\+log}} (self, log\+\_\+string)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a054f39a378bb504161984e92c7688829}{gprmc}} (self)
+\begin{DoxyCompactList}\small\item\em Sentence Parsers. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a218ec3c94d4eb6ae739089e445781986}{gpgll}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a87fee4c2c73f887101ab4a9023825b66}{gpvtg}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a0b5b8e163949ec117ae13aa02a9f5723}{gpgga}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a056152a81b97d2a9c72254568b7861cf}{gpgsa}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af940a40b2bfc67c61c1cf33b9c6d1d8f}{gpgsv}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3e42c2858b7a6489713bf1735ec7ebde}{new\+\_\+sentence}} (self)
+\begin{DoxyCompactList}\small\item\em Data Stream Handler Functions. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac47e91a159c3b56c64e8d04784b77bf4}{update}} (self, new\+\_\+char)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afc6497ba8f20163d118b9dd33a562ebc}{new\+\_\+fix\+\_\+time}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a7efdb841d3d5b95f9c76312e491b21da}{satellite\+\_\+data\+\_\+updated}} (self)
+\begin{DoxyCompactList}\small\item\em User Helper Functions working with the GPS object data easier. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ae2a745894f94d6bf00d4ea008d5e77f0}{unset\+\_\+satellite\+\_\+data\+\_\+updated}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a60b9fefaad2ec8a458e3ecc7f4a536e0}{satellites\+\_\+visible}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a17763abdc3bcc3636f303a51ce38f673}{time\+\_\+since\+\_\+fix}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ae471d22a1e9bb8b38470916e1701f5ad}{compass\+\_\+direction}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2c34f8476a0d6af4b83216f104cb6fd8}{latitude\+\_\+string}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6f8ee8a23a82b0a37442090ca2bcd5cf}{longitude\+\_\+string}} (self)
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a5804017a7bc43f01587b9dd4ce4f7d31}{speed\+\_\+string}} (self, unit=\textquotesingle{}kph\textquotesingle{})
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a5f6b604f27a64f56fe5365c008fee2eb}{date\+\_\+string}} (self, formatting=\textquotesingle{}s\+\_\+dmy\textquotesingle{}, century=\textquotesingle{}20\textquotesingle{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac67b1e88dc20b96dd82279ac630c7a6b}{sentence\+\_\+active}} = False
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a5a20ffefcd2a69b01e45a8f58f2b1c71}{active\+\_\+segment}} = 0
+\item 
+bool \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3111176d4f77e737c61cef3a27514f6c}{process\+\_\+crc}} = False
+\item 
+list \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a7988ffb675bea750b80bc1cedec29692}{gps\+\_\+segments}} = \mbox{[}$\,$\mbox{]}
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aa96ce42bc2001c5ea3c8b13eb79d4cbd}{crc\+\_\+xor}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6a3a299a027ee1a130c3e063a9158dca}{char\+\_\+count}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac41683d8d11728a73a2d3867b0ba3078}{fix\+\_\+time}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a09d6aba6fe1946664fa9f212d6da1c2e}{crc\+\_\+fails}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a1580e4706542aa93e881a0c33f238686}{clean\+\_\+sentences}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a20691265fd29a9817b7688c170697fc0}{parsed\+\_\+sentences}} = 0
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a719fbd7a02c8a98342ff69d6460e4bdc}{log\+\_\+handle}} = None
+\item 
+bool \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a91496c2e485de070221e1431a4a029b1}{log\+\_\+en}} = False
+\item 
+list \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab94c7ed8ad8808c20b6a0ee0d94c1619}{timestamp}} = \mbox{[}0,0,0.\+0\mbox{]}
+\item 
+list \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aaf11762bb71f2a83643d81406a40703d}{date}} = \mbox{[}0, 0, 0\mbox{]}
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_acb17cb6895fc1ab5884b86d8648f5b9b}{local\+\_\+offset}} = local\+\_\+offset
+\item 
+str \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}{coord\+\_\+format}} = location\+\_\+formatting
+\item 
+list \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a88499f7882adbc30755ac919cb01742b}{speed}} = \mbox{[}0.\+0, 0.\+0, 0.\+0\mbox{]}
+\item 
+float \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac6894c88aabf335922736a63b2b87b97}{course}} = 0.\+0
+\item 
+float \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a0e13a4b4ae0cefdac2a413284239caa6}{altitude}} = 0.\+0
+\item 
+float \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a6c299e0aef05bbf1564c327448891366}{geoid\+\_\+height}} = 0.\+0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a3cbd27b617fa83311d7d2a780fc444b5}{satellites\+\_\+in\+\_\+view}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af4a74a599846bc9e91397889462e3684}{satellites\+\_\+in\+\_\+use}} = 0
+\item 
+list \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ac9aca491450d17c8a473e98f7daeb173}{satellites\+\_\+used}} = \mbox{[}$\,$\mbox{]}
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a1601391d2e06bbd2a14c342f2603ce67}{last\+\_\+sv\+\_\+sentence}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aca765042847393873515a75035ed2f20}{total\+\_\+sv\+\_\+sentences}} = 0
+\item 
+\mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a2e4ed4d7a07cad66385423c8d1e82df5}{satellite\+\_\+data}} = dict()
+\item 
+float \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a8c3e6d0a80cec3520fd65b477f420415}{hdop}} = 0.\+0
+\item 
+float \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a137e8e8974bf1d8b5b6bb9e3f6ff7cda}{pdop}} = 0.\+0
+\item 
+float \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a67f8327a15f0185b24a1c8e0ec07ddae}{vdop}} = 0.\+0
+\item 
+bool \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a28e3c179a86f337095088b3ca02a2b2a}{valid}} = False
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ad91f5dfb777eacfaf4c34272959116aa}{fix\+\_\+stat}} = 0
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a8ef4ecf8281f99982f0d1787bf22ebed}{fix\+\_\+type}} = 1
+\item 
+tuple \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_aa20ec81a011e738509e906524b713fc3}{date}} = \textquotesingle{}A\textquotesingle{}\+:
+\item 
+str \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_ab06b7461ada71e1892d748d207575d71}{log\+\_\+en}} = \textquotesingle{}\$\textquotesingle{}\+:
+\item 
+str \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a9ce47542bbea8089838258e42beec7ad}{sentence\+\_\+active}} = \textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{}\+:
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_adeb1d2af7a0804dbe0a0526426d092ce}{process\+\_\+crc}} = 2\+:
+\item 
+bool \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a471a9feb9ba33ce3f66a062f2ea6d22d}{crc\+\_\+xor}} = True
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af93cd25d729911a1d17ca13e6fd30512}{supported\+\_\+sentences}} = 1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a9638090c79e4dab929bbe3d8f4440659}{SENTENCE\+\_\+\+LIMIT}} = 90
+\item 
+dict \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_af31db599a46d8f61981e1e8836ca6a30}{supported\+\_\+sentences}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}{\+\_\+latitude}} = \mbox{[}0, 0.\+0, \textquotesingle{}N\textquotesingle{}\mbox{]}
+\item 
+list \mbox{\hyperlink{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}{\+\_\+longitude}} = \mbox{[}0, 0.\+0, \textquotesingle{}W\textquotesingle{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}GPS NMEA Sentence Parser. Creates object that stores all relevant GPS data and statistics.
+Parses sentences one character at a time using update(). \end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00013}{13}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_af81b918e34990398c3e96b2516073ce7}\index{MicropyGPS@{MicropyGPS}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_af81b918e34990398c3e96b2516073ce7} 
+\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{local\+\_\+offset}{ = {\ttfamily 0}, }\item[{}]{location\+\_\+formatting}{ = {\ttfamily \textquotesingle{}dd\textquotesingle{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Setup GPS Object Status Flags, Internal Data Registers, etc
+    local_offset (int): Timzone Difference to UTC
+    location_formatting (str): Style For Presenting Longitude/Latitude:
+                               Decimal Degree Minute (ddm) - 40° 26.767′ N
+                               Degrees Minutes Seconds (dms) - 40° 26′ 46″ N
+                               Decimal Degrees (dd) - 40.446° N
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00029}{29}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ae471d22a1e9bb8b38470916e1701f5ad}\index{MicropyGPS@{MicropyGPS}!compass\_direction@{compass\_direction}}
+\index{compass\_direction@{compass\_direction}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{compass\_direction()}{compass\_direction()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ae471d22a1e9bb8b38470916e1701f5ad} 
+compass\+\_\+direction (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Determine a cardinal or inter-cardinal direction based on current course.:return: string\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00644}{644}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a5f6b604f27a64f56fe5365c008fee2eb}\index{MicropyGPS@{MicropyGPS}!date\_string@{date\_string}}
+\index{date\_string@{date\_string}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{date\_string()}{date\_string()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a5f6b604f27a64f56fe5365c008fee2eb} 
+date\+\_\+string (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{formatting}{ = {\ttfamily \textquotesingle{}s\+\_\+dmy\textquotesingle{}}, }\item[{}]{century}{ = {\ttfamily \textquotesingle{}20\textquotesingle{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates a readable string of the current date.
+Can select between long format: Januray 1st, 2014
+or two short formats:
+11/01/2014 (MM/DD/YYYY)
+01/11/2014 (DD/MM/YYYY)
+:param formatting: string 's_mdy', 's_dmy', or 'long'
+:param century: int delineating the century the GPS data is from (19 for 19XX, 20 for 20XX)
+:return: date_string  string with long or short format date
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00697}{697}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a0b5b8e163949ec117ae13aa02a9f5723}\index{MicropyGPS@{MicropyGPS}!gpgga@{gpgga}}
+\index{gpgga@{gpgga}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{gpgga()}{gpgga()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a0b5b8e163949ec117ae13aa02a9f5723} 
+gpgga (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parse Global Positioning System Fix Data (GGA) Sentence. Updates UTC timestamp, latitude, longitude,
+fix status, satellites in use, Horizontal Dilution of Precision (HDOP), altitude, geoid height and fix status\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00318}{318}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a218ec3c94d4eb6ae739089e445781986}\index{MicropyGPS@{MicropyGPS}!gpgll@{gpgll}}
+\index{gpgll@{gpgll}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{gpgll()}{gpgll()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a218ec3c94d4eb6ae739089e445781986} 
+gpgll (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parse Geographic Latitude and Longitude (GLL)Sentence. Updates UTC timestamp, latitude, longitude, and fix status\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00247}{247}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a056152a81b97d2a9c72254568b7861cf}\index{MicropyGPS@{MicropyGPS}!gpgsa@{gpgsa}}
+\index{gpgsa@{gpgsa}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{gpgsa()}{gpgsa()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a056152a81b97d2a9c72254568b7861cf} 
+gpgsa (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parse GNSS DOP and Active Satellites (GSA) sentence. Updates GPS fix type, list of satellites used in
+fix calculation, Position Dilution of Precision (PDOP), Horizontal Dilution of Precision (HDOP), Vertical
+Dilution of Precision (VDOP), and fix status\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00402}{402}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_af940a40b2bfc67c61c1cf33b9c6d1d8f}\index{MicropyGPS@{MicropyGPS}!gpgsv@{gpgsv}}
+\index{gpgsv@{gpgsv}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{gpgsv()}{gpgsv()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_af940a40b2bfc67c61c1cf33b9c6d1d8f} 
+gpgsv (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parse Satellites in View (GSV) sentence. Updates number of SV Sentences,the number of the last SV sentence
+parsed, and data on each satellite present in the sentence\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00448}{448}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a054f39a378bb504161984e92c7688829}\index{MicropyGPS@{MicropyGPS}!gprmc@{gprmc}}
+\index{gprmc@{gprmc}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{gprmc()}{gprmc()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a054f39a378bb504161984e92c7688829} 
+gprmc (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Sentence Parsers. 
+
+\begin{DoxyVerb}Parse Recommended Minimum Specific GPS/Transit data (RMC)Sentence.
+Updates UTC timestamp, latitude, longitude, Course, Speed, Date, and fix status\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00151}{151}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a87fee4c2c73f887101ab4a9023825b66}\index{MicropyGPS@{MicropyGPS}!gpvtg@{gpvtg}}
+\index{gpvtg@{gpvtg}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{gpvtg()}{gpvtg()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a87fee4c2c73f887101ab4a9023825b66} 
+gpvtg (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parse Track Made Good and Ground Speed (VTG) Sentence. Updates speed and course\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00305}{305}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a581cca3058cd1c4cbe807467e0b64520}\index{MicropyGPS@{MicropyGPS}!latitude@{latitude}}
+\index{latitude@{latitude}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{latitude()}{latitude()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a581cca3058cd1c4cbe807467e0b64520} 
+latitude (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Coordinates Translation Functions. 
+
+\begin{DoxyVerb}Format Latitude Data Correctly\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00089}{89}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a2c34f8476a0d6af4b83216f104cb6fd8}\index{MicropyGPS@{MicropyGPS}!latitude\_string@{latitude\_string}}
+\index{latitude\_string@{latitude\_string}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{latitude\_string()}{latitude\_string()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a2c34f8476a0d6af4b83216f104cb6fd8} 
+latitude\+\_\+string (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a readable string of the current latitude data:return: string\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00659}{659}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ab8e8dc382ad464363087fa3436f9c401}\index{MicropyGPS@{MicropyGPS}!longitude@{longitude}}
+\index{longitude@{longitude}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{longitude()}{longitude()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ab8e8dc382ad464363087fa3436f9c401} 
+longitude (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Format Longitude Data Correctly\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00102}{102}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a6f8ee8a23a82b0a37442090ca2bcd5cf}\index{MicropyGPS@{MicropyGPS}!longitude\_string@{longitude\_string}}
+\index{longitude\_string@{longitude\_string}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{longitude\_string()}{longitude\_string()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a6f8ee8a23a82b0a37442090ca2bcd5cf} 
+longitude\+\_\+string (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a readable string of the current longitude data: return: string\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00671}{671}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_afc6497ba8f20163d118b9dd33a562ebc}\index{MicropyGPS@{MicropyGPS}!new\_fix\_time@{new\_fix\_time}}
+\index{new\_fix\_time@{new\_fix\_time}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{new\_fix\_time()}{new\_fix\_time()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_afc6497ba8f20163d118b9dd33a562ebc} 
+new\+\_\+fix\+\_\+time (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Updates a high resolution counter with current time when fix is updated. Currently only triggered from
+GGA, GSA and RMC sentences\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00604}{604}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a3e42c2858b7a6489713bf1735ec7ebde}\index{MicropyGPS@{MicropyGPS}!new\_sentence@{new\_sentence}}
+\index{new\_sentence@{new\_sentence}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{new\_sentence()}{new\_sentence()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a3e42c2858b7a6489713bf1735ec7ebde} 
+new\+\_\+sentence (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Data Stream Handler Functions. 
+
+\begin{DoxyVerb}Adjust Object Flags in Preparation for a New Sentence\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00516}{516}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a7efdb841d3d5b95f9c76312e491b21da}\index{MicropyGPS@{MicropyGPS}!satellite\_data\_updated@{satellite\_data\_updated}}
+\index{satellite\_data\_updated@{satellite\_data\_updated}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{satellite\_data\_updated()}{satellite\_data\_updated()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a7efdb841d3d5b95f9c76312e491b21da} 
+satellite\+\_\+data\+\_\+updated (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+User Helper Functions working with the GPS object data easier. 
+
+\begin{DoxyVerb}Checks if the all the GSV sentences in a group have been read, making satellite data complete:return: boolean\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00614}{614}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a60b9fefaad2ec8a458e3ecc7f4a536e0}\index{MicropyGPS@{MicropyGPS}!satellites\_visible@{satellites\_visible}}
+\index{satellites\_visible@{satellites\_visible}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{satellites\_visible()}{satellites\_visible()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a60b9fefaad2ec8a458e3ecc7f4a536e0} 
+satellites\+\_\+visible (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a list of of the satellite PRNs currently visible to the receiver:return: list\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00625}{625}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a5804017a7bc43f01587b9dd4ce4f7d31}\index{MicropyGPS@{MicropyGPS}!speed\_string@{speed\_string}}
+\index{speed\_string@{speed\_string}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{speed\_string()}{speed\_string()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a5804017a7bc43f01587b9dd4ce4f7d31} 
+speed\+\_\+string (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{unit}{ = {\ttfamily \textquotesingle{}kph\textquotesingle{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates a readable string of the current speed data in one of three units
+:param unit: string of 'kph' or 'mph
+:return:
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00683}{683}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_acf82c792fd6ceca850139f51a18260ee}\index{MicropyGPS@{MicropyGPS}!start\_logging@{start\_logging}}
+\index{start\_logging@{start\_logging}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{start\_logging()}{start\_logging()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_acf82c792fd6ceca850139f51a18260ee} 
+start\+\_\+logging (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{target\+\_\+file}{, }\item[{}]{mode}{ = {\ttfamily "{}append"{}}}\end{DoxyParamCaption})}
+
+
+
+Logging Related Functions. 
+
+\begin{DoxyVerb}Create GPS data log object\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00116}{116}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a41ccd35e171eb7b39517067b0d275ce9}\index{MicropyGPS@{MicropyGPS}!stop\_logging@{stop\_logging}}
+\index{stop\_logging@{stop\_logging}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{stop\_logging()}{stop\_logging()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a41ccd35e171eb7b39517067b0d275ce9} 
+stop\+\_\+logging (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Closes the log file handler and disables further logging\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00130}{130}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a17763abdc3bcc3636f303a51ce38f673}\index{MicropyGPS@{MicropyGPS}!time\_since\_fix@{time\_since\_fix}}
+\index{time\_since\_fix@{time\_since\_fix}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{time\_since\_fix()}{time\_since\_fix()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a17763abdc3bcc3636f303a51ce38f673} 
+time\+\_\+since\+\_\+fix (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns number of millisecond since the last sentence with a valid fix was parsed. Returns 0 if no fix has been found\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00629}{629}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ae2a745894f94d6bf00d4ea008d5e77f0}\index{MicropyGPS@{MicropyGPS}!unset\_satellite\_data\_updated@{unset\_satellite\_data\_updated}}
+\index{unset\_satellite\_data\_updated@{unset\_satellite\_data\_updated}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{unset\_satellite\_data\_updated()}{unset\_satellite\_data\_updated()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ae2a745894f94d6bf00d4ea008d5e77f0} 
+unset\+\_\+satellite\+\_\+data\+\_\+updated (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Mark GSV sentences as read indicating the data has been used and future updates are fresh\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00621}{621}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ac47e91a159c3b56c64e8d04784b77bf4}\index{MicropyGPS@{MicropyGPS}!update@{update}}
+\index{update@{update}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ac47e91a159c3b56c64e8d04784b77bf4} 
+update (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{new\+\_\+char}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Process a new input char and updates GPS object if necessary based on special characters ('$', ',', '*')
+Function builds a list of received string that are validate by CRC prior to parsing by the  appropriate
+sentence function. Returns sentence type on successful parse, None otherwise\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00525}{525}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a2695475b53c66efe404aba777252112d}\index{MicropyGPS@{MicropyGPS}!write\_log@{write\_log}}
+\index{write\_log@{write\_log}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{write\_log()}{write\_log()}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a2695475b53c66efe404aba777252112d} 
+write\+\_\+log (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{log\+\_\+string}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Attempts to write the last valid NMEA sentence character to the active file handler\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00141}{141}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f}\index{MicropyGPS@{MicropyGPS}!\_latitude@{\_latitude}}
+\index{\_latitude@{\_latitude}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{\_latitude}{\_latitude}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_afd92d43f06c3110be920b89a2fb0038f} 
+list \+\_\+latitude = \mbox{[}0, 0.\+0, \textquotesingle{}N\textquotesingle{}\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00064}{64}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16}\index{MicropyGPS@{MicropyGPS}!\_longitude@{\_longitude}}
+\index{\_longitude@{\_longitude}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{\_longitude}{\_longitude}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a43bd333ef4597ccaaae5586a7f592c16} 
+list \+\_\+longitude = \mbox{[}0, 0.\+0, \textquotesingle{}W\textquotesingle{}\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00065}{65}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a5a20ffefcd2a69b01e45a8f58f2b1c71}\index{MicropyGPS@{MicropyGPS}!active\_segment@{active\_segment}}
+\index{active\_segment@{active\_segment}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{active\_segment}{active\_segment}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a5a20ffefcd2a69b01e45a8f58f2b1c71} 
+int active\+\_\+segment = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00041}{41}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a0e13a4b4ae0cefdac2a413284239caa6}\index{MicropyGPS@{MicropyGPS}!altitude@{altitude}}
+\index{altitude@{altitude}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{altitude}{altitude}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a0e13a4b4ae0cefdac2a413284239caa6} 
+float altitude = 0.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00069}{69}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a6a3a299a027ee1a130c3e063a9158dca}\index{MicropyGPS@{MicropyGPS}!char\_count@{char\_count}}
+\index{char\_count@{char\_count}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{char\_count}{char\_count}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a6a3a299a027ee1a130c3e063a9158dca} 
+int char\+\_\+count = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00045}{45}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a1580e4706542aa93e881a0c33f238686}\index{MicropyGPS@{MicropyGPS}!clean\_sentences@{clean\_sentences}}
+\index{clean\_sentences@{clean\_sentences}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{clean\_sentences}{clean\_sentences}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a1580e4706542aa93e881a0c33f238686} 
+int clean\+\_\+sentences = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00050}{50}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788}\index{MicropyGPS@{MicropyGPS}!coord\_format@{coord\_format}}
+\index{coord\_format@{coord\_format}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{coord\_format}{coord\_format}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a36a9fce76f3f4c1a83f0548193fbe788} 
+str coord\+\_\+format = location\+\_\+formatting}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00066}{66}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ac6894c88aabf335922736a63b2b87b97}\index{MicropyGPS@{MicropyGPS}!course@{course}}
+\index{course@{course}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{course}{course}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ac6894c88aabf335922736a63b2b87b97} 
+float course = 0.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00068}{68}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a09d6aba6fe1946664fa9f212d6da1c2e}\index{MicropyGPS@{MicropyGPS}!crc\_fails@{crc\_fails}}
+\index{crc\_fails@{crc\_fails}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{crc\_fails}{crc\_fails}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a09d6aba6fe1946664fa9f212d6da1c2e} 
+int crc\+\_\+fails = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00049}{49}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_aa96ce42bc2001c5ea3c8b13eb79d4cbd}\index{MicropyGPS@{MicropyGPS}!crc\_xor@{crc\_xor}}
+\index{crc\_xor@{crc\_xor}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{crc\_xor}{crc\_xor}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_aa96ce42bc2001c5ea3c8b13eb79d4cbd} 
+int crc\+\_\+xor = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00044}{44}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a471a9feb9ba33ce3f66a062f2ea6d22d}\index{MicropyGPS@{MicropyGPS}!crc\_xor@{crc\_xor}}
+\index{crc\_xor@{crc\_xor}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{crc\_xor}{crc\_xor}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a471a9feb9ba33ce3f66a062f2ea6d22d} 
+bool crc\+\_\+xor = True}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00572}{572}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_aaf11762bb71f2a83643d81406a40703d}\index{MicropyGPS@{MicropyGPS}!date@{date}}
+\index{date@{date}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{date}{date}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_aaf11762bb71f2a83643d81406a40703d} 
+list date = \mbox{[}0, 0, 0\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00060}{60}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_aa20ec81a011e738509e906524b713fc3}\index{MicropyGPS@{MicropyGPS}!date@{date}}
+\index{date@{date}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{date}{date}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_aa20ec81a011e738509e906524b713fc3} 
+tuple date = \textquotesingle{}A\textquotesingle{}\+:}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00182}{182}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ad91f5dfb777eacfaf4c34272959116aa}\index{MicropyGPS@{MicropyGPS}!fix\_stat@{fix\_stat}}
+\index{fix\_stat@{fix\_stat}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{fix\_stat}{fix\_stat}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ad91f5dfb777eacfaf4c34272959116aa} 
+int fix\+\_\+stat = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00083}{83}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ac41683d8d11728a73a2d3867b0ba3078}\index{MicropyGPS@{MicropyGPS}!fix\_time@{fix\_time}}
+\index{fix\_time@{fix\_time}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{fix\_time}{fix\_time}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ac41683d8d11728a73a2d3867b0ba3078} 
+int fix\+\_\+time = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00046}{46}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a8ef4ecf8281f99982f0d1787bf22ebed}\index{MicropyGPS@{MicropyGPS}!fix\_type@{fix\_type}}
+\index{fix\_type@{fix\_type}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{fix\_type}{fix\_type}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a8ef4ecf8281f99982f0d1787bf22ebed} 
+int fix\+\_\+type = 1}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00084}{84}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a6c299e0aef05bbf1564c327448891366}\index{MicropyGPS@{MicropyGPS}!geoid\_height@{geoid\_height}}
+\index{geoid\_height@{geoid\_height}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{geoid\_height}{geoid\_height}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a6c299e0aef05bbf1564c327448891366} 
+float geoid\+\_\+height = 0.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00070}{70}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a7988ffb675bea750b80bc1cedec29692}\index{MicropyGPS@{MicropyGPS}!gps\_segments@{gps\_segments}}
+\index{gps\_segments@{gps\_segments}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{gps\_segments}{gps\_segments}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a7988ffb675bea750b80bc1cedec29692} 
+list gps\+\_\+segments = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00043}{43}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a8c3e6d0a80cec3520fd65b477f420415}\index{MicropyGPS@{MicropyGPS}!hdop@{hdop}}
+\index{hdop@{hdop}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{hdop}{hdop}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a8c3e6d0a80cec3520fd65b477f420415} 
+float hdop = 0.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00079}{79}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a1601391d2e06bbd2a14c342f2603ce67}\index{MicropyGPS@{MicropyGPS}!last\_sv\_sentence@{last\_sv\_sentence}}
+\index{last\_sv\_sentence@{last\_sv\_sentence}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{last\_sv\_sentence}{last\_sv\_sentence}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a1601391d2e06bbd2a14c342f2603ce67} 
+int last\+\_\+sv\+\_\+sentence = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00076}{76}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_acb17cb6895fc1ab5884b86d8648f5b9b}\index{MicropyGPS@{MicropyGPS}!local\_offset@{local\_offset}}
+\index{local\_offset@{local\_offset}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{local\_offset}{local\_offset}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_acb17cb6895fc1ab5884b86d8648f5b9b} 
+local\+\_\+offset = local\+\_\+offset}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00061}{61}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a91496c2e485de070221e1431a4a029b1}\index{MicropyGPS@{MicropyGPS}!log\_en@{log\_en}}
+\index{log\_en@{log\_en}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{log\_en}{log\_en}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a91496c2e485de070221e1431a4a029b1} 
+bool log\+\_\+en = False}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00055}{55}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ab06b7461ada71e1892d748d207575d71}\index{MicropyGPS@{MicropyGPS}!log\_en@{log\_en}}
+\index{log\_en@{log\_en}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{log\_en}{log\_en}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ab06b7461ada71e1892d748d207575d71} 
+str log\+\_\+en = \textquotesingle{}\$\textquotesingle{}\+:}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00539}{539}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a719fbd7a02c8a98342ff69d6460e4bdc}\index{MicropyGPS@{MicropyGPS}!log\_handle@{log\_handle}}
+\index{log\_handle@{log\_handle}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{log\_handle}{log\_handle}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a719fbd7a02c8a98342ff69d6460e4bdc} 
+log\+\_\+handle = None}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00054}{54}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a20691265fd29a9817b7688c170697fc0}\index{MicropyGPS@{MicropyGPS}!parsed\_sentences@{parsed\_sentences}}
+\index{parsed\_sentences@{parsed\_sentences}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{parsed\_sentences}{parsed\_sentences}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a20691265fd29a9817b7688c170697fc0} 
+int parsed\+\_\+sentences = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00051}{51}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a137e8e8974bf1d8b5b6bb9e3f6ff7cda}\index{MicropyGPS@{MicropyGPS}!pdop@{pdop}}
+\index{pdop@{pdop}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{pdop}{pdop}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a137e8e8974bf1d8b5b6bb9e3f6ff7cda} 
+float pdop = 0.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00080}{80}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a3111176d4f77e737c61cef3a27514f6c}\index{MicropyGPS@{MicropyGPS}!process\_crc@{process\_crc}}
+\index{process\_crc@{process\_crc}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{process\_crc}{process\_crc}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a3111176d4f77e737c61cef3a27514f6c} 
+bool process\+\_\+crc = False}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00042}{42}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_adeb1d2af7a0804dbe0a0526426d092ce}\index{MicropyGPS@{MicropyGPS}!process\_crc@{process\_crc}}
+\index{process\_crc@{process\_crc}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{process\_crc}{process\_crc}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_adeb1d2af7a0804dbe0a0526426d092ce} 
+int process\+\_\+crc = 2\+:}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00567}{567}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a2e4ed4d7a07cad66385423c8d1e82df5}\index{MicropyGPS@{MicropyGPS}!satellite\_data@{satellite\_data}}
+\index{satellite\_data@{satellite\_data}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{satellite\_data}{satellite\_data}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a2e4ed4d7a07cad66385423c8d1e82df5} 
+satellite\+\_\+data = dict()}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00078}{78}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_af4a74a599846bc9e91397889462e3684}\index{MicropyGPS@{MicropyGPS}!satellites\_in\_use@{satellites\_in\_use}}
+\index{satellites\_in\_use@{satellites\_in\_use}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{satellites\_in\_use}{satellites\_in\_use}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_af4a74a599846bc9e91397889462e3684} 
+int satellites\+\_\+in\+\_\+use = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00074}{74}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a3cbd27b617fa83311d7d2a780fc444b5}\index{MicropyGPS@{MicropyGPS}!satellites\_in\_view@{satellites\_in\_view}}
+\index{satellites\_in\_view@{satellites\_in\_view}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{satellites\_in\_view}{satellites\_in\_view}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a3cbd27b617fa83311d7d2a780fc444b5} 
+int satellites\+\_\+in\+\_\+view = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00073}{73}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ac9aca491450d17c8a473e98f7daeb173}\index{MicropyGPS@{MicropyGPS}!satellites\_used@{satellites\_used}}
+\index{satellites\_used@{satellites\_used}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{satellites\_used}{satellites\_used}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ac9aca491450d17c8a473e98f7daeb173} 
+list satellites\+\_\+used = \mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00075}{75}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ac67b1e88dc20b96dd82279ac630c7a6b}\index{MicropyGPS@{MicropyGPS}!sentence\_active@{sentence\_active}}
+\index{sentence\_active@{sentence\_active}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{sentence\_active}{sentence\_active}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ac67b1e88dc20b96dd82279ac630c7a6b} 
+bool sentence\+\_\+active = False}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00040}{40}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a9ce47542bbea8089838258e42beec7ad}\index{MicropyGPS@{MicropyGPS}!sentence\_active@{sentence\_active}}
+\index{sentence\_active@{sentence\_active}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{sentence\_active}{sentence\_active}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a9ce47542bbea8089838258e42beec7ad} 
+str sentence\+\_\+active = \textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{}\+:}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00547}{547}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a9638090c79e4dab929bbe3d8f4440659}\index{MicropyGPS@{MicropyGPS}!SENTENCE\_LIMIT@{SENTENCE\_LIMIT}}
+\index{SENTENCE\_LIMIT@{SENTENCE\_LIMIT}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{SENTENCE\_LIMIT}{SENTENCE\_LIMIT}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a9638090c79e4dab929bbe3d8f4440659} 
+int SENTENCE\+\_\+\+LIMIT = 90\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00018}{18}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a88499f7882adbc30755ac919cb01742b}\index{MicropyGPS@{MicropyGPS}!speed@{speed}}
+\index{speed@{speed}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{speed}{speed}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a88499f7882adbc30755ac919cb01742b} 
+list speed = \mbox{[}0.\+0, 0.\+0, 0.\+0\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00067}{67}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_af93cd25d729911a1d17ca13e6fd30512}\index{MicropyGPS@{MicropyGPS}!supported\_sentences@{supported\_sentences}}
+\index{supported\_sentences@{supported\_sentences}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{supported\_sentences}{supported\_sentences}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_af93cd25d729911a1d17ca13e6fd30512} 
+int supported\+\_\+sentences = 1}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00588}{588}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_af31db599a46d8f61981e1e8836ca6a30}\index{MicropyGPS@{MicropyGPS}!supported\_sentences@{supported\_sentences}}
+\index{supported\_sentences@{supported\_sentences}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{supported\_sentences}{supported\_sentences}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_af31db599a46d8f61981e1e8836ca6a30} 
+dict supported\+\_\+sentences\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \{\textcolor{stringliteral}{'GPRMC'}:\ gprmc,\ \textcolor{stringliteral}{'GLRMC'}:\ gprmc,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GPGGA'}:\ gpgga,\ \textcolor{stringliteral}{'GLGGA'}:\ gpgga,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GPVTG'}:\ gpvtg,\ \textcolor{stringliteral}{'GLVTG'}:\ gpvtg,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GPGSA'}:\ gpgsa,\ \textcolor{stringliteral}{'GLGSA'}:\ gpgsa,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GPGSV'}:\ gpgsv,\ \textcolor{stringliteral}{'GLGSV'}:\ gpgsv,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GPGLL'}:\ gpgll,\ \textcolor{stringliteral}{'GLGLL'}:\ gpgll,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GNGGA'}:\ gpgga,\ \textcolor{stringliteral}{'GNRMC'}:\ gprmc,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GNVTG'}:\ gpvtg,\ \textcolor{stringliteral}{'GNGLL'}:\ gpgll,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'GNGSA'}:\ gpgsa,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00759}{759}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_ab94c7ed8ad8808c20b6a0ee0d94c1619}\index{MicropyGPS@{MicropyGPS}!timestamp@{timestamp}}
+\index{timestamp@{timestamp}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{timestamp}{timestamp}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_ab94c7ed8ad8808c20b6a0ee0d94c1619} 
+list timestamp = \mbox{[}0,0,0.\+0\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00059}{59}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_aca765042847393873515a75035ed2f20}\index{MicropyGPS@{MicropyGPS}!total\_sv\_sentences@{total\_sv\_sentences}}
+\index{total\_sv\_sentences@{total\_sv\_sentences}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{total\_sv\_sentences}{total\_sv\_sentences}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_aca765042847393873515a75035ed2f20} 
+int total\+\_\+sv\+\_\+sentences = 0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00077}{77}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a28e3c179a86f337095088b3ca02a2b2a}\index{MicropyGPS@{MicropyGPS}!valid@{valid}}
+\index{valid@{valid}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{valid}{valid}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a28e3c179a86f337095088b3ca02a2b2a} 
+bool valid = False}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00082}{82}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+\Hypertarget{classlib_g_p_s_1_1_micropy_g_p_s_a67f8327a15f0185b24a1c8e0ec07ddae}\index{MicropyGPS@{MicropyGPS}!vdop@{vdop}}
+\index{vdop@{vdop}!MicropyGPS@{MicropyGPS}}
+\doxysubsubsection{\texorpdfstring{vdop}{vdop}}
+{\footnotesize\ttfamily \label{classlib_g_p_s_1_1_micropy_g_p_s_a67f8327a15f0185b24a1c8e0ec07ddae} 
+float vdop = 0.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{lib_g_p_s_8py_source_l00081}{81}} of file \mbox{\hyperlink{lib_g_p_s_8py_source}{lib\+GPS.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Code/\mbox{\hyperlink{lib_g_p_s_8py}{lib\+GPS.\+py}}\end{DoxyCompactItemize}
