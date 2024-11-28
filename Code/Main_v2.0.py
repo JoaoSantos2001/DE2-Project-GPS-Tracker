@@ -94,7 +94,7 @@ def update_display(oled, gps_data):
     oled.text("Long:", 0, 27)
     oled.text("Altitude:", 0, 36)
     oled.text("N Satellites:", 0, 45)
-    oled.text("H.D.P.:", 0, 54)
+    oled.text("HDOP:", 0, 54)
 
     # Display GPS data
     oled.text(f"{gps_data['time']}", 38, 0)  # Truncate time to HH:MM:SS
@@ -103,7 +103,7 @@ def update_display(oled, gps_data):
     oled.text(f"{gps_data['longitude'][:12]}", 38, 27)
     oled.text(f"{gps_data['altitude']}", 70, 36)
     oled.text(f"{gps_data['satellites']}", 103, 45)
-    oled.text(f"{gps_data['hdop']}", 55, 54)
+    oled.text(f"{gps_data['hdop']}", 38, 54)
     oled.show()  # Update the OLED screen 
 
 
