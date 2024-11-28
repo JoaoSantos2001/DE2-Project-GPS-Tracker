@@ -27,8 +27,51 @@ Modules Used in the Project:
     -A library for parsing NMEA data from the GPS module and extracting useful information like latitude, longitude, altitude, and time.
     -Library that was adapted to have the best look for the project and for the used OLED display.
 
-(Put *flowchats* of your algorithm(s) and direct links to source files.)
-............................EM FALTA..................................
+# Flowchart
+
+1. **Start**
+    - Power on the system.
+    - Prepare I2C and UART for communication.
+
+2. **Initialize I2C for OLED display.**
+    - Set up I2C pins (SCL and SDA) and frequency.
+    - Try to Initialize the OLED Display.
+        - If successful, proceed to next step.
+        - If initialization fails, display an error and stop program.
+
+3. **Initialize GPS Module**
+    - Set up UART pins (TX and RX) and baud rate.
+    - Create a MicropyGOS object to parse incoming data.
+
+4. **Main Loop**
+    - **Check for incoming GPS Data**
+        - Monitor the UART interface for available data.
+        - If no data is available, wait and check again.
+        - If data is available:
+            - Read the data byte by byte.
+            - Feed each byte to MicropyGPS for parsing.
+    - **Parse GPS Data**
+        - Extract the parameters values from MicropuGPS
+    - **Update OLED Display**
+        - Clear the OLED screen
+        - Write the parsed GPS data to the screen with appropriate labels.
+        - Refresh the display to show the new data.
+    - **Print GPS Data to Console**
+        - Display parsed data in a simple format in the terminal for easy reading
+    - **Wait for Refresh Interval**
+        - Pause execution for a predefined time before starting the next loop iteration.
+
+
+5. **Check for Exit Condition**
+    - Monitor for a keyboard interrupt (Ctrl + C).
+        - If no interrupt is detected, return to Step 4.
+        - If an interrupt is detected, proceed to the next step.
+
+6. **Shutdown**
+    - Power off the OLED Display.
+    - End the program.
+
+7. **Stop**
 
 # Instructions and photos
 1. Connect the jumper in order to connect all 3 devices (ESP32, GPS Module and OLED Display) as shown in the figure below.
