@@ -88,22 +88,22 @@ def update_display(oled, gps_data):
     oled.fill(0)  # Clear the screen
 
     # Display labels
-    oled.text("Time:", 0, 0) #(text, x position, y position)
-    oled.text("Date:", 0, 9)
+    oled.text("Date:", 0, 0) #(text, x position, y position)
+    oled.text("Time:", 0, 9)
     oled.text("Lat:", 0, 18)
     oled.text("Long:", 0, 27)
     oled.text("Altitude:", 0, 36)
-    oled.text("N Satellites:", 0, 45)
-    oled.text("HDOP:", 0, 54)
+    oled.text("Speed:", 0, 45)
+    oled.text("N Satellites:", 0, 54)
 
     # Display GPS data
-    oled.text(f"{gps_data['time']}", 38, 0)  # Truncate time to HH:MM:SS
-    oled.text(f"{gps_data['date']}", 38, 9)
+    oled.text(f"{gps_data['date']}", 38, 0)  # Truncate time to HH:MM:SS
+    oled.text(f"{gps_data['time']}", 38, 9)
     oled.text(f"{gps_data['latitude'][:12]}", 30, 18)
     oled.text(f"{gps_data['longitude'][:12]}", 38, 27)
-    oled.text(f"{gps_data['altitude']}", 70, 36)
-    oled.text(f"{gps_data['satellites']}", 103, 45)
-    oled.text(f"{gps_data['hdop']}", 38, 54)
+    oled.text(f"{gps_data['altitude']} m", 70, 36)
+    oled.text(f"{gps_data['speed']}", 47, 45)
+    oled.text(f"{gps_data['satellites']}", 103, 54)
     oled.show()  # Update the OLED screen 
 
 
@@ -117,13 +117,16 @@ def parse_gps_data(my_gps):
     Extracts GPS data from the MicropyGPS object and formats it.
     """
     return {
-        'time': my_gps.timestamp,  # Format time as HH:MM:SS
         'date': my_gps.date_string('s_dmy'),  # Date in DD/MM/YYYY format
+        'time': my_gps.timestamp,  # Format time as HH:MM:SS
         'latitude': my_gps.latitude_string(),  # Latitude in degrees/minutes/seconds
         'longitude': my_gps.longitude_string(),  # Longitude in degrees/minutes/seconds
         'altitude': str(my_gps.altitude),  # Altitude in meters
+        'speed': my_gps.speed_string(),  # Longitude in degrees/minutes/seconds
         'satellites': str(my_gps.satellites_in_use),  # Number of satellites in use
+        'pdop': str(my_gps.pdop),  # Horizontal Dilution of Precision
         'hdop': str(my_gps.hdop),  # Horizontal Dilution of Precision
+        'vdop': str(my_gps.vdop),  # Horizontal Dilution of Precision
     }
 
 # Function: main
@@ -164,13 +167,16 @@ def main():
                 for key, value in gps_data.items():
                     # Print GPS data line by line for readability
                     print("\n--- GPS Data ---")
-                    print(f"Time: {gps_data['time']}")
                     print(f"Date: {gps_data['date']}")
+                    print(f"Time: {gps_data['time']}")
                     print(f"Latitude: {gps_data['latitude']}")
                     print(f"Longitude: {gps_data['longitude']}")
                     print(f"Altitude: {gps_data['altitude']} meters")
+                    print(f"Speed: {gps_data['speed']}")
                     print(f"Satellites: {gps_data['satellites']}")
-                    print(f"HDOP: {gps_data['hdop']}")
+                    print(f"Position Dilution of Precision: {gps_data['pdop']}")
+                    print(f"Horizontal Dilution of Precision: {gps_data['hdop']}")
+                    print(f"Vertical Dilution of Precision: {gps_data['vdop']}")
                 print("-----------------")
             
             sleep(DISPLAY_REFRESH_INTERVAL)  # Delay to control refresh rate
