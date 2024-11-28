@@ -98,7 +98,8 @@ NOTES:
 
 The photo below shows the output on the OLED display and on the command line (Thonny), respectively.
 
-![Display_Example](https://github.com/user-attachments/assets/7883c00e-e7f7-47ff-b19a-56c782201e66)
+![Display_Example](https://github.com/user-attachments/assets/0a9cdef8-e446-4a76-b4c5-342bb2cea8ad)
+
 
 ![Thonny_Output](https://github.com/user-attachments/assets/a2fcac66-02db-40ed-afb0-74726bfa5f5b)
 
