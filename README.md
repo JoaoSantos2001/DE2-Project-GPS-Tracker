@@ -61,10 +61,13 @@ The photo below shows the output on the OLED display and on the command line (Th
 
 This video and the next show the code running and the both available outputs, OLED Display Output and Command Line Output, respectively.
 
--------------------------------------------ADICIONAR VIDEO DO ESP32----------------------------------------
+https://github.com/user-attachments/assets/5a955ce9-9638-4b4e-9098-6e26349ae57e
 
 
---------------------------------------------ADICIONAR VIDEO DO THONNY--------------------------------------
+
+https://github.com/user-attachments/assets/b2f835c3-f0e8-4052-82ba-102601ce1336
+
+
 
 (Describe how to use the application. Add photos or videos of your application.)
 
