@@ -15,7 +15,6 @@ Group 3 - BPA-DE2:
 ![ESP32-NEO-GPS-Circuit_fritzing](https://github.com/user-attachments/assets/7546ce28-0553-4b24-b391-57d4fe78cc1e)
 
 # Software description
-(Present the modules you used in the project.)
 
 Modules Used in the Project:
 1. **machine**
@@ -74,18 +73,18 @@ Modules Used in the Project:
 
 7. **Stop**
 
-# Instructions and photos
+# Instructions
 1. Connect the jumper in order to connect all 3 devices (ESP32, GPS Module and OLED Display) as shown in the figure below.
 
 ![Circuit_Diagram](https://github.com/user-attachments/assets/455a3f9e-e92e-44d7-beff-9a5b6a6256fd)
 
--Obtaining something like this:
+    - Obtaining something like this:
 
 ![Circuit_Display_OFF](https://github.com/user-attachments/assets/bbf682d3-a843-4b10-9210-2700e9cbede7)
 
 2. After all the connections made, connect the usb to your computer and your ESP32 and upload **sh1106** and **libGPS** modules to the ESP32 memory.
-    -sh1106 Responsible for OLED Display functions
-    -libGPS Responsible for collect data from GPS's
+    - sh1106 Responsible for OLED Display functions
+    - libGPS Responsible for collect data from GPS's
 
 3. Once the modules are uploaded with the application **Thonny** or one look a like that can work with the ESP32 open the main code **Main_v2.0.py** and run it.
 
@@ -95,7 +94,7 @@ NOTES:
 
 2. In case you are inside a building and unable to connect to Satellites, try to move close to a window or even try to go outside.
 
--Results:
+# Results (photos and videos)
 
 The photo below shows the output on the OLED display and on the command line (Thonny), respectively.
 
@@ -103,12 +102,9 @@ The photo below shows the output on the OLED display and on the command line (Th
 
 ![Thonny_Output](https://github.com/user-attachments/assets/a2fcac66-02db-40ed-afb0-74726bfa5f5b)
 
--Working Project:
-
-This video and the next show the code running and the both available outputs, OLED Display Output and Command Line Output, respectively.
+This videos show the code running and both the available outputs, OLED Display Output and Command Line Output, respectively.
 
 https://github.com/user-attachments/assets/5a955ce9-9638-4b4e-9098-6e26349ae57e
-
 
 
 https://github.com/user-attachments/assets/b2f835c3-f0e8-4052-82ba-102601ce1336
@@ -116,7 +112,6 @@ https://github.com/user-attachments/assets/b2f835c3-f0e8-4052-82ba-102601ce1336
 
 We can notice a difference in the outputs on the Dislpay and on Thonny, this was a group decision, once the OLED Display has a limited space we decided to only insert some of the parameters available as once the command line doesn't have that limit we print all the parametrs.
 
-(Describe how to use the application. Add photos or videos of your application.)
 
 # Output analysis
 
