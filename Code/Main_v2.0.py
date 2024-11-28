@@ -88,7 +88,7 @@ def update_display(oled, gps_data):
     oled.fill(0)  # Clear the screen
 
     # Display labels
-    oled.text("Time:", 0, 0)
+    oled.text("Time:", 0, 0) #(text, x position, y position)
     oled.text("Date:", 0, 9)
     oled.text("Lat:", 0, 18)
     oled.text("Long:", 0, 27)
@@ -97,14 +97,15 @@ def update_display(oled, gps_data):
     oled.text("H.D.P.:", 0, 54)
 
     # Display GPS data
-    oled.text(f"{gps_data['time'][:8]}", 38, 0)  # Truncate time to HH:MM:SS
+    oled.text(f"{gps_data['time']}", 38, 0)  # Truncate time to HH:MM:SS
     oled.text(f"{gps_data['date']}", 38, 9)
     oled.text(f"{gps_data['latitude'][:12]}", 30, 18)
     oled.text(f"{gps_data['longitude'][:12]}", 38, 27)
     oled.text(f"{gps_data['altitude']}", 70, 36)
     oled.text(f"{gps_data['satellites']}", 103, 45)
     oled.text(f"{gps_data['hdop']}", 55, 54)
-    oled.show()  # Update the OLED screen
+    oled.show()  # Update the OLED screen 
+
 
 # Function: parse_gps_data
 # Description: Parses raw GPS data from the MicropyGPS object into a dictionary.
@@ -116,7 +117,7 @@ def parse_gps_data(my_gps):
     Extracts GPS data from the MicropyGPS object and formats it.
     """
     return {
-        'time': ':'.join(map(lambda x: f"{x:02}", my_gps.timestamp)),  # Format time as HH:MM:SS
+        'time': my_gps.timestamp,  # Format time as HH:MM:SS
         'date': my_gps.date_string('s_dmy'),  # Date in DD/MM/YYYY format
         'latitude': my_gps.latitude_string(),  # Latitude in degrees/minutes/seconds
         'longitude': my_gps.longitude_string(),  # Longitude in degrees/minutes/seconds
@@ -157,7 +158,20 @@ def main():
             if gps_data_available:
                 gps_data = parse_gps_data(my_gps)
                 update_display(oled, gps_data)
-                print(gps_data)  # Log GPS data for debugging
+                
+                # Print GPS data line by line for readability
+                print("\n--- GPS Data ---")
+                for key, value in gps_data.items():
+                    # Print GPS data line by line for readability
+                    print("\n--- GPS Data ---")
+                    print(f"Time: {gps_data['time']}")
+                    print(f"Date: {gps_data['date']}")
+                    print(f"Latitude: {gps_data['latitude']}")
+                    print(f"Longitude: {gps_data['longitude']}")
+                    print(f"Altitude: {gps_data['altitude']} meters")
+                    print(f"Satellites: {gps_data['satellites']}")
+                    print(f"HDOP: {gps_data['hdop']}")
+                print("-----------------")
             
             sleep(DISPLAY_REFRESH_INTERVAL)  # Delay to control refresh rate
     except KeyboardInterrupt:
