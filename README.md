@@ -121,7 +121,7 @@ We can notice a difference in the outputs on the Dislpay and on Thonny, this was
 - **Lat** (Latitude) -> Latitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
 - **Long** (Longitude) -> Longitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
 - **Altitude** -> Altitude relative to sea level in meters.
-- **Speed** -> Speed in Km/h, this parametercan be change to mph on *Main_v2.0.py* in line xx.
+- **Speed** -> Speed in Km/h, this parameter can be change to mph on *Main_v2.0.py* in line xx.
 - **N Satellites** (Number of Satellites) -> Number of Satellites available from witch is possible to collect data.
 - **Position Dilution of Precision** -> A measure of overall GPS accuracy based on satellite geometry; lower values mean better accuracy.
 - **Horizontal Dilution of Precision** -> Accuracy of GPS position on the horizontal plane (latitude and longitude).
