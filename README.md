@@ -16,16 +16,17 @@ Group 3 - BPA-DE2:
 
 # Software description
 (Present the modules you used in the project.)
+
 Modules Used in the Project:
-1. machine
-    -Used to interface with hardware components like I2C and UART for communication with the OLED and GPS modules.
-2. sh1106
-    -A library created in class for controlling SH1106-based OLED displays via the I2C interface.
-3. time
-    -Used for implementing delays (e.g., refreshing the display every second).
-4. libGPS (MicropyGPS)
-    -A library for parsing NMEA data from the GPS module and extracting useful information like latitude, longitude, altitude, and time.
-    -Library that was adapted to have the best look for the project and for the used OLED display.
+1. **machine**
+    - Used to interface with hardware components like I2C and UART for communication with the OLED and GPS modules.
+2. **sh1106**
+    - A library created in class for controlling SH1106-based OLED displays via the I2C interface.
+3. **time**
+    - Used for implementing delays (e.g., refreshing the display every second).
+4. **libGPS (MicropyGPS)**
+    - A library for parsing NMEA data from the GPS module and extracting useful information like latitude, longitude, altitude, and time.
+    - Library that was adapted to have the best look for the project and for the used OLED display.
 
 # Flowchart
 
