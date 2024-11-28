@@ -33,11 +33,11 @@ Modules Used in the Project:
 # Instructions and photos
 1. Connect the jumper in order to connect all 3 devices (ESP32, GPS Module and OLED Display) as shown in the figure below.
 
-https://github.com/JoaoSantos2001/DE2-Project-GPS-Tracker/blob/main/Images/Circuit_Diagram.jpg?raw=true
+![Circuit_Diagram](https://github.com/user-attachments/assets/455a3f9e-e92e-44d7-beff-9a5b6a6256fd)
 
 -Obtaining something like this:
 
-----------------------------------------FOTO MONTAGEM-------------------------------------------------
+![Circuit_Display_OFF](https://github.com/user-attachments/assets/bbf682d3-a843-4b10-9210-2700e9cbede7)
 
 2. After all the connections made, connect the usb to your computer and your ESP32 and upload *sh1106* and *libGPS* modules to the ESP32 memory.
     -sh1106 Responsible for OLED Display functions
@@ -53,12 +53,9 @@ NOTE2: In case you are inside a building and unable to connect to Satellites, tr
 
 The photo below shows the output on the OLED display and on the command line (Thonny), respectively.
 
------------------FOTO do DISPLAY ON-------------------
+![Display_Example](https://github.com/user-attachments/assets/7883c00e-e7f7-47ff-b19a-56c782201e66)
 
-
-https://github.com/JoaoSantos2001/DE2-Project-GPS-Tracker/blob/main/Images/Thonny_Output.jpg?raw=true
-
-----------------FOTO OUPUT THONNY----------------------
+![Thonny_Output](https://github.com/user-attachments/assets/a2fcac66-02db-40ed-afb0-74726bfa5f5b)
 
 -Working Project:
 
