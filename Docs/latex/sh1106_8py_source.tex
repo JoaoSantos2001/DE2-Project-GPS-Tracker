@@ -1,0 +1,150 @@
+\doxysection{sh1106.\+py}
+\hypertarget{sh1106_8py_source}{}\label{sh1106_8py_source}\index{Code/sh1106.py@{Code/sh1106.py}}
+\mbox{\hyperlink{sh1106_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00001}\mbox{\hyperlink{namespacesh1106}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00002}00002\ \textcolor{stringliteral}{MicroPython\ module\ for\ I2C\ OLED\ display\ with\ SH1106\ driver.}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00003}00003\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00004}00004\ \textcolor{stringliteral}{Components:}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00005}00005\ \textcolor{stringliteral}{\ \ -\/\ ESP32\ microcontroller}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00006}00006\ \textcolor{stringliteral}{\ \ -\/\ OLED\ display\ with\ SH1106\ driver}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00007}00007\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00008}00008\ \textcolor{stringliteral}{Authors:\ Shujen\ Chen\ et\ al.\ Raspberry\ Pi\ Pico\ Interfacing}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00009}00009\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ and\ Programming\ with\ MicroPython}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00010}00010\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ MicroPython\ SH1106\ OLED\ driver,\ I2C\ and\ SPI\ interfaces}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00011}00011\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ Tomas\ Fryza}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00012}00012\ \textcolor{stringliteral}{Creation\ Date:\ 2023-\/10-\/27}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00013}00013\ \textcolor{stringliteral}{Last\ Modified:\ 2024-\/10-\/22}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00014}00014\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00015}00015\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00017}00017\ \textcolor{keyword}{from}\ machine\ \textcolor{keyword}{import}\ Pin}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00018}00018\ \textcolor{keyword}{from}\ machine\ \textcolor{keyword}{import}\ I2C}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00019}00019\ \textcolor{keyword}{import}\ framebuf}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00020}00020\ \textcolor{keyword}{import}\ utime\ \textcolor{keyword}{as}\ time}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00023}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c}{00023}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c}{SH1106\_I2C}}(framebuf.FrameBuffer):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00024}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f}{00024}}\ \ \ \ \ DEV\_ADDR\ =\ 0x3c}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00025}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989}{00025}}\ \ \ \ \ WIDTH\ =\ 128}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00026}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b}{00026}}\ \ \ \ \ HEIGHT\ =\ 64}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00027}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a3f5b26484e4a8b220ccd205f583bb909}{00027}}\ \ \ \ \ PAGES\ =\ HEIGHT\ //\ 8}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00028}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a33af7f6fbfeab45c0c61ed8a8f09b49c}{00028}}\ \ \ \ \ LOW\_COLUMN\_ADDR\ =\ 0x00}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00029}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4caa8610ccbf286510b55a777bf5873b}{00029}}\ \ \ \ \ HIGH\_COLUMN\_ADDR\ =\ 0x10}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00030}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4a74e64f2f05766e6cfb130ff8bc34e8}{00030}}\ \ \ \ \ PAGE\_ADDRESS\ =\ 0xb0}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00032}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a580a96df1444ba3a552212a947fa4b}{00032}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a580a96df1444ba3a552212a947fa4b}{\_\_init\_\_}}(self,\ i2c,\ width=WIDTH,\ height=HEIGHT,\ addr=DEV\_ADDR):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00033}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052}{00033}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052}{i2c}}\ =\ i2c}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00034}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a747b15002d6c51d71476d634ae9ff1b2}{00034}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a747b15002d6c51d71476d634ae9ff1b2}{addr}}\ =\ addr}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abbd065fe338845295e16bb47180d84c7}{\_sh1106\_init}}()}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00036}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a38acb51b2a63fccbafac9c0afca0c1b9}{00036}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a38acb51b2a63fccbafac9c0afca0c1b9}{buffer}}\ =\ bytearray(self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a3f5b26484e4a8b220ccd205f583bb909}{PAGES}}\ *\ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989}{WIDTH}})}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ super().\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a580a96df1444ba3a552212a947fa4b}{\_\_init\_\_}}(self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a38acb51b2a63fccbafac9c0afca0c1b9}{buffer}},\ width,\ height,\ framebuf.MONO\_VLSB)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00039}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{00039}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(self,\ cmd):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Write\ a\ byte\ of\ command\ to\ SH1106"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052}{i2c}}.writeto(self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f}{DEV\_ADDR}},\ bytearray([0x80,\ cmd]))}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00043}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a7f115689fc8385845c3494c952a42e15}{00043}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a7f115689fc8385845c3494c952a42e15}{write\_data}}(self,\ data):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Write\ a\ databuffer\ to\ SH1106"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052}{i2c}}.writeto(self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f}{DEV\_ADDR}},\ b\textcolor{stringliteral}{"{}\(\backslash\)x40"{}}+data)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00047}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a64cfcf1dce21688b4859b78cca552642}{00047}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a64cfcf1dce21688b4859b78cca552642}{poweron}}(self):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(0xaf)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00050}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aec5cbf47187c9cb498441bda9699f89c}{00050}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aec5cbf47187c9cb498441bda9699f89c}{poweroff}}(self):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(0xae)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00053}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a545bf2a84a23e9e4282ccc65520fc80d}{00053}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a545bf2a84a23e9e4282ccc65520fc80d}{sleep}}(self,\ value):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(0xae\ |\ (\textcolor{keywordflow}{not}\ value))}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00056}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aba36dcff1e1320e706a6de6a94bc4e11}{00056}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aba36dcff1e1320e706a6de6a94bc4e11}{contrast}}(self,\ val):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(0x81)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(val)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00060}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aee92d1368e7eba9c024dfc1cb30258f6}{00060}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aee92d1368e7eba9c024dfc1cb30258f6}{show}}(self):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ (w,\ p,\ buf)\ =\ (self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989}{WIDTH}},\ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a3f5b26484e4a8b220ccd205f583bb909}{PAGES}},\ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a38acb51b2a63fccbafac9c0afca0c1b9}{buffer}})}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ page\ \textcolor{keywordflow}{in}\ range(0,\ p):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4a74e64f2f05766e6cfb130ff8bc34e8}{PAGE\_ADDRESS}}\ |\ page)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a33af7f6fbfeab45c0c61ed8a8f09b49c}{LOW\_COLUMN\_ADDR}}\ |\ 2)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4caa8610ccbf286510b55a777bf5873b}{HIGH\_COLUMN\_ADDR}}\ |\ 0)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ print(f"{}Updating\ page\ \{page\}"{})}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a7f115689fc8385845c3494c952a42e15}{write\_data}}(buf[(w*page):(w*page+w)])}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00069}\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abbd065fe338845295e16bb47180d84c7}{00069}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abbd065fe338845295e16bb47180d84c7}{\_sh1106\_init}}(self):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}Initialize\ SH1106"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ INIT\_SEQ\ =\ (}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ 0xae,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Turn\ off\ oled\ panel}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ low\ column\ address}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ 0x10,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ high\ column\ address}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ 0x40,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ start\ line\ address}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ 0x20,\ 0x02,\ \ \textcolor{comment}{\#\ Page\ addressing\ mode}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ 0xc8,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Top-\/down\ segment\ (4th\ segment)}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ 0x81,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ contrast\ control\ register}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ 0xcf,\ 0xa1,\ \ \textcolor{comment}{\#\ Set\ segment\ re-\/map\ 95\ to\ 0}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ 0xa6,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ normal\ display}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ 0xa8,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Set\ multiplex\ ratio(1\ to\ 64)}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ 0x3f,\ \ \ \ \ \ \ \ \textcolor{comment}{\#\ 1/64\ duty}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ 0xd3,\ 0x00,\ \ \textcolor{comment}{\#\ Set\ display\ offset:\ none}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ 0xd5,}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ 0x80,}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ 0xd9,}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ 0xf1,\ 0xda,}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ 0x12,\ 0xdb,}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ 0x40,\ 0x8d,}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ 0x14,}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ 0xaf\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Turn\ on\ oled\ panel}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ time.sleep\_ms(100)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ cmd\ \textcolor{keywordflow}{in}\ INIT\_SEQ:}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\_cmd}}(cmd)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00099}00099\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00100}00100\ \ \ \ \ \textcolor{comment}{\#\ Init\ I2C\ using\ pins\ GP22\ \&\ GP21\ (default\ I2C0\ pins)}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00101}\mbox{\hyperlink{namespacesh1106_abd67b7f7b895bcca6ddd4e477f343052}{00101}}\ \ \ \ \ i2c\ =\ I2C(0,\ scl=Pin(22),\ sda=Pin(21),\ freq=400\_000)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00102}00102\ \ \ \ \ print(f\textcolor{stringliteral}{"{}I2C\ configuration\ :\ \{str(i2c)\}"{}})}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00104}00104\ \ \ \ \ \textcolor{comment}{\#\ Init\ OLED\ display}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00105}\mbox{\hyperlink{namespacesh1106_a348e9cb4dd5d450eac7e3a7b9ed6923d}{00105}}\ \ \ \ \ oled\ =\ \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c}{SH1106\_I2C}}(i2c)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00106}00106\ \ \ \ \ oled.sleep(\textcolor{keyword}{False})}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00107}00107\ \ \ \ \ oled.contrast(100)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00108}00108\ \ \ \ \ oled.fill(0)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00110}00110\ \ \ \ \ \textcolor{comment}{\#\ Add\ some\ text}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00111}00111\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Using\ OLED\ and"{}},\ 0,\ 40)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00112}00112\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}ESP32"{}},\ 50,\ 50)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00114}00114\ \ \ \ \ \textcolor{comment}{\#\ Draw\ the\ logo}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00115}00115\ \ \ \ \ \textcolor{comment}{\#\ https://docs.micropython.org/en/latest/esp8266/tutorial/ssd1306.html}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00116}00116\ \ \ \ \ oled.fill\_rect(0,\ 0,\ 32,\ 32,\ 1)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00117}00117\ \ \ \ \ oled.fill\_rect(2,\ 2,\ 28,\ 28,\ 0)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00118}00118\ \ \ \ \ oled.vline(9,\ 8,\ 22,\ 1)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00119}00119\ \ \ \ \ oled.vline(16,\ 2,\ 22,\ 1)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00120}00120\ \ \ \ \ oled.vline(23,\ 8,\ 22,\ 1)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00121}00121\ \ \ \ \ oled.fill\_rect(26,\ 24,\ 2,\ 4,\ 1)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00122}00122\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}MicroPython"{}},\ 40,\ 0)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00123}00123\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}Brno,\ CZ"{}},\ 40,\ 12)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00124}00124\ \ \ \ \ oled.text(\textcolor{stringliteral}{"{}RadioElect."{}},\ 40,\ 24)}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00126}00126\ \ \ \ \ \textcolor{comment}{\#\ Binary\ icon}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00127}\mbox{\hyperlink{namespacesh1106_aebf446554a5d850c77519d882ba8ac0f}{00127}}\ \ \ \ \ icon\ =\ [}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00128}00128\ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 0,\ 0,\ 0,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00130}00130\ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1,\ 0,\ 1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ [1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ [0,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 1,\ 0],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ [0,\ 0,\ 1,\ 1,\ 1,\ 1,\ 1,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 1,\ 1,\ 1,\ 0,\ 0,\ 0],}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ [0,\ 0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0,\ 0]]}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00137}00137\ \ \ \ \ \textcolor{comment}{\#\ Copy\ icon\ to\ OLED\ display\ position\ pixel-\/by-\/pixel}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00138}\mbox{\hyperlink{namespacesh1106_a0df7404acb91928c77d299845b0674a0}{00138}}\ \ \ \ \ pos\_x,\ pos\_y\ =\ 100,\ 50}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{for}\ j,\ row\ \textcolor{keywordflow}{in}\ enumerate(icon):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ i,\ val\ \textcolor{keywordflow}{in}\ enumerate(row):}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ oled.pixel(i+pos\_x,\ j+pos\_y,\ val)\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00143}00143\ \ \ \ \ \textcolor{comment}{\#\ Finally\ update\ the\ OLED\ display\ so\ the\ text\ is\ displayed}}
+\DoxyCodeLine{\Hypertarget{sh1106_8py_source_l00144}00144\ \ \ \ \ oled.show()}
+
+\end{DoxyCode}

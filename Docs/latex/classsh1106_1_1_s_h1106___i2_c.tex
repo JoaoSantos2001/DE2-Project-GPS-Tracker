@@ -1,0 +1,272 @@
+\doxysection{SH1106\+\_\+\+I2C Class Reference}
+\hypertarget{classsh1106_1_1_s_h1106___i2_c}{}\label{classsh1106_1_1_s_h1106___i2_c}\index{SH1106\_I2C@{SH1106\_I2C}}
+Inheritance diagram for SH1106\+\_\+\+I2C\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsh1106_1_1_s_h1106___i2_c}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a580a96df1444ba3a552212a947fa4b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052}{i2c}}, width=\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989}{WIDTH}}, height=\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b}{HEIGHT}}, \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a747b15002d6c51d71476d634ae9ff1b2}{addr}}=\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f}{DEV\+\_\+\+ADDR}})
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}{write\+\_\+cmd}} (self, cmd)
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a7f115689fc8385845c3494c952a42e15}{write\+\_\+data}} (self, data)
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a64cfcf1dce21688b4859b78cca552642}{poweron}} (self)
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aec5cbf47187c9cb498441bda9699f89c}{poweroff}} (self)
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a545bf2a84a23e9e4282ccc65520fc80d}{sleep}} (self, value)
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aba36dcff1e1320e706a6de6a94bc4e11}{contrast}} (self, val)
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_aee92d1368e7eba9c024dfc1cb30258f6}{show}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052}{i2c}} = i2c
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a747b15002d6c51d71476d634ae9ff1b2}{addr}} = addr
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a38acb51b2a63fccbafac9c0afca0c1b9}{buffer}} = bytearray(self.\+PAGES \texorpdfstring{$\ast$}{*} self.\+WIDTH)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f}{DEV\+\_\+\+ADDR}} = 0x3c
+\item 
+int \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989}{WIDTH}} = 128
+\item 
+int \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b}{HEIGHT}} = 64
+\item 
+int \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a3f5b26484e4a8b220ccd205f583bb909}{PAGES}} = \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b}{HEIGHT}} // 8
+\item 
+int \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a33af7f6fbfeab45c0c61ed8a8f09b49c}{LOW\+\_\+\+COLUMN\+\_\+\+ADDR}} = 0x00
+\item 
+int \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4caa8610ccbf286510b55a777bf5873b}{HIGH\+\_\+\+COLUMN\+\_\+\+ADDR}} = 0x10
+\item 
+int \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4a74e64f2f05766e6cfb130ff8bc34e8}{PAGE\+\_\+\+ADDRESS}} = 0xb0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_abbd065fe338845295e16bb47180d84c7}{\+\_\+sh1106\+\_\+init}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00023}{23}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a2a580a96df1444ba3a552212a947fa4b}\index{SH1106\_I2C@{SH1106\_I2C}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a2a580a96df1444ba3a552212a947fa4b} 
+\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{i2c}{, }\item[{}]{width}{ = {\ttfamily \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989}{WIDTH}}}, }\item[{}]{height}{ = {\ttfamily \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b}{HEIGHT}}}, }\item[{}]{addr}{ = {\ttfamily \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f}{DEV\+\_\+\+ADDR}}}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00032}{32}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_abbd065fe338845295e16bb47180d84c7}\index{SH1106\_I2C@{SH1106\_I2C}!\_sh1106\_init@{\_sh1106\_init}}
+\index{\_sh1106\_init@{\_sh1106\_init}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{\_sh1106\_init()}{\_sh1106\_init()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_abbd065fe338845295e16bb47180d84c7} 
+\+\_\+sh1106\+\_\+init (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Initialize SH1106\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00069}{69}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_aba36dcff1e1320e706a6de6a94bc4e11}\index{SH1106\_I2C@{SH1106\_I2C}!contrast@{contrast}}
+\index{contrast@{contrast}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{contrast()}{contrast()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_aba36dcff1e1320e706a6de6a94bc4e11} 
+contrast (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{val}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00056}{56}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_aec5cbf47187c9cb498441bda9699f89c}\index{SH1106\_I2C@{SH1106\_I2C}!poweroff@{poweroff}}
+\index{poweroff@{poweroff}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{poweroff()}{poweroff()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_aec5cbf47187c9cb498441bda9699f89c} 
+poweroff (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00050}{50}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a64cfcf1dce21688b4859b78cca552642}\index{SH1106\_I2C@{SH1106\_I2C}!poweron@{poweron}}
+\index{poweron@{poweron}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{poweron()}{poweron()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a64cfcf1dce21688b4859b78cca552642} 
+poweron (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00047}{47}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_aee92d1368e7eba9c024dfc1cb30258f6}\index{SH1106\_I2C@{SH1106\_I2C}!show@{show}}
+\index{show@{show}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_aee92d1368e7eba9c024dfc1cb30258f6} 
+show (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00060}{60}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a545bf2a84a23e9e4282ccc65520fc80d}\index{SH1106\_I2C@{SH1106\_I2C}!sleep@{sleep}}
+\index{sleep@{sleep}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{sleep()}{sleep()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a545bf2a84a23e9e4282ccc65520fc80d} 
+sleep (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00053}{53}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce}\index{SH1106\_I2C@{SH1106\_I2C}!write\_cmd@{write\_cmd}}
+\index{write\_cmd@{write\_cmd}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{write\_cmd()}{write\_cmd()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a4cc1e4510a20bd841eaff35f903f6fce} 
+write\+\_\+cmd (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{cmd}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Write a byte of command to SH1106\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00039}{39}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a7f115689fc8385845c3494c952a42e15}\index{SH1106\_I2C@{SH1106\_I2C}!write\_data@{write\_data}}
+\index{write\_data@{write\_data}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{write\_data()}{write\_data()}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a7f115689fc8385845c3494c952a42e15} 
+write\+\_\+data (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{data}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Write a databuffer to SH1106\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00043}{43}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a747b15002d6c51d71476d634ae9ff1b2}\index{SH1106\_I2C@{SH1106\_I2C}!addr@{addr}}
+\index{addr@{addr}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{addr}{addr}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a747b15002d6c51d71476d634ae9ff1b2} 
+addr = addr}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00034}{34}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a38acb51b2a63fccbafac9c0afca0c1b9}\index{SH1106\_I2C@{SH1106\_I2C}!buffer@{buffer}}
+\index{buffer@{buffer}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a38acb51b2a63fccbafac9c0afca0c1b9} 
+buffer = bytearray(self.\+PAGES \texorpdfstring{$\ast$}{*} self.\+WIDTH)}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00036}{36}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f}\index{SH1106\_I2C@{SH1106\_I2C}!DEV\_ADDR@{DEV\_ADDR}}
+\index{DEV\_ADDR@{DEV\_ADDR}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{DEV\_ADDR}{DEV\_ADDR}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a2a19c50438247c841e971dfe4b09580f} 
+DEV\+\_\+\+ADDR = 0x3c\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00024}{24}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b}\index{SH1106\_I2C@{SH1106\_I2C}!HEIGHT@{HEIGHT}}
+\index{HEIGHT@{HEIGHT}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{HEIGHT}{HEIGHT}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b} 
+int HEIGHT = 64\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00026}{26}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a4caa8610ccbf286510b55a777bf5873b}\index{SH1106\_I2C@{SH1106\_I2C}!HIGH\_COLUMN\_ADDR@{HIGH\_COLUMN\_ADDR}}
+\index{HIGH\_COLUMN\_ADDR@{HIGH\_COLUMN\_ADDR}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{HIGH\_COLUMN\_ADDR}{HIGH\_COLUMN\_ADDR}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a4caa8610ccbf286510b55a777bf5873b} 
+int HIGH\+\_\+\+COLUMN\+\_\+\+ADDR = 0x10\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00029}{29}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052}\index{SH1106\_I2C@{SH1106\_I2C}!i2c@{i2c}}
+\index{i2c@{i2c}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{i2c}{i2c}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_abd67b7f7b895bcca6ddd4e477f343052} 
+i2c = i2c}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00033}{33}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a33af7f6fbfeab45c0c61ed8a8f09b49c}\index{SH1106\_I2C@{SH1106\_I2C}!LOW\_COLUMN\_ADDR@{LOW\_COLUMN\_ADDR}}
+\index{LOW\_COLUMN\_ADDR@{LOW\_COLUMN\_ADDR}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{LOW\_COLUMN\_ADDR}{LOW\_COLUMN\_ADDR}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a33af7f6fbfeab45c0c61ed8a8f09b49c} 
+int LOW\+\_\+\+COLUMN\+\_\+\+ADDR = 0x00\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00028}{28}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a4a74e64f2f05766e6cfb130ff8bc34e8}\index{SH1106\_I2C@{SH1106\_I2C}!PAGE\_ADDRESS@{PAGE\_ADDRESS}}
+\index{PAGE\_ADDRESS@{PAGE\_ADDRESS}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{PAGE\_ADDRESS}{PAGE\_ADDRESS}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a4a74e64f2f05766e6cfb130ff8bc34e8} 
+int PAGE\+\_\+\+ADDRESS = 0xb0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00030}{30}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a3f5b26484e4a8b220ccd205f583bb909}\index{SH1106\_I2C@{SH1106\_I2C}!PAGES@{PAGES}}
+\index{PAGES@{PAGES}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{PAGES}{PAGES}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a3f5b26484e4a8b220ccd205f583bb909} 
+int PAGES = \mbox{\hyperlink{classsh1106_1_1_s_h1106___i2_c_a4e81322eb1085aca9cd7c5527f5e4c6b}{HEIGHT}} // 8\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00027}{27}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+\Hypertarget{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989}\index{SH1106\_I2C@{SH1106\_I2C}!WIDTH@{WIDTH}}
+\index{WIDTH@{WIDTH}!SH1106\_I2C@{SH1106\_I2C}}
+\doxysubsubsection{\texorpdfstring{WIDTH}{WIDTH}}
+{\footnotesize\ttfamily \label{classsh1106_1_1_s_h1106___i2_c_a59c3bba4b17cd5e19f149ea175fa6989} 
+int WIDTH = 128\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{sh1106_8py_source_l00025}{25}} of file \mbox{\hyperlink{sh1106_8py_source}{sh1106.\+py}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Code/\mbox{\hyperlink{sh1106_8py}{sh1106.\+py}}\end{DoxyCompactItemize}

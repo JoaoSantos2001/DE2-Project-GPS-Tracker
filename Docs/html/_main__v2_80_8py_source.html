@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>DE2-Project-GPS-Tracker: Code/Main_v2.0.py Source File</title>
+<title>My Project: Code/Main_v2.0.py Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">DE2-Project-GPS-Tracker<span id="projectnumber">&#160;3.0</span>
+   <div id="projectname">My Project<span id="projectnumber">&#160;4.0</span>
    </div>
   </td>
  </tr>
@@ -163,7 +163,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="comment"># Initialize I2C bus</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        i2c = I2C(0, scl=Pin(I2C_SCL_PIN), sda=Pin(I2C_SDA_PIN), freq=I2C_FREQ)</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="comment"># Initialize OLED display</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        oled = SH1106_I2C(i2c)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        oled = <a class="code hl_class" href="classsh1106_1_1_s_h1106___i2_c.html">SH1106_I2C</a>(i2c)</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        oled.contrast(OLED_CONTRAST)</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> oled</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">except</span> Exception <span class="keyword">as</span> e:</div>
@@ -289,6 +289,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <a class="code hl_function" href="namespace_main__v2.html#a51af30a60f9f02777c6396b8247e356f">main</a>()</div>
 <div class="ttc" id="aclasslib_g_p_s_1_1_micropy_g_p_s_html"><div class="ttname"><a href="classlib_g_p_s_1_1_micropy_g_p_s.html">libGPS.MicropyGPS</a></div><div class="ttdef"><b>Definition</b> <a href="lib_g_p_s_8py_source.html#l00013">libGPS.py:13</a></div></div>
+<div class="ttc" id="aclasssh1106_1_1_s_h1106___i2_c_html"><div class="ttname"><a href="classsh1106_1_1_s_h1106___i2_c.html">sh1106.SH1106_I2C</a></div><div class="ttdef"><b>Definition</b> <a href="sh1106_8py_source.html#l00023">sh1106.py:23</a></div></div>
 <div class="ttc" id="anamespace_main__v2_html_a181abfd8ec76b25bf56a43a65a028d3e"><div class="ttname"><a href="namespace_main__v2.html#a181abfd8ec76b25bf56a43a65a028d3e">Main_v2.update_display</a></div><div class="ttdeci">update_display(oled, gps_data)</div><div class="ttdef"><b>Definition</b> <a href="#l00084">Main_v2.0.py:84</a></div></div>
 <div class="ttc" id="anamespace_main__v2_html_a22448d3b46062bde102492476662abf3"><div class="ttname"><a href="namespace_main__v2.html#a22448d3b46062bde102492476662abf3">Main_v2.initialize_display</a></div><div class="ttdeci">initialize_display()</div><div class="ttdef"><b>Definition</b> <a href="#l00064">Main_v2.0.py:64</a></div></div>
 <div class="ttc" id="anamespace_main__v2_html_a51af30a60f9f02777c6396b8247e356f"><div class="ttname"><a href="namespace_main__v2.html#a51af30a60f9f02777c6396b8247e356f">Main_v2.main</a></div><div class="ttdeci">main()</div><div class="ttdef"><b>Definition</b> <a href="#l00134">Main_v2.0.py:134</a></div></div>

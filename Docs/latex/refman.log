@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.11.28)  28 NOV 2024 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.11.28)  28 NOV 2024 17:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -821,27 +821,26 @@ Package hyperref Info: Option `unicode' set `true' on input line 217.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 222.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 222.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 222
+(Font)              scaled to size 10.79993pt on input line 223.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 6.29996pt on input line 223.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 223
 .
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 222
+LaTeX Font Info:    Trying to load font information for U+msb on input line 223
 .
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+wasy on input line 22
-2.
+3.
 
 (C:\Users\joao7\AppData\Roaming\MiKTeX\tex/latex/wasysym\uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
-)
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 223.
- [1
+) [1
 
 
 {C:/Users/joao7/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Program Fi
@@ -875,7 +874,8 @@ LaTeX Warning: Reference `namespace_main__v2' on page 1 undefined on input line
  4.
 
 
-LaTeX Warning: Reference `namespacetest' on page 1 undefined on input line 5.
+LaTeX Warning: Reference `namespacesh1106' on page 1 undefined on input line 5.
+
 
 )
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
@@ -889,8 +889,12 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 Chapter 2.
 (hierarchy.tex
 
+LaTeX Warning: Reference `classsh1106_1_1_s_h1106___i2_c' on page 3 undefined o
+n input line 4.
+
+
 LaTeX Warning: Reference `classlib_g_p_s_1_1_micropy_g_p_s' on page 3 undefined
- on input line 4.
+ on input line 7.
 
 ) [3] [4
 
@@ -900,6 +904,10 @@ Chapter 3.
 
 LaTeX Warning: Reference `classlib_g_p_s_1_1_micropy_g_p_s' on page 5 undefined
  on input line 3.
+
+
+LaTeX Warning: Reference `classsh1106_1_1_s_h1106___i2_c' on page 5 undefined o
+n input line 4.
 
 ) [5] [6
 
@@ -914,7 +922,7 @@ LaTeX Warning: Reference `_main__v2_80_8py' on page 7 undefined on input line 4
 .
 
 
-LaTeX Warning: Reference `test_8py' on page 7 undefined on input line 5.
+LaTeX Warning: Reference `sh1106_8py' on page 7 undefined on input line 5.
 
 ) [7] [8
 
@@ -946,32 +954,16 @@ LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 109.
  [10]
-[11]) (namespacetest.tex) [12]
-Chapter 6.
-(classlib_g_p_s_1_1_micropy_g_p_s.tex
-Package epstopdf Info: Source file: <classlib_g_p_s_1_1_micropy_g_p_s.eps>
-(epstopdf)                    date: 2024-11-28 16:45:22
-(epstopdf)                    size: 3774 bytes
-(epstopdf)             Output file: <classlib_g_p_s_1_1_micropy_g_p_s-eps-conve
-rted-to.pdf>
-(epstopdf)             Command: <miktex-epstopdf --outfile=classlib_g_p_s_1_1_m
-icropy_g_p_s-eps-converted-to.pdf classlib_g_p_s_1_1_micropy_g_p_s.eps>
-(epstopdf)             \includegraphics on input line 6.
-runsystem(miktex-epstopdf --outfile=classlib_g_p_s_1_1_micropy_g_p_s-eps-conver
-ted-to.pdf classlib_g_p_s_1_1_micropy_g_p_s.eps)...executed safely (allowed).
+[11]) (namespacesh1106.tex [12]) [13] [14
 
-Package epstopdf Info: Result file: <classlib_g_p_s_1_1_micropy_g_p_s-eps-conve
-rted-to.pdf>
-(epstopdf)                    date: 2024-11-28 17:19:29
-(epstopdf)                    size: 5445 bytes.
- <./classlib_g_p_s_1_1_micropy_g_p_s-eps-converted-to.pdf>
-<classlib_g_p_s_1_1_micropy_g_p_s-eps-converted-to.pdf, id=171, 501.875pt x 436
-.63126pt>
-File: classlib_g_p_s_1_1_micropy_g_p_s-eps-converted-to.pdf Graphic file (type 
-pdf)
-<use classlib_g_p_s_1_1_micropy_g_p_s-eps-converted-to.pdf>
-Package pdftex.def Info: classlib_g_p_s_1_1_micropy_g_p_s-eps-converted-to.pdf 
- used on input line 6.
+]
+Chapter 6.
+(classlib_g_p_s_1_1_micropy_g_p_s.tex <./classlib_g_p_s_1_1_micropy_g_p_s.pdf>
+<classlib_g_p_s_1_1_micropy_g_p_s.pdf, id=220, 501.875pt x 436.63126pt>
+File: classlib_g_p_s_1_1_micropy_g_p_s.pdf Graphic file (type pdf)
+<use classlib_g_p_s_1_1_micropy_g_p_s.pdf>
+Package pdftex.def Info: classlib_g_p_s_1_1_micropy_g_p_s.pdf  used on input li
+ne 6.
 (pdftex.def)             Requested size: 65.40685pt x 56.9055pt.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 8.09995pt on input line 15.
@@ -979,13 +971,11 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 15.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 8.09995pt on input line 15.
- [13
 
-] [14]
+[15] [16]
 LaTeX Font Info:    Trying to load font information for TS1+pcr on input line 1
 69.
-
-(C:\Users\joao7\AppData\Roaming\MiKTeX\tex/latex/psnfss\ts1pcr.fd
+ (C:\Users\joao7\AppData\Roaming\MiKTeX\tex/latex/psnfss\ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
 
@@ -1027,7 +1017,7 @@ l.175 ...inutes Seconds (dms) - 40° 26′ 46″ N
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
-[15]
+[17]
 Overfull \hbox (24.7562pt too wide) in paragraph at lines 221--221
 []\T1/pcr/m/n/8 Parse Global Positioning System Fix Data (GGA) Sentence. Update
 s UTC timestamp, latitude, longitude, 
@@ -1063,7 +1053,7 @@ Overfull \hbox (53.55621pt too wide) in paragraph at lines 257--257
 entences,the number of the last SV sentence 
  []
 
-[16] [17]
+[18] [19]
 Overfull \hbox (34.3562pt too wide) in paragraph at lines 344--344
 []\T1/pcr/m/n/8 Updates a high resolution counter with current time when fix is
  updated. Currently only triggered from 
@@ -1075,13 +1065,13 @@ Overfull \hbox (67.95622pt too wide) in paragraph at lines 375--375
 making satellite data complete:return: boolean 
  []
 
-[18]
+[20]
 Overfull \hbox (106.35625pt too wide) in paragraph at lines 437--437
 []\T1/pcr/m/n/8 Returns number of millisecond since the last sentence with a va
 lid fix was parsed. Returns 0 if no fix has been found 
  []
 
-[19]
+[21]
 Overfull \hbox (43.9562pt too wide) in paragraph at lines 459--459
 []\T1/pcr/m/n/8 Process a new input char and updates GPS object if necessary ba
 sed on special characters ('$', ',', '*') 
@@ -1093,10 +1083,18 @@ Overfull \hbox (39.1562pt too wide) in paragraph at lines 460--460
 CRC prior to parsing by the  appropriate[] 
  []
 
-[20]
+[22]
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 7.19995pt on input line 572.
- [21] [22] [23] [24] [25]) [26]
+ [23] [24] [25] [26] [27]) (classsh1106_1_1_s_h1106___i2_c.tex <./classsh1106_1
+_1_s_h1106___i2_c.pdf>
+<classsh1106_1_1_s_h1106___i2_c.pdf, id=689, 501.875pt x 441.65pt>
+File: classsh1106_1_1_s_h1106___i2_c.pdf Graphic file (type pdf)
+<use classsh1106_1_1_s_h1106___i2_c.pdf>
+Package pdftex.def Info: classsh1106_1_1_s_h1106___i2_c.pdf  used on input line
+ 6.
+(pdftex.def)             Requested size: 64.66403pt x 56.9055pt.
+ [28] [29] [30] [31]) [32]
 Chapter 7.
 (lib_g_p_s_8py.tex) (lib_g_p_s_8py_source.tex
 
@@ -1138,11 +1136,11 @@ l.39 ...conds\ (dms)\ -\/\ 40°\ 26′\ 46″\ N}}
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
-[27
+[33
 
-] [28] [29] [30] [31] [32] [33] [34] [35]) (_main__v2_80_8py.tex [36])
-(_main__v2_80_8py_source.tex [37] [38]) (test_8py.tex) (test_8py_source.tex)
-[39] [40
+] [34] [35] [36] [37] [38] [39] [40] [41]) (_main__v2_80_8py.tex [42])
+(_main__v2_80_8py_source.tex [43] [44]) (sh1106_8py.tex) (sh1106_8py_source.tex
+[45] [46]) [47] [48
 
 ]
 No file refman.ind.
@@ -1165,16 +1163,16 @@ Package rerunfilecheck Warning: File `refman.out' has changed.
 
 Package rerunfilecheck Info: Checksums for `refman.out':
 (rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  4EA61538B2EF8CE95BA2434B134AF69F;19821.
+(rerunfilecheck)             After:  7C6EE46690E09D63E90452B57D47AA45;25257.
  ) 
 Here is how much of TeX's memory you used:
- 19200 strings out of 474486
- 326927 string characters out of 5753569
+ 19428 strings out of 474486
+ 333690 string characters out of 5753569
  1952542 words of memory out of 5000000
- 39928 multiletter control sequences out of 15000+600000
+ 39939 multiletter control sequences out of 15000+600000
  605350 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 101i,16n,117p,598b,642s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,16n,117p,673b,642s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progra
 m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTe
 X/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1
@@ -1183,9 +1181,9 @@ X/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1
 iles/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX/fonts/
 type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic
 /uhvro8a.pfb>
-Output written on refman.pdf (42 pages, 430138 bytes).
+Output written on refman.pdf (50 pages, 514295 bytes).
 PDF statistics:
- 2070 PDF objects out of 2073 (max. 8388607)
- 1209 named destinations out of 1440 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2526 PDF objects out of 2984 (max. 8388607)
+ 1425 named destinations out of 1440 (max. 500000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

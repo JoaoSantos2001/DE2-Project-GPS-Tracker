@@ -1,0 +1,93 @@
+.TH "sh1106" 3 "Version 4.0" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sh1106
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "class \fBSH1106_I2C\fP"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBi2c\fP = I2C(0, scl=Pin(22), sda=Pin(21), freq=400_000)"
+.br
+.ti -1c
+.RI "\fBoled\fP = \fBSH1106_I2C\fP(\fBi2c\fP)"
+.br
+.ti -1c
+.RI "list \fBicon\fP"
+.br
+.ti -1c
+.RI "\fBpos_x\fP"
+.br
+.ti -1c
+.RI "\fBpos_y\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+.nf
+MicroPython module for I2C OLED display with SH1106 driver\&.
+
+Components:
+  - ESP32 microcontroller
+  - OLED display with SH1106 driver
+
+Authors: Shujen Chen et al\&. Raspberry Pi Pico Interfacing
+         and Programming with MicroPython
+         MicroPython SH1106 OLED driver, I2C and SPI interfaces
+         Tomas Fryza
+Creation Date: 2023-10-27
+Last Modified: 2024-10-22
+.fi
+.PP
+ 
+.SH "Variable Documentation"
+.PP 
+.SS "i2c = I2C(0, scl=Pin(22), sda=Pin(21), freq=400_000)"
+
+.PP
+Definition at line \fB101\fP of file \fBsh1106\&.py\fP\&.
+.SS "list icon"
+\fBInitial value:\fP
+.nf
+1 =  [
+2         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+3         [0, 1, 1, 0, 0, 0, 1, 1, 0],
+4         [1, 1, 1, 1, 0, 1, 1, 1, 1],
+5         [1, 1, 1, 1, 1, 1, 1, 1, 1],
+6         [1, 1, 1, 1, 1, 1, 1, 1, 1],
+7         [0, 1, 1, 1, 1, 1, 1, 1, 0],
+8         [0, 0, 1, 1, 1, 1, 1, 0, 0],
+9         [0, 0, 0, 1, 1, 1, 0, 0, 0],
+10         [0, 0, 0, 0, 1, 0, 0, 0, 0]]
+.PP
+.fi
+
+.PP
+Definition at line \fB127\fP of file \fBsh1106\&.py\fP\&.
+.SS "oled = \fBSH1106_I2C\fP(\fBi2c\fP)"
+
+.PP
+Definition at line \fB105\fP of file \fBsh1106\&.py\fP\&.
+.SS "pos_x"
+
+.PP
+Definition at line \fB138\fP of file \fBsh1106\&.py\fP\&.
+.SS "pos_y"
+
+.PP
+Definition at line \fB138\fP of file \fBsh1106\&.py\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

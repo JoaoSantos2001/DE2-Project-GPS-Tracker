@@ -1,0 +1,190 @@
+.TH "SH1106_I2C" 3 "Version 4.0" "My Project" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+SH1106_I2C
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits FrameBuffer\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fB__init__\fP (self, \fBi2c\fP, width=\fBWIDTH\fP, height=\fBHEIGHT\fP, \fBaddr\fP=\fBDEV_ADDR\fP)"
+.br
+.ti -1c
+.RI "\fBwrite_cmd\fP (self, cmd)"
+.br
+.ti -1c
+.RI "\fBwrite_data\fP (self, data)"
+.br
+.ti -1c
+.RI "\fBpoweron\fP (self)"
+.br
+.ti -1c
+.RI "\fBpoweroff\fP (self)"
+.br
+.ti -1c
+.RI "\fBsleep\fP (self, value)"
+.br
+.ti -1c
+.RI "\fBcontrast\fP (self, val)"
+.br
+.ti -1c
+.RI "\fBshow\fP (self)"
+.br
+.in -1c
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBi2c\fP = i2c"
+.br
+.ti -1c
+.RI "\fBaddr\fP = addr"
+.br
+.ti -1c
+.RI "\fBbuffer\fP = bytearray(self\&.PAGES * self\&.WIDTH)"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBDEV_ADDR\fP = 0x3c"
+.br
+.ti -1c
+.RI "int \fBWIDTH\fP = 128"
+.br
+.ti -1c
+.RI "int \fBHEIGHT\fP = 64"
+.br
+.ti -1c
+.RI "int \fBPAGES\fP = \fBHEIGHT\fP // 8"
+.br
+.ti -1c
+.RI "int \fBLOW_COLUMN_ADDR\fP = 0x00"
+.br
+.ti -1c
+.RI "int \fBHIGH_COLUMN_ADDR\fP = 0x10"
+.br
+.ti -1c
+.RI "int \fBPAGE_ADDRESS\fP = 0xb0"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fB_sh1106_init\fP (self)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line \fB23\fP of file \fBsh1106\&.py\fP\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "__init__ ( self,  i2c,  width = \fR\fBWIDTH\fP\fP,  height = \fR\fBHEIGHT\fP\fP,  addr = \fR\fBDEV_ADDR\fP\fP)"
+
+.PP
+Definition at line \fB32\fP of file \fBsh1106\&.py\fP\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "_sh1106_init ( self)\fR [protected]\fP"
+
+.PP
+.nf
+Initialize SH1106
+.fi
+.PP
+ 
+.PP
+Definition at line \fB69\fP of file \fBsh1106\&.py\fP\&.
+.SS "contrast ( self,  val)"
+
+.PP
+Definition at line \fB56\fP of file \fBsh1106\&.py\fP\&.
+.SS "poweroff ( self)"
+
+.PP
+Definition at line \fB50\fP of file \fBsh1106\&.py\fP\&.
+.SS "poweron ( self)"
+
+.PP
+Definition at line \fB47\fP of file \fBsh1106\&.py\fP\&.
+.SS "show ( self)"
+
+.PP
+Definition at line \fB60\fP of file \fBsh1106\&.py\fP\&.
+.SS "sleep ( self,  value)"
+
+.PP
+Definition at line \fB53\fP of file \fBsh1106\&.py\fP\&.
+.SS "write_cmd ( self,  cmd)"
+
+.PP
+.nf
+Write a byte of command to SH1106
+.fi
+.PP
+ 
+.PP
+Definition at line \fB39\fP of file \fBsh1106\&.py\fP\&.
+.SS "write_data ( self,  data)"
+
+.PP
+.nf
+Write a databuffer to SH1106
+.fi
+.PP
+ 
+.PP
+Definition at line \fB43\fP of file \fBsh1106\&.py\fP\&.
+.SH "Field Documentation"
+.PP 
+.SS "addr = addr"
+
+.PP
+Definition at line \fB34\fP of file \fBsh1106\&.py\fP\&.
+.SS "buffer = bytearray(self\&.PAGES * self\&.WIDTH)"
+
+.PP
+Definition at line \fB36\fP of file \fBsh1106\&.py\fP\&.
+.SS "DEV_ADDR = 0x3c\fR [static]\fP"
+
+.PP
+Definition at line \fB24\fP of file \fBsh1106\&.py\fP\&.
+.SS "int HEIGHT = 64\fR [static]\fP"
+
+.PP
+Definition at line \fB26\fP of file \fBsh1106\&.py\fP\&.
+.SS "int HIGH_COLUMN_ADDR = 0x10\fR [static]\fP"
+
+.PP
+Definition at line \fB29\fP of file \fBsh1106\&.py\fP\&.
+.SS "i2c = i2c"
+
+.PP
+Definition at line \fB33\fP of file \fBsh1106\&.py\fP\&.
+.SS "int LOW_COLUMN_ADDR = 0x00\fR [static]\fP"
+
+.PP
+Definition at line \fB28\fP of file \fBsh1106\&.py\fP\&.
+.SS "int PAGE_ADDRESS = 0xb0\fR [static]\fP"
+
+.PP
+Definition at line \fB30\fP of file \fBsh1106\&.py\fP\&.
+.SS "int PAGES = \fBHEIGHT\fP // 8\fR [static]\fP"
+
+.PP
+Definition at line \fB27\fP of file \fBsh1106\&.py\fP\&.
+.SS "int WIDTH = 128\fR [static]\fP"
+
+.PP
+Definition at line \fB25\fP of file \fBsh1106\&.py\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for My Project from the source code\&.

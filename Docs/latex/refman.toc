@@ -25,83 +25,114 @@
 \contentsline {subsubsection}{\numberline {5.2.3.6}UART\_BAUDRATE}{12}{subsubsection.5.2.3.6}%
 \contentsline {subsubsection}{\numberline {5.2.3.7}UART\_RX\_PIN}{12}{subsubsection.5.2.3.7}%
 \contentsline {subsubsection}{\numberline {5.2.3.8}UART\_TX\_PIN}{12}{subsubsection.5.2.3.8}%
-\contentsline {section}{\numberline {5.3}test Namespace Reference}{12}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Data Structure Documentation}{13}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Micropy\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GPS Class Reference}{13}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{15}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Constructor \& Destructor Documentation}{15}{subsection.6.1.2}%
-\contentsline {subsubsection}{\numberline {6.1.2.1}\_\_init\_\_()}{15}{subsubsection.6.1.2.1}%
-\contentsline {subsection}{\numberline {6.1.3}Member Function Documentation}{15}{subsection.6.1.3}%
-\contentsline {subsubsection}{\numberline {6.1.3.1}compass\_direction()}{15}{subsubsection.6.1.3.1}%
-\contentsline {subsubsection}{\numberline {6.1.3.2}date\_string()}{16}{subsubsection.6.1.3.2}%
-\contentsline {subsubsection}{\numberline {6.1.3.3}gpgga()}{16}{subsubsection.6.1.3.3}%
-\contentsline {subsubsection}{\numberline {6.1.3.4}gpgll()}{16}{subsubsection.6.1.3.4}%
-\contentsline {subsubsection}{\numberline {6.1.3.5}gpgsa()}{16}{subsubsection.6.1.3.5}%
-\contentsline {subsubsection}{\numberline {6.1.3.6}gpgsv()}{17}{subsubsection.6.1.3.6}%
-\contentsline {subsubsection}{\numberline {6.1.3.7}gprmc()}{17}{subsubsection.6.1.3.7}%
-\contentsline {subsubsection}{\numberline {6.1.3.8}gpvtg()}{17}{subsubsection.6.1.3.8}%
-\contentsline {subsubsection}{\numberline {6.1.3.9}latitude()}{17}{subsubsection.6.1.3.9}%
-\contentsline {subsubsection}{\numberline {6.1.3.10}latitude\_string()}{18}{subsubsection.6.1.3.10}%
-\contentsline {subsubsection}{\numberline {6.1.3.11}longitude()}{18}{subsubsection.6.1.3.11}%
-\contentsline {subsubsection}{\numberline {6.1.3.12}longitude\_string()}{18}{subsubsection.6.1.3.12}%
-\contentsline {subsubsection}{\numberline {6.1.3.13}new\_fix\_time()}{18}{subsubsection.6.1.3.13}%
-\contentsline {subsubsection}{\numberline {6.1.3.14}new\_sentence()}{18}{subsubsection.6.1.3.14}%
-\contentsline {subsubsection}{\numberline {6.1.3.15}satellite\_data\_updated()}{19}{subsubsection.6.1.3.15}%
-\contentsline {subsubsection}{\numberline {6.1.3.16}satellites\_visible()}{19}{subsubsection.6.1.3.16}%
-\contentsline {subsubsection}{\numberline {6.1.3.17}speed\_string()}{19}{subsubsection.6.1.3.17}%
-\contentsline {subsubsection}{\numberline {6.1.3.18}start\_logging()}{19}{subsubsection.6.1.3.18}%
-\contentsline {subsubsection}{\numberline {6.1.3.19}stop\_logging()}{20}{subsubsection.6.1.3.19}%
-\contentsline {subsubsection}{\numberline {6.1.3.20}time\_since\_fix()}{20}{subsubsection.6.1.3.20}%
-\contentsline {subsubsection}{\numberline {6.1.3.21}unset\_satellite\_data\_updated()}{20}{subsubsection.6.1.3.21}%
-\contentsline {subsubsection}{\numberline {6.1.3.22}update()}{20}{subsubsection.6.1.3.22}%
-\contentsline {subsubsection}{\numberline {6.1.3.23}write\_log()}{20}{subsubsection.6.1.3.23}%
-\contentsline {subsection}{\numberline {6.1.4}Field Documentation}{21}{subsection.6.1.4}%
-\contentsline {subsubsection}{\numberline {6.1.4.1}\_latitude}{21}{subsubsection.6.1.4.1}%
-\contentsline {subsubsection}{\numberline {6.1.4.2}\_longitude}{21}{subsubsection.6.1.4.2}%
-\contentsline {subsubsection}{\numberline {6.1.4.3}active\_segment}{21}{subsubsection.6.1.4.3}%
-\contentsline {subsubsection}{\numberline {6.1.4.4}altitude}{21}{subsubsection.6.1.4.4}%
-\contentsline {subsubsection}{\numberline {6.1.4.5}char\_count}{21}{subsubsection.6.1.4.5}%
-\contentsline {subsubsection}{\numberline {6.1.4.6}clean\_sentences}{21}{subsubsection.6.1.4.6}%
-\contentsline {subsubsection}{\numberline {6.1.4.7}coord\_format}{21}{subsubsection.6.1.4.7}%
-\contentsline {subsubsection}{\numberline {6.1.4.8}course}{22}{subsubsection.6.1.4.8}%
-\contentsline {subsubsection}{\numberline {6.1.4.9}crc\_fails}{22}{subsubsection.6.1.4.9}%
-\contentsline {subsubsection}{\numberline {6.1.4.10}crc\_xor\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{22}{subsubsection.6.1.4.10}%
-\contentsline {subsubsection}{\numberline {6.1.4.11}crc\_xor\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{22}{subsubsection.6.1.4.11}%
-\contentsline {subsubsection}{\numberline {6.1.4.12}date\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{22}{subsubsection.6.1.4.12}%
-\contentsline {subsubsection}{\numberline {6.1.4.13}date\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{22}{subsubsection.6.1.4.13}%
-\contentsline {subsubsection}{\numberline {6.1.4.14}fix\_stat}{22}{subsubsection.6.1.4.14}%
-\contentsline {subsubsection}{\numberline {6.1.4.15}fix\_time}{22}{subsubsection.6.1.4.15}%
-\contentsline {subsubsection}{\numberline {6.1.4.16}fix\_type}{23}{subsubsection.6.1.4.16}%
-\contentsline {subsubsection}{\numberline {6.1.4.17}geoid\_height}{23}{subsubsection.6.1.4.17}%
-\contentsline {subsubsection}{\numberline {6.1.4.18}gps\_segments}{23}{subsubsection.6.1.4.18}%
-\contentsline {subsubsection}{\numberline {6.1.4.19}hdop}{23}{subsubsection.6.1.4.19}%
-\contentsline {subsubsection}{\numberline {6.1.4.20}last\_sv\_sentence}{23}{subsubsection.6.1.4.20}%
-\contentsline {subsubsection}{\numberline {6.1.4.21}local\_offset}{23}{subsubsection.6.1.4.21}%
-\contentsline {subsubsection}{\numberline {6.1.4.22}log\_en\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{23}{subsubsection.6.1.4.22}%
-\contentsline {subsubsection}{\numberline {6.1.4.23}log\_en\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{23}{subsubsection.6.1.4.23}%
-\contentsline {subsubsection}{\numberline {6.1.4.24}log\_handle}{24}{subsubsection.6.1.4.24}%
-\contentsline {subsubsection}{\numberline {6.1.4.25}parsed\_sentences}{24}{subsubsection.6.1.4.25}%
-\contentsline {subsubsection}{\numberline {6.1.4.26}pdop}{24}{subsubsection.6.1.4.26}%
-\contentsline {subsubsection}{\numberline {6.1.4.27}process\_crc\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{24}{subsubsection.6.1.4.27}%
-\contentsline {subsubsection}{\numberline {6.1.4.28}process\_crc\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{24}{subsubsection.6.1.4.28}%
-\contentsline {subsubsection}{\numberline {6.1.4.29}satellite\_data}{24}{subsubsection.6.1.4.29}%
-\contentsline {subsubsection}{\numberline {6.1.4.30}satellites\_in\_use}{24}{subsubsection.6.1.4.30}%
-\contentsline {subsubsection}{\numberline {6.1.4.31}satellites\_in\_view}{24}{subsubsection.6.1.4.31}%
-\contentsline {subsubsection}{\numberline {6.1.4.32}satellites\_used}{25}{subsubsection.6.1.4.32}%
-\contentsline {subsubsection}{\numberline {6.1.4.33}sentence\_active\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{25}{subsubsection.6.1.4.33}%
-\contentsline {subsubsection}{\numberline {6.1.4.34}sentence\_active\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{25}{subsubsection.6.1.4.34}%
-\contentsline {subsubsection}{\numberline {6.1.4.35}SENTENCE\_LIMIT}{25}{subsubsection.6.1.4.35}%
-\contentsline {subsubsection}{\numberline {6.1.4.36}speed}{25}{subsubsection.6.1.4.36}%
-\contentsline {subsubsection}{\numberline {6.1.4.37}supported\_sentences\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{25}{subsubsection.6.1.4.37}%
-\contentsline {subsubsection}{\numberline {6.1.4.38}supported\_sentences\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{25}{subsubsection.6.1.4.38}%
-\contentsline {subsubsection}{\numberline {6.1.4.39}timestamp}{26}{subsubsection.6.1.4.39}%
-\contentsline {subsubsection}{\numberline {6.1.4.40}total\_sv\_sentences}{26}{subsubsection.6.1.4.40}%
-\contentsline {subsubsection}{\numberline {6.1.4.41}valid}{26}{subsubsection.6.1.4.41}%
-\contentsline {subsubsection}{\numberline {6.1.4.42}vdop}{26}{subsubsection.6.1.4.42}%
-\contentsline {chapter}{\numberline {7}File Documentation}{27}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Code/lib\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GPS.py File Reference}{27}{section.7.1}%
-\contentsline {section}{\numberline {7.2}lib\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GPS.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py}{27}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Code/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}v2.0.py File Reference}{36}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}v2.0.py}{37}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Code/test.py File Reference}{39}{section.7.5}%
-\contentsline {section}{\numberline {7.6}test.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py}{39}{section.7.6}%
+\contentsline {section}{\numberline {5.3}sh1106 Namespace Reference}{12}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Detailed Description}{12}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Variable Documentation}{13}{subsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.2.1}i2c}{13}{subsubsection.5.3.2.1}%
+\contentsline {subsubsection}{\numberline {5.3.2.2}icon}{13}{subsubsection.5.3.2.2}%
+\contentsline {subsubsection}{\numberline {5.3.2.3}oled}{13}{subsubsection.5.3.2.3}%
+\contentsline {subsubsection}{\numberline {5.3.2.4}pos\_x}{13}{subsubsection.5.3.2.4}%
+\contentsline {subsubsection}{\numberline {5.3.2.5}pos\_y}{13}{subsubsection.5.3.2.5}%
+\contentsline {chapter}{\numberline {6}Data Structure Documentation}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Micropy\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GPS Class Reference}{15}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{17}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Constructor \& Destructor Documentation}{17}{subsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.1}\_\_init\_\_()}{17}{subsubsection.6.1.2.1}%
+\contentsline {subsection}{\numberline {6.1.3}Member Function Documentation}{17}{subsection.6.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.3.1}compass\_direction()}{17}{subsubsection.6.1.3.1}%
+\contentsline {subsubsection}{\numberline {6.1.3.2}date\_string()}{18}{subsubsection.6.1.3.2}%
+\contentsline {subsubsection}{\numberline {6.1.3.3}gpgga()}{18}{subsubsection.6.1.3.3}%
+\contentsline {subsubsection}{\numberline {6.1.3.4}gpgll()}{18}{subsubsection.6.1.3.4}%
+\contentsline {subsubsection}{\numberline {6.1.3.5}gpgsa()}{18}{subsubsection.6.1.3.5}%
+\contentsline {subsubsection}{\numberline {6.1.3.6}gpgsv()}{19}{subsubsection.6.1.3.6}%
+\contentsline {subsubsection}{\numberline {6.1.3.7}gprmc()}{19}{subsubsection.6.1.3.7}%
+\contentsline {subsubsection}{\numberline {6.1.3.8}gpvtg()}{19}{subsubsection.6.1.3.8}%
+\contentsline {subsubsection}{\numberline {6.1.3.9}latitude()}{19}{subsubsection.6.1.3.9}%
+\contentsline {subsubsection}{\numberline {6.1.3.10}latitude\_string()}{20}{subsubsection.6.1.3.10}%
+\contentsline {subsubsection}{\numberline {6.1.3.11}longitude()}{20}{subsubsection.6.1.3.11}%
+\contentsline {subsubsection}{\numberline {6.1.3.12}longitude\_string()}{20}{subsubsection.6.1.3.12}%
+\contentsline {subsubsection}{\numberline {6.1.3.13}new\_fix\_time()}{20}{subsubsection.6.1.3.13}%
+\contentsline {subsubsection}{\numberline {6.1.3.14}new\_sentence()}{20}{subsubsection.6.1.3.14}%
+\contentsline {subsubsection}{\numberline {6.1.3.15}satellite\_data\_updated()}{21}{subsubsection.6.1.3.15}%
+\contentsline {subsubsection}{\numberline {6.1.3.16}satellites\_visible()}{21}{subsubsection.6.1.3.16}%
+\contentsline {subsubsection}{\numberline {6.1.3.17}speed\_string()}{21}{subsubsection.6.1.3.17}%
+\contentsline {subsubsection}{\numberline {6.1.3.18}start\_logging()}{21}{subsubsection.6.1.3.18}%
+\contentsline {subsubsection}{\numberline {6.1.3.19}stop\_logging()}{22}{subsubsection.6.1.3.19}%
+\contentsline {subsubsection}{\numberline {6.1.3.20}time\_since\_fix()}{22}{subsubsection.6.1.3.20}%
+\contentsline {subsubsection}{\numberline {6.1.3.21}unset\_satellite\_data\_updated()}{22}{subsubsection.6.1.3.21}%
+\contentsline {subsubsection}{\numberline {6.1.3.22}update()}{22}{subsubsection.6.1.3.22}%
+\contentsline {subsubsection}{\numberline {6.1.3.23}write\_log()}{22}{subsubsection.6.1.3.23}%
+\contentsline {subsection}{\numberline {6.1.4}Field Documentation}{23}{subsection.6.1.4}%
+\contentsline {subsubsection}{\numberline {6.1.4.1}\_latitude}{23}{subsubsection.6.1.4.1}%
+\contentsline {subsubsection}{\numberline {6.1.4.2}\_longitude}{23}{subsubsection.6.1.4.2}%
+\contentsline {subsubsection}{\numberline {6.1.4.3}active\_segment}{23}{subsubsection.6.1.4.3}%
+\contentsline {subsubsection}{\numberline {6.1.4.4}altitude}{23}{subsubsection.6.1.4.4}%
+\contentsline {subsubsection}{\numberline {6.1.4.5}char\_count}{23}{subsubsection.6.1.4.5}%
+\contentsline {subsubsection}{\numberline {6.1.4.6}clean\_sentences}{23}{subsubsection.6.1.4.6}%
+\contentsline {subsubsection}{\numberline {6.1.4.7}coord\_format}{23}{subsubsection.6.1.4.7}%
+\contentsline {subsubsection}{\numberline {6.1.4.8}course}{24}{subsubsection.6.1.4.8}%
+\contentsline {subsubsection}{\numberline {6.1.4.9}crc\_fails}{24}{subsubsection.6.1.4.9}%
+\contentsline {subsubsection}{\numberline {6.1.4.10}crc\_xor\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{24}{subsubsection.6.1.4.10}%
+\contentsline {subsubsection}{\numberline {6.1.4.11}crc\_xor\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{24}{subsubsection.6.1.4.11}%
+\contentsline {subsubsection}{\numberline {6.1.4.12}date\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{24}{subsubsection.6.1.4.12}%
+\contentsline {subsubsection}{\numberline {6.1.4.13}date\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{24}{subsubsection.6.1.4.13}%
+\contentsline {subsubsection}{\numberline {6.1.4.14}fix\_stat}{24}{subsubsection.6.1.4.14}%
+\contentsline {subsubsection}{\numberline {6.1.4.15}fix\_time}{24}{subsubsection.6.1.4.15}%
+\contentsline {subsubsection}{\numberline {6.1.4.16}fix\_type}{25}{subsubsection.6.1.4.16}%
+\contentsline {subsubsection}{\numberline {6.1.4.17}geoid\_height}{25}{subsubsection.6.1.4.17}%
+\contentsline {subsubsection}{\numberline {6.1.4.18}gps\_segments}{25}{subsubsection.6.1.4.18}%
+\contentsline {subsubsection}{\numberline {6.1.4.19}hdop}{25}{subsubsection.6.1.4.19}%
+\contentsline {subsubsection}{\numberline {6.1.4.20}last\_sv\_sentence}{25}{subsubsection.6.1.4.20}%
+\contentsline {subsubsection}{\numberline {6.1.4.21}local\_offset}{25}{subsubsection.6.1.4.21}%
+\contentsline {subsubsection}{\numberline {6.1.4.22}log\_en\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{25}{subsubsection.6.1.4.22}%
+\contentsline {subsubsection}{\numberline {6.1.4.23}log\_en\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{25}{subsubsection.6.1.4.23}%
+\contentsline {subsubsection}{\numberline {6.1.4.24}log\_handle}{26}{subsubsection.6.1.4.24}%
+\contentsline {subsubsection}{\numberline {6.1.4.25}parsed\_sentences}{26}{subsubsection.6.1.4.25}%
+\contentsline {subsubsection}{\numberline {6.1.4.26}pdop}{26}{subsubsection.6.1.4.26}%
+\contentsline {subsubsection}{\numberline {6.1.4.27}process\_crc\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{26}{subsubsection.6.1.4.27}%
+\contentsline {subsubsection}{\numberline {6.1.4.28}process\_crc\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{26}{subsubsection.6.1.4.28}%
+\contentsline {subsubsection}{\numberline {6.1.4.29}satellite\_data}{26}{subsubsection.6.1.4.29}%
+\contentsline {subsubsection}{\numberline {6.1.4.30}satellites\_in\_use}{26}{subsubsection.6.1.4.30}%
+\contentsline {subsubsection}{\numberline {6.1.4.31}satellites\_in\_view}{26}{subsubsection.6.1.4.31}%
+\contentsline {subsubsection}{\numberline {6.1.4.32}satellites\_used}{27}{subsubsection.6.1.4.32}%
+\contentsline {subsubsection}{\numberline {6.1.4.33}sentence\_active\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{27}{subsubsection.6.1.4.33}%
+\contentsline {subsubsection}{\numberline {6.1.4.34}sentence\_active\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{27}{subsubsection.6.1.4.34}%
+\contentsline {subsubsection}{\numberline {6.1.4.35}SENTENCE\_LIMIT}{27}{subsubsection.6.1.4.35}%
+\contentsline {subsubsection}{\numberline {6.1.4.36}speed}{27}{subsubsection.6.1.4.36}%
+\contentsline {subsubsection}{\numberline {6.1.4.37}supported\_sentences\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{27}{subsubsection.6.1.4.37}%
+\contentsline {subsubsection}{\numberline {6.1.4.38}supported\_sentences\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{27}{subsubsection.6.1.4.38}%
+\contentsline {subsubsection}{\numberline {6.1.4.39}timestamp}{28}{subsubsection.6.1.4.39}%
+\contentsline {subsubsection}{\numberline {6.1.4.40}total\_sv\_sentences}{28}{subsubsection.6.1.4.40}%
+\contentsline {subsubsection}{\numberline {6.1.4.41}valid}{28}{subsubsection.6.1.4.41}%
+\contentsline {subsubsection}{\numberline {6.1.4.42}vdop}{28}{subsubsection.6.1.4.42}%
+\contentsline {section}{\numberline {6.2}SH1106\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}I2C Class Reference}{28}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Detailed Description}{29}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Constructor \& Destructor Documentation}{29}{subsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.2.1}\_\_init\_\_()}{29}{subsubsection.6.2.2.1}%
+\contentsline {subsection}{\numberline {6.2.3}Member Function Documentation}{29}{subsection.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.2.3.1}\_sh1106\_init()}{29}{subsubsection.6.2.3.1}%
+\contentsline {subsubsection}{\numberline {6.2.3.2}contrast()}{30}{subsubsection.6.2.3.2}%
+\contentsline {subsubsection}{\numberline {6.2.3.3}poweroff()}{30}{subsubsection.6.2.3.3}%
+\contentsline {subsubsection}{\numberline {6.2.3.4}poweron()}{30}{subsubsection.6.2.3.4}%
+\contentsline {subsubsection}{\numberline {6.2.3.5}show()}{30}{subsubsection.6.2.3.5}%
+\contentsline {subsubsection}{\numberline {6.2.3.6}sleep()}{30}{subsubsection.6.2.3.6}%
+\contentsline {subsubsection}{\numberline {6.2.3.7}write\_cmd()}{30}{subsubsection.6.2.3.7}%
+\contentsline {subsubsection}{\numberline {6.2.3.8}write\_data()}{31}{subsubsection.6.2.3.8}%
+\contentsline {subsection}{\numberline {6.2.4}Field Documentation}{31}{subsection.6.2.4}%
+\contentsline {subsubsection}{\numberline {6.2.4.1}addr}{31}{subsubsection.6.2.4.1}%
+\contentsline {subsubsection}{\numberline {6.2.4.2}buffer}{31}{subsubsection.6.2.4.2}%
+\contentsline {subsubsection}{\numberline {6.2.4.3}DEV\_ADDR}{31}{subsubsection.6.2.4.3}%
+\contentsline {subsubsection}{\numberline {6.2.4.4}HEIGHT}{31}{subsubsection.6.2.4.4}%
+\contentsline {subsubsection}{\numberline {6.2.4.5}HIGH\_COLUMN\_ADDR}{31}{subsubsection.6.2.4.5}%
+\contentsline {subsubsection}{\numberline {6.2.4.6}i2c}{31}{subsubsection.6.2.4.6}%
+\contentsline {subsubsection}{\numberline {6.2.4.7}LOW\_COLUMN\_ADDR}{32}{subsubsection.6.2.4.7}%
+\contentsline {subsubsection}{\numberline {6.2.4.8}PAGE\_ADDRESS}{32}{subsubsection.6.2.4.8}%
+\contentsline {subsubsection}{\numberline {6.2.4.9}PAGES}{32}{subsubsection.6.2.4.9}%
+\contentsline {subsubsection}{\numberline {6.2.4.10}WIDTH}{32}{subsubsection.6.2.4.10}%
+\contentsline {chapter}{\numberline {7}File Documentation}{33}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Code/lib\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GPS.py File Reference}{33}{section.7.1}%
+\contentsline {section}{\numberline {7.2}lib\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}GPS.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py}{33}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Code/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}v2.0.py File Reference}{42}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Main\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}v2.0.py}{43}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Code/sh1106.py File Reference}{45}{section.7.5}%
+\contentsline {section}{\numberline {7.6}sh1106.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py}{46}{section.7.6}%
