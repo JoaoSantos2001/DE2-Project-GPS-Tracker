@@ -23,14 +23,12 @@ This chapter outlines the distribution of roles and responsibilities among the m
 
 •	João Santos focused on the design and implementation of the GPS library, ensuring seamless communication with the GPS module, and collaborated on the main code development as well.
 
-<! --  
 -------------------------------
 Group 3 - BPA-DE2:
 - Henrique Silva --> Responsible for Monitor library and main code
 - Guilherme Brito --> Responsible for Documentation and main code
 - João Santos -->  Responsible for GPS library and main code
 -------------------------------
--->
 
 # Hardware description
 
