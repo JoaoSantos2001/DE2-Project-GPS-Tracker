@@ -129,7 +129,7 @@ We can notice a difference in the outputs on the Dislpay and on Thonny, this was
 
 NOTES:
 
-1. In some of the tests we saw that the initial accuracy it's not the best recomending to leave it for some seconds before starting analising data.
+1. In some of the tests we saw that the initial accuracy it's not the best, recomending to leave it for some seconds before starting analising data.
 
 2. The choosen format was made in order to save space on the OLED Display beeng this small.
 
