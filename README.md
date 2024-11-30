@@ -14,7 +14,7 @@ Objetive:
 GPS-based environmental sensor data logger. The system integrates GPS functionality for location tracking and environment sensor(s) to capture data related to environmental conditions. 
 The project aims to log and display sensor data and provide the capability to export the collected information for analysis.
 
-# Team Members
+# Team Members - Group 3
 This chapter outlines the distribution of roles and responsibilities among the members of the project team, ensuring clarity in task allocation and efficient collaboration throughout the development process. Each team member contributed to the project by focusing on specific aspects while also working collectively on the core functionalities.
 
 •	Henrique Silva was responsible for the development and integration of the monitor library, as well as contributing significantly to the main code implementation.
@@ -31,7 +31,6 @@ Group 3 - BPA-DE2:
 -------------------------------
 
 # Hardware description
-(Describe your implementation and include block or circuit diagram(s).)
 
 The hardware implementation of the project is built around a set of key components, carefully selected to ensure functionality and integration. The system uses an ESP32 microcontroller as the central processing unit, providing robust computing power and wireless connectivity. A NEO-6M GPS module is used for location tracking, offering reliable and accurate positioning data. 
 
