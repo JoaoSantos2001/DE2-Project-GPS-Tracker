@@ -92,7 +92,7 @@ NOTES:
 
 1. The GPS Module can take a few seconds or minutes to start detecting Satellites.
 
-2. In case you are inside a building and unable to connect to Satellites, try to move close to a window or even try to go outside.
+2. In case you are inside a building and unable to connect to Satellites, try to move close to a window or even try to go outside, for better results and more precision.
 
 # Results (photos and videos)
 
