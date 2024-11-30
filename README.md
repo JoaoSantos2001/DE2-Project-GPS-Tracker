@@ -111,7 +111,7 @@ https://github.com/user-attachments/assets/5a955ce9-9638-4b4e-9098-6e26349ae57e
 https://github.com/user-attachments/assets/b2f835c3-f0e8-4052-82ba-102601ce1336
 
 
-We can notice a difference in the outputs on the Dislpay and on Thonny, this was a group decision, once the OLED Display has a limited space we decided to only insert some of the parameters available as once the command line doesn't have that limit we print all the parametrs.
+We can notice a difference in the outputs on the Dislpay and on Thonny, this was a group decision, once the OLED Display has a limited space we decided to only insert a reduce number of the parameters and once the command line doesn't have that limit we print all the parametrs there.
 
 
 # Output analysis
