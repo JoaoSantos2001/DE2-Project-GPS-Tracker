@@ -82,9 +82,9 @@ Modules Used in the Project:
 
 ![Circuit_Display_OFF](https://github.com/user-attachments/assets/bbf682d3-a843-4b10-9210-2700e9cbede7)
 
-2. After all the connections made, connect the usb to your computer and your ESP32 and upload **sh1106** and **libGPS** modules to the ESP32 memory.
-    - sh1106 Responsible for OLED Display functions
-    - libGPS Responsible for collect data from GPS's
+2. After all the connections made, connect the USB to your computer and your ESP32 and upload **sh1106** and **libGPS** modules to the ESP32 memory.
+    - sh1106 responsible for OLED Display functions
+    - libGPS responsible for collect data from GPS's
 
 3. Once the modules are uploaded with the application **Thonny** or one look a like that can work with the ESP32 open the main code **Main_v2.0.py** and run it.
 
