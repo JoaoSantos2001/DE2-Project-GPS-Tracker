@@ -1,9 +1,13 @@
 # DE2-Project-GPS-Tracker
 Resume:
 The document provides a detailed description of the GPS Tracker project, beginning with identifying the team members and their respective responsibilities. Each team member is introduced with a brief explanation of their role in the project's development, such as hardware design, software implementation, or component integration.
+
 It then provides a detailed explanation of the hardware, describing the implemented system and the components used, such as the GPS module and environmental sensors. This section also includes block diagrams, clearly illustrating the system's architecture and the connections between the various components.
+
 In the software section, the algorithms developed for the system's operation are presented, complemented by flowcharts to clarify the logic behind the operations. This section also provides direct links to the source code files and an explanation of the libraries and modules used in the development, highlighting the technical decisions made.
+
 The document also includes a user guide for the application, describing the steps required to configure and operate the system. Additionally, photographs of the device in operation are included to illustrate the achieved results and demonstrate its practical utility.
+
 Finally, the document concludes with a list of references consulted during the project development, such as technical articles, tutorials, or manuals, as well as the online tools used, such as circuit design software or platforms for analysis and development. This information collection consolidates the project, presenting it, comprehensively, and professionally.
 
 Objetive: 
@@ -12,8 +16,11 @@ The project aims to log and display sensor data and provide the capability to ex
 
 # Team Members
 This chapter outlines the distribution of roles and responsibilities among the members of the project team, ensuring clarity in task allocation and efficient collaboration throughout the development process. Each team member contributed to the project by focusing on specific aspects while also working collectively on the core functionalities.
+
 •	Henrique Silva was responsible for the development and integration of the monitor library, as well as contributing significantly to the main code implementation.
+
 •	Guilherme Brito took charge of the project documentation, ensuring that all processes and results were recorded, while also playing a vital role in the main code development.
+
 •	João Santos focused on the design and implementation of the GPS library, ensuring seamless communication with the GPS module, and collaborated on the main code development as well.
 
 -------------------------------
@@ -25,15 +32,23 @@ Group 3 - BPA-DE2:
 
 # Hardware description
 (Describe your implementation and include block or circuit diagram(s).)
-The hardware implementation of the project is built around a set of key components, carefully selected to ensure functionality and integration. The system uses an ESP32 microcontroller as the central processing unit, providing robust computing power and wireless connectivity. A NEO-6M GPS module is used for location tracking, offering reliable and accurate positioning data. To display real-time information, the setup incorporates an OLED screen, which allows for a clear and compact user interface. The components are interconnected using jumper wires on a breadboard, enabling a modular and easily modifiable design during development.
+
+The hardware implementation of the project is built around a set of key components, carefully selected to ensure functionality and integration. The system uses an ESP32 microcontroller as the central processing unit, providing robust computing power and wireless connectivity. A NEO-6M GPS module is used for location tracking, offering reliable and accurate positioning data. 
+
+To display real-time information, the setup incorporates an OLED screen, which allows for a clear and compact user interface. The components are interconnected using jumper wires on a breadboard, enabling a modular and easily modifiable design during development.
 
 ![ESP32-NEO-GPS-Circuit_fritzing](https://github.com/user-attachments/assets/7546ce28-0553-4b24-b391-57d4fe78cc1e)
 
 As we can see in the previous figure, the diagram illustrates the hardware system centred on the ESP32, showing the connections to peripheral modules and the power supply. The ESP32 is presented at the center, acting as the main unit that manages communication and electrical power distribution to the connected devices.
+
 In the upper right corner, the OLED Screen module is depicted, receiving power and data through four connections to the ESP32. The power supply is provided via the VCC and GND pins, while the SDA and SCK pins are used for communication, configured through the I2C protocol. These connections are color-coded, with blue wires for communication signals and red and black wires for power and ground, respectively.
+
 In the lower right corner, the NEO-6M GPS module is shown. This module communicates with the ESP32 by UART, using the RXD and TXD pins which are connected by yellow wires. The GPS module is powered by the ESP32’s 3V3 pin, with the power line shown in red, and is grounded via a black wire. Additionally, the GPS module has a PPS pin, which is not directly used in this diagram.
+
 At the bottom centre, a block representing the DC Power Supplies is displayed. This component provides energy to the ESP32.
+
 The diagram uses directional arrows and color coding to highlight the flow of data and power within the system. Red and black lines represent power (positive and ground), while yellow and blue lines indicate logical communication paths between the modules. This schematic provides a clear overview of the physical and functional interconnections, emphasizing how the ESP32 serves as the core to manage both power and data signals across the devices.
+
 # Software description
 
 Modules Used in the Project:
