@@ -64,6 +64,8 @@ Modules Used in the Project:
 
 # Flowchart
 
+![flowchart](https://github.com/user-attachments/assets/e01602de-e49c-4da2-8b25-24a69aba363b)
+
 1. **Start**
     - Power on the system.
     - Prepare I2C and UART for communication.
