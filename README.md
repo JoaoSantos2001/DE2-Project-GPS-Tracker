@@ -41,7 +41,7 @@ Modules Used in the Project:
 
 3. **Initialize GPS Module**
     - Set up UART pins (TX and RX) and baud rate.
-    - Create a MicropyGOS object to parse incoming data.
+    - Create a MicropyGPS object to parse incoming data.
 
 4. **Main Loop**
     - **Check for incoming GPS Data**
@@ -51,7 +51,7 @@ Modules Used in the Project:
             - Read the data byte by byte.
             - Feed each byte to MicropyGPS for parsing.
     - **Parse GPS Data**
-        - Extract the parameters values from MicropuGPS
+        - Extract the parameters values from MicropyGPS
     - **Update OLED Display**
         - Clear the OLED screen
         - Write the parsed GPS data to the screen with appropriate labels.
