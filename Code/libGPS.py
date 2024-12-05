@@ -162,7 +162,8 @@ class MicropyGPS(object):
                 seconds = float(utc_string[4:])
                 self.timestamp = f"{hours:02}:{minutes:02}:{seconds:05.2f}"
             else:  # No Time stamp yet
-                self.timestamp = [0,0,0.0]
+                self.timestamp = f"{hours:02}:{minutes:02}:{seconds:05.2f}"
+                #self.timestamp = [0,0,0.0]
 
         except ValueError:  # Bad Timestamp value present
             return False
