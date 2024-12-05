@@ -152,12 +152,18 @@ We can notice a difference in the outputs on the Dislpay and on Thonny, this was
 
 # Output analysis
 
-- **Date** -> in format DD/MM/YYYY, this parameter can be change on *Main_v2.0.py* in line xx.
-- **Time** -> in format HH:MM:SS, this parameter can be change on *Main_v2.0.py* in line xx.
-- **Lat** (Latitude) -> Latitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
-- **Long** (Longitude) -> Longitude displayed in short format, this format can be change on *Main_v2.0.py* in line xx.
+- **Date** -> in format DD/MM/YYYY, this parameter can be change on *Main_v2.0.py* in line 120, available formats are: 's_mdy', 's_dmy', or 'long'.
+- **Time** -> in format HH:MM:SS, this parameter can be change on *libGPS.py* in line 123, here you can format manually how the times is showned.
+- **Lat** (Latitude) -> Latitude displayed in short format, this format can be change on *Main_v2.0.py* in line 122, available formats are:
+    Decimal Degree Minute (ddm) - 40° 26.767′ N
+    Degrees Minutes Seconds (dms) - 40° 26′ 46″ N
+    Decimal Degrees (dd) - 40.446° N
+- **Long** (Longitude) -> Longitude displayed in short format, this format can be change on *Main_v2.0.py* in line 123, available formats are:
+    Decimal Degree Minute (ddm) - 40° 26.767′ N
+    Degrees Minutes Seconds (dms) - 40° 26′ 46″ N
+    Decimal Degrees (dd) - 40.446° N
 - **Altitude** -> Altitude relative to sea level in meters.
-- **Speed** -> Speed in Km/h, this parameter can be change to mph on *Main_v2.0.py* in line xx.
+- **Speed** -> Speed in Km/h, this parameter can be change to mph on *Main_v2.0.py* in line 125, available formats are: 'kph' or 'mph' if mph is not specified as a function parameter then it will be displaied in kph by default (as is in used).
 - **N Satellites** (Number of Satellites) -> Number of Satellites available from which is possible to collect data.
 - **Position Dilution of Precision** (PDOP) -> A measure of overall GPS accuracy based on satellite geometry; lower values mean better accuracy.
 - **Horizontal Dilution of Precision** (HDOP) -> Accuracy of GPS position on the horizontal plane (latitude and longitude).

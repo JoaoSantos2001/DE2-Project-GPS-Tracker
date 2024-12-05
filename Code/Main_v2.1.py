@@ -140,7 +140,7 @@ def main():
     oled = initialize_display()
 
     # Instantiate the GPS parser
-    my_gps = MicropyGPS()
+    my_gps = MicropyGPS(local_offset=1)  # CET offset from UTC
 
     # Initialize UART for GPS communication
     gps_serial = machine.UART(2, baudrate=UART_BAUDRATE, tx=UART_TX_PIN, rx=UART_RX_PIN)
